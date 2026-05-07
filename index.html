@@ -1692,13 +1692,63 @@
       <div class="rules-layout">
         <div class="rules-toc">
           <h4>Contents</h4>
-          <div id="rules-toc-list"></div>
-          <!-- Admin: add section button -->
-          <div id="rules-admin-toc-bar" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid rgba(138,121,104,0.12);">
-            <button onclick="openRulesSectionModal('rules')" style="width:100%;padding:8px;font-size:12px;font-weight:700;border:1.5px dashed rgba(192,96,58,0.4);background:transparent;color:var(--terra);border-radius:3px;cursor:pointer;font-family:'Jost',sans-serif;transition:all 0.15s;" onmouseenter="this.style.background='rgba(192,96,58,0.06)'" onmouseleave="this.style.background='transparent'">+ Add Section</button>
+          <div class="toc-item active">General Rules</div>
+          <div class="toc-item">Exterior Modifications</div>
+          <div class="toc-item">Noise Policy</div>
+          <div class="toc-item">Common Areas</div>
+          <div class="toc-item">Violations &amp; Fines</div>
+          <div class="toc-item">Voting Rights</div>
+        </div>
+        <div class="rules-content-area">
+          <div class="rules-section">
+            <div class="rules-section-header">
+              <div class="rules-icon">📋</div>
+              <h2>General Community Rules</h2>
+            </div>
+            <div class="rule-item">
+              <div class="rule-number">1</div>
+              <div>
+                <h4>Architectural Approval</h4>
+                <p>All exterior modifications, additions, or alterations require written approval from the Architectural Review Committee (ARC) at least 30 days prior to commencement. This includes paint colors, fencing, landscaping changes, and structural additions.</p>
+              </div>
+            </div>
+            <div class="rule-item">
+              <div class="rule-number">2</div>
+              <div>
+                <h4>Garbage & Recycling</h4>
+                <p>Garbage and recycling bins must be stored out of sight except on designated collection days. Bins may be placed at curbside no earlier than 6pm the evening prior to collection and must be removed by 8pm on collection day.</p>
+              </div>
+            </div>
+            <div class="rule-item">
+              <div class="rule-number">3</div>
+              <div>
+                <h4>Holiday Decorations</h4>
+                <p>Seasonal decorations are permitted from November 1 through January 15. Decorations must be tasteful and in keeping with the community aesthetic. Illuminated decorations must be turned off by 11pm.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="rules-section">
+            <div class="rules-section-header">
+              <div class="rules-icon">🔊</div>
+              <h2>Noise Policy</h2>
+            </div>
+            <div class="rule-item">
+              <div class="rule-number">1</div>
+              <div>
+                <h4>Quiet Hours</h4>
+                <p>Quiet hours are observed daily from 10pm to 8am. During these hours, all noise including music, power tools, and outdoor gatherings must be kept at a level that does not disturb neighboring residents.</p>
+              </div>
+            </div>
+            <div class="rule-item">
+              <div class="rule-number">2</div>
+              <div>
+                <h4>Construction &amp; Contractor Hours</h4>
+                <p>Contractor and construction work is permitted Monday–Friday 8am–6pm, and Saturday 9am–5pm. No contractor work is permitted on Sundays or federal holidays.</p>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="rules-content-area" id="rules-content-area"></div>
       </div>
     </div>
 
@@ -1707,12 +1757,89 @@
       <div class="rules-layout">
         <div class="rules-toc">
           <h4>Categories</h4>
-          <div id="standards-toc-list"></div>
-          <div id="standards-admin-toc-bar" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid rgba(138,121,104,0.12);">
-            <button onclick="openRulesSectionModal('standards')" style="width:100%;padding:8px;font-size:12px;font-weight:700;border:1.5px dashed rgba(192,96,58,0.4);background:transparent;color:var(--terra);border-radius:3px;cursor:pointer;font-family:'Jost',sans-serif;transition:all 0.15s;" onmouseenter="this.style.background='rgba(192,96,58,0.06)'" onmouseleave="this.style.background='transparent'">+ Add Section</button>
+          <div class="toc-item active">Landscaping</div>
+          <div class="toc-item">Parking</div>
+          <div class="toc-item">Pets</div>
+          <div class="toc-item">Pools &amp; Patios</div>
+        </div>
+        <div class="rules-content-area">
+          <div class="rules-section">
+            <div class="rules-section-header">
+              <div class="rules-icon">🌿</div>
+              <h2>Landscaping Standards</h2>
+            </div>
+            <div class="rule-item">
+              <div class="rule-number">1</div>
+              <div>
+                <h4>Lawn Maintenance</h4>
+                <p>Lawns must be mowed and edged at minimum every 14 days during growing season (March–November). Grass height must not exceed 4 inches. Visible weeds in turf and planting beds must be addressed promptly.</p>
+              </div>
+            </div>
+            <div class="rule-item">
+              <div class="rule-number">2</div>
+              <div>
+                <h4>Approved Plant List</h4>
+                <p>Florida-friendly and drought-tolerant species are strongly encouraged. Invasive species (e.g., Brazilian Pepper, Air Potato) are prohibited. A full approved planting list is available from the management office.</p>
+              </div>
+            </div>
+            <div class="rule-item">
+              <div class="rule-number">3</div>
+              <div>
+                <h4>Irrigation</h4>
+                <p>Irrigation systems must comply with Palm Beach County water restrictions. Sprinklers may not operate between 10am and 4pm. All irrigation must be properly maintained to prevent overspray onto sidewalks or roadways.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="rules-section">
+            <div class="rules-section-header">
+              <div class="rules-icon">🚗</div>
+              <h2>Parking Standards</h2>
+            </div>
+            <div class="rule-item">
+              <div class="rule-number">1</div>
+              <div>
+                <h4>Driveway & Garage Use</h4>
+                <p>Garages must be maintained and available for vehicle parking. Vehicles parked in driveways must be operational, licensed, and insured. Inoperable vehicles may not be stored on the property.</p>
+              </div>
+            </div>
+            <div class="rule-item">
+              <div class="rule-number">2</div>
+              <div>
+                <h4>RVs, Boats &amp; Trailers</h4>
+                <p>Recreational vehicles, boats, trailers, and commercial vehicles over 1-ton capacity may not be parked in driveways or on streets except for active loading/unloading (max 24 hours). Long-term storage must be off-site.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="rules-section">
+            <div class="rules-section-header">
+              <div class="rules-icon">🐾</div>
+              <h2>Pet Standards</h2>
+            </div>
+            <div class="rule-item">
+              <div class="rule-number">1</div>
+              <div>
+                <h4>Leash Requirement</h4>
+                <p>All pets must be on a leash no longer than 6 feet when outside the owner's home. Pets may not be left unattended in yards unless within a fully enclosed fence approved by the ARC.</p>
+              </div>
+            </div>
+            <div class="rule-item">
+              <div class="rule-number">2</div>
+              <div>
+                <h4>Waste Removal</h4>
+                <p>Pet owners are responsible for immediate removal of waste from all community areas including common areas, sidewalks, and neighboring properties. Waste stations are located at community entrances.</p>
+              </div>
+            </div>
+            <div class="rule-item">
+              <div class="rule-number">3</div>
+              <div>
+                <h4>Pet Limits</h4>
+                <p>Residents may keep no more than two dogs and/or two cats per household. Exotic animals and livestock are not permitted. All pets must be registered with the HOA within 30 days of residency.</p>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="rules-content-area" id="standards-content-area"></div>
       </div>
     </div>
 
@@ -2317,54 +2444,6 @@
   </main>
 </div>
 
-<!-- ══ RULES SECTION MODAL ══ -->
-<div class="modal-overlay" id="rules-section-modal">
-  <div class="modal" style="width:440px;">
-    <div class="modal-header">
-      <h3 id="rsec-modal-title">📋 Add Section</h3>
-      <button class="modal-close" onclick="closeModal('rules-section-modal')">×</button>
-    </div>
-    <div class="modal-body">
-      <div class="form-group">
-        <label>Section Title <span style="color:var(--terra);">*</span></label>
-        <input type="text" id="rsec-title" class="admin-form-input" placeholder="e.g. Pool & Spa Rules"/>
-      </div>
-      <div class="form-group">
-        <label>Icon Emoji</label>
-        <input type="text" id="rsec-icon" class="admin-form-input" placeholder="📋" maxlength="4" style="width:80px;"/>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn-secondary" onclick="closeModal('rules-section-modal')">Cancel</button>
-      <button class="btn-primary" id="rsec-submit-btn" onclick="submitRulesSection()">Add Section</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══ RULE ITEM MODAL ══ -->
-<div class="modal-overlay" id="rule-item-modal">
-  <div class="modal" style="width:520px;">
-    <div class="modal-header">
-      <h3 id="ritem-modal-title">➕ Add Rule</h3>
-      <button class="modal-close" onclick="closeModal('rule-item-modal')">×</button>
-    </div>
-    <div class="modal-body">
-      <div class="form-group">
-        <label>Rule Title <span style="color:var(--terra);">*</span></label>
-        <input type="text" id="ritem-title" class="admin-form-input" placeholder="e.g. Quiet Hours"/>
-      </div>
-      <div class="form-group">
-        <label>Rule Description <span style="color:var(--terra);">*</span></label>
-        <textarea id="ritem-body" class="admin-form-input" rows="4" placeholder="Describe this rule in full…" style="resize:vertical;"></textarea>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn-secondary" onclick="closeModal('rule-item-modal')">Cancel</button>
-      <button class="btn-primary" id="ritem-submit-btn" onclick="submitRuleItem()">Add Rule</button>
-    </div>
-  </div>
-</div>
-
 <!-- ══ ADD / EDIT ANNOUNCEMENT MODAL ══ -->
 <div class="modal-overlay" id="ann-add-modal">
   <div class="modal" style="width:560px;">
@@ -2872,9 +2951,6 @@ function doLogin() {
 
   // Render announcements (admin sees edit/delete buttons)
   renderAnnouncements();
-
-  // Render rules & standards pages
-  initRulesPages();
 }
 
 function doLogout() {
@@ -4718,247 +4794,6 @@ function annDelete(id) {
   announcements = announcements.filter(a => a.id !== id);
   renderAnnouncements();
   showToast('🗑️ Announcement deleted.');
-}
-
-// ══════════════════════════════
-// RULES & REGULATIONS DATA
-// ══════════════════════════════
-let rulesData = [
-  {
-    id: 'general', icon: '📋', title: 'General Community Rules',
-    items: [
-      { id: 'r1', title: 'Architectural Approval', body: 'All exterior modifications, additions, or alterations require written approval from the Architectural Review Committee (ARC) at least 30 days prior to commencement. This includes paint colors, fencing, landscaping changes, and structural additions.' },
-      { id: 'r2', title: 'Garbage & Recycling', body: 'Garbage and recycling bins must be stored out of sight except on designated collection days. Bins may be placed at curbside no earlier than 6pm the evening prior to collection and must be removed by 8pm on collection day.' },
-      { id: 'r3', title: 'Holiday Decorations', body: 'Seasonal decorations are permitted from November 1 through January 15. Decorations must be tasteful and in keeping with the community aesthetic. Illuminated decorations must be turned off by 11pm.' },
-    ]
-  },
-  {
-    id: 'noise', icon: '🔊', title: 'Noise Policy',
-    items: [
-      { id: 'r4', title: 'Quiet Hours', body: 'Quiet hours are observed daily from 10pm to 8am. During these hours, all noise including music, power tools, and outdoor gatherings must be kept at a level that does not disturb neighboring residents.' },
-      { id: 'r5', title: 'Construction & Contractor Hours', body: 'Contractor and construction work is permitted Monday–Friday 8am–6pm, and Saturday 9am–5pm. No contractor work is permitted on Sundays or federal holidays.' },
-    ]
-  },
-];
-
-let standardsData = [
-  {
-    id: 'landscaping', icon: '🌿', title: 'Landscaping Standards',
-    items: [
-      { id: 's1', title: 'Lawn Maintenance', body: 'Lawns must be mowed and edged at minimum every 14 days during growing season (March–November). Grass height must not exceed 4 inches. Visible weeds in turf and planting beds must be addressed promptly.' },
-      { id: 's2', title: 'Approved Plant List', body: 'Florida-friendly and drought-tolerant species are strongly encouraged. Invasive species (e.g., Brazilian Pepper, Air Potato) are prohibited. A full approved planting list is available from the management office.' },
-      { id: 's3', title: 'Irrigation', body: 'Irrigation systems must comply with Palm Beach County water restrictions. Sprinklers may not operate between 10am and 4pm. All irrigation must be properly maintained to prevent overspray onto sidewalks or roadways.' },
-    ]
-  },
-  {
-    id: 'parking', icon: '🚗', title: 'Parking Standards',
-    items: [
-      { id: 's4', title: 'Driveway & Garage Use', body: 'Garages must be maintained and available for vehicle parking. Vehicles parked in driveways must be operational, licensed, and insured. Inoperable vehicles may not be stored on the property.' },
-      { id: 's5', title: 'RVs, Boats & Trailers', body: 'Recreational vehicles, boats, trailers, and commercial vehicles over 1-ton capacity may not be parked in driveways or on streets except for active loading/unloading (max 24 hours). Long-term storage must be off-site.' },
-    ]
-  },
-  {
-    id: 'pets', icon: '🐾', title: 'Pet Standards',
-    items: [
-      { id: 's6', title: 'Leash Requirement', body: 'All pets must be on a leash no longer than 6 feet when outside the owner\'s home. Pets may not be left unattended in yards unless within a fully enclosed fence approved by the ARC.' },
-      { id: 's7', title: 'Waste Removal', body: 'Pet owners are responsible for immediate removal of waste from all community areas including common areas, sidewalks, and neighboring properties. Waste stations are located at community entrances.' },
-      { id: 's8', title: 'Pet Limits', body: 'Residents may keep no more than two dogs and/or two cats per household. Exotic animals and livestock are not permitted. All pets must be registered with the HOA within 30 days of residency.' },
-    ]
-  },
-];
-
-let nextRuleId = 100;
-
-// ── Render functions ─────────────────────────────
-function renderRulesPage(pageId, data) {
-  const tocEl      = document.getElementById(pageId + '-toc-list');
-  const contentEl  = document.getElementById(pageId + '-content-area');
-  const adminBar   = document.getElementById(pageId + '-admin-toc-bar');
-  if (!tocEl || !contentEl) return;
-
-  if (adminBar) adminBar.style.display = isAdmin ? 'block' : 'none';
-
-  // TOC
-  tocEl.innerHTML = data.map((sec, si) =>
-    `<div class="toc-item ${si === 0 ? 'active' : ''}" onclick="scrollToSection('${pageId}-sec-${sec.id}',this)">${sec.title}</div>`
-  ).join('');
-
-  // Content
-  contentEl.innerHTML = data.map(sec => {
-    const adminSectionBtns = isAdmin ? `
-      <div style="display:flex;gap:8px;margin-left:auto;">
-        <button onclick="openEditSection('${pageId}','${sec.id}')"
-          style="padding:4px 10px;font-size:11px;font-weight:600;border:1.5px solid rgba(74,144,226,0.4);border-radius:2px;background:transparent;color:#3a7ac8;cursor:pointer;font-family:'Jost',sans-serif;transition:all 0.15s;"
-          onmouseenter="this.style.background='#3a7ac8';this.style.color='white'"
-          onmouseleave="this.style.background='transparent';this.style.color='#3a7ac8'">✏️ Edit</button>
-        <button onclick="deleteSection('${pageId}','${sec.id}')"
-          style="padding:4px 10px;font-size:11px;font-weight:600;border:1.5px solid rgba(192,96,58,0.35);border-radius:2px;background:transparent;color:var(--terra);cursor:pointer;font-family:'Jost',sans-serif;transition:all 0.15s;"
-          onmouseenter="this.style.background='var(--terra)';this.style.color='white'"
-          onmouseleave="this.style.background='transparent';this.style.color='var(--terra)'">🗑️</button>
-      </div>` : '';
-
-    const items = sec.items.map((item, idx) => {
-      const adminItemBtns = isAdmin ? `
-        <div style="display:flex;gap:6px;margin-left:auto;flex-shrink:0;">
-          <button onclick="openEditRuleItem('${pageId}','${sec.id}','${item.id}')"
-            style="padding:3px 8px;font-size:11px;font-weight:600;border:1.5px solid rgba(74,144,226,0.4);border-radius:2px;background:transparent;color:#3a7ac8;cursor:pointer;font-family:'Jost',sans-serif;" title="Edit rule">✏️</button>
-          <button onclick="deleteRuleItem('${pageId}','${sec.id}','${item.id}')"
-            style="padding:3px 8px;font-size:11px;font-weight:600;border:1.5px solid rgba(192,96,58,0.35);border-radius:2px;background:transparent;color:var(--terra);cursor:pointer;font-family:'Jost',sans-serif;" title="Delete rule">🗑️</button>
-        </div>` : '';
-      return `
-        <div class="rule-item" style="align-items:flex-start;">
-          <div class="rule-number">${idx + 1}</div>
-          <div style="flex:1;">
-            <h4>${item.title}</h4>
-            <p>${item.body}</p>
-          </div>
-          ${adminItemBtns}
-        </div>`;
-    }).join('');
-
-    const adminAddRuleBtn = isAdmin ? `
-      <div style="padding:12px 0 4px;">
-        <button onclick="openAddRuleItem('${pageId}','${sec.id}')"
-          style="padding:7px 16px;font-size:12px;font-weight:700;border:1.5px dashed rgba(192,96,58,0.4);background:transparent;color:var(--terra);border-radius:3px;cursor:pointer;font-family:'Jost',sans-serif;transition:all 0.15s;"
-          onmouseenter="this.style.background='rgba(192,96,58,0.06)'"
-          onmouseleave="this.style.background='transparent'">+ Add Rule</button>
-      </div>` : '';
-
-    return `
-      <div class="rules-section" id="${pageId}-sec-${sec.id}">
-        <div class="rules-section-header">
-          <div class="rules-icon">${sec.icon}</div>
-          <h2>${sec.title}</h2>
-          ${adminSectionBtns}
-        </div>
-        ${items}
-        ${adminAddRuleBtn}
-      </div>`;
-  }).join('');
-}
-
-function scrollToSection(id, tocEl) {
-  document.querySelectorAll('.toc-item').forEach(t => t.classList.remove('active'));
-  tocEl.classList.add('active');
-  const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-function initRulesPages() {
-  renderRulesPage('rules', rulesData);
-  renderRulesPage('standards', standardsData);
-}
-
-// ── Section CRUD ─────────────────────────────────
-let rsSectionState = null; // { pageId, sectionId | null }
-
-function openRulesSectionModal(pageId) {
-  rsSectionState = { pageId, sectionId: null };
-  document.getElementById('rsec-modal-title').textContent = '📋 Add Section';
-  document.getElementById('rsec-submit-btn').textContent  = 'Add Section';
-  document.getElementById('rsec-title').value = '';
-  document.getElementById('rsec-icon').value  = '📋';
-  openModal('rules-section-modal');
-}
-
-function openEditSection(pageId, sectionId) {
-  const data = pageId === 'rules' ? rulesData : standardsData;
-  const sec  = data.find(s => s.id === sectionId);
-  if (!sec) return;
-  rsSectionState = { pageId, sectionId };
-  document.getElementById('rsec-modal-title').textContent = '✏️ Edit Section';
-  document.getElementById('rsec-submit-btn').textContent  = 'Save Changes';
-  document.getElementById('rsec-title').value = sec.title;
-  document.getElementById('rsec-icon').value  = sec.icon;
-  openModal('rules-section-modal');
-}
-
-function submitRulesSection() {
-  const title = document.getElementById('rsec-title').value.trim();
-  const icon  = document.getElementById('rsec-icon').value.trim() || '📋';
-  if (!title) { showToast('⚠️ Section title is required.'); return; }
-  const { pageId, sectionId } = rsSectionState;
-  const data = pageId === 'rules' ? rulesData : standardsData;
-
-  if (sectionId) {
-    const sec = data.find(s => s.id === sectionId);
-    if (sec) { sec.title = title; sec.icon = icon; }
-    showToast('✅ Section updated.');
-  } else {
-    data.push({ id: 'sec_' + Date.now(), icon, title, items: [] });
-    showToast('✅ Section added.');
-  }
-  closeModal('rules-section-modal');
-  renderRulesPage(pageId, data);
-}
-
-function deleteSection(pageId, sectionId) {
-  const data = pageId === 'rules' ? rulesData : standardsData;
-  const sec  = data.find(s => s.id === sectionId);
-  if (!sec) return;
-  if (sec.items.length > 0 && !confirm(`Delete section "${sec.title}" and all its ${sec.items.length} rule(s)?`)) return;
-  if (sec.items.length === 0 && !confirm(`Delete empty section "${sec.title}"?`)) return;
-  const idx = data.findIndex(s => s.id === sectionId);
-  data.splice(idx, 1);
-  renderRulesPage(pageId, data);
-  showToast('🗑️ Section deleted.');
-}
-
-// ── Rule Item CRUD ────────────────────────────────
-let rsItemState = null; // { pageId, sectionId, itemId | null }
-
-function openAddRuleItem(pageId, sectionId) {
-  rsItemState = { pageId, sectionId, itemId: null };
-  document.getElementById('ritem-modal-title').textContent = '➕ Add Rule';
-  document.getElementById('ritem-submit-btn').textContent  = 'Add Rule';
-  document.getElementById('ritem-title').value = '';
-  document.getElementById('ritem-body').value  = '';
-  openModal('rule-item-modal');
-}
-
-function openEditRuleItem(pageId, sectionId, itemId) {
-  const data = pageId === 'rules' ? rulesData : standardsData;
-  const sec  = data.find(s => s.id === sectionId);
-  const item = sec && sec.items.find(i => i.id === itemId);
-  if (!item) return;
-  rsItemState = { pageId, sectionId, itemId };
-  document.getElementById('ritem-modal-title').textContent = '✏️ Edit Rule';
-  document.getElementById('ritem-submit-btn').textContent  = 'Save Changes';
-  document.getElementById('ritem-title').value = item.title;
-  document.getElementById('ritem-body').value  = item.body;
-  openModal('rule-item-modal');
-}
-
-function submitRuleItem() {
-  const title = document.getElementById('ritem-title').value.trim();
-  const body  = document.getElementById('ritem-body').value.trim();
-  if (!title || !body) { showToast('⚠️ Title and description are required.'); return; }
-  const { pageId, sectionId, itemId } = rsItemState;
-  const data = pageId === 'rules' ? rulesData : standardsData;
-  const sec  = data.find(s => s.id === sectionId);
-  if (!sec) return;
-
-  if (itemId) {
-    const item = sec.items.find(i => i.id === itemId);
-    if (item) { item.title = title; item.body = body; }
-    showToast('✅ Rule updated.');
-  } else {
-    sec.items.push({ id: 'item_' + Date.now(), title, body });
-    showToast('✅ Rule added.');
-  }
-  closeModal('rule-item-modal');
-  renderRulesPage(pageId, data);
-}
-
-function deleteRuleItem(pageId, sectionId, itemId) {
-  const data = pageId === 'rules' ? rulesData : standardsData;
-  const sec  = data.find(s => s.id === sectionId);
-  if (!sec) return;
-  const item = sec.items.find(i => i.id === itemId);
-  if (!confirm(`Delete rule: "${item.title}"?`)) return;
-  sec.items = sec.items.filter(i => i.id !== itemId);
-  renderRulesPage(pageId, data);
-  showToast('🗑️ Rule deleted.');
 }
 
 function showToast(msg) {
