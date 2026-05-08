@@ -1440,25 +1440,89 @@
     </div>
   </div>
 
-  <!-- Right: login card panel -->
-  <div style="width:420px;flex-shrink:0;background:rgba(250,246,239,0.97);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:52px 48px;position:relative;">
-    <!-- Subtle side ornament -->
-    <div style="position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(to bottom, var(--gold), var(--terra), var(--gold));opacity:0.6;"></div>
+  <!-- Right: auth panel -->
+  <div style="width:460px;flex-shrink:0;background:rgba(250,246,239,0.97);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 44px;position:relative;overflow-y:auto;">
+    <div style="position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(to bottom,var(--gold),var(--terra),var(--gold));opacity:0.6;"></div>
 
-    <div style="width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:28px;background:linear-gradient(135deg,#C0603A,#8B3A20);box-shadow:0 4px 16px rgba(192,96,58,0.4);">🏛️</div>
+    <div style="width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:26px;background:linear-gradient(135deg,#C0603A,#8B3A20);box-shadow:0 4px 16px rgba(192,96,58,0.4);">🏛️</div>
+    <h1 style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:#8B3A20;line-height:1.2;margin-bottom:3px;text-align:center;">Trieste at Boca Raton</h1>
+    <p style="font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#8A7968;margin-bottom:24px;text-align:center;">Resident Community Portal</p>
 
-    <h1 style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:#8B3A20;line-height:1.2;margin-bottom:4px;text-align:center;">Trieste<br>at Boca Raton</h1>
-    <p style="font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#8A7968;margin-bottom:32px;text-align:center;">Resident Community Portal</p>
+    <!-- Auth tab switcher -->
+    <div style="display:flex;gap:0;margin-bottom:24px;border-radius:3px;overflow:hidden;border:1.5px solid rgba(138,121,104,0.2);width:100%;">
+      <button id="tab-signin" onclick="authTab('signin')" style="flex:1;padding:9px;font-family:'Jost',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.06em;border:none;cursor:pointer;transition:all 0.2s;background:var(--terra);color:white;">Sign In</button>
+      <button id="tab-register" onclick="authTab('register')" style="flex:1;padding:9px;font-family:'Jost',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.06em;border:none;cursor:pointer;transition:all 0.2s;background:rgba(138,121,104,0.08);color:#8A7968;">Register</button>
+    </div>
 
-    <input type="text" id="login-email" placeholder="Email address" value="resident@trieste.com"
-      style="width:100%;padding:13px 16px;border:1.5px solid #C4B49A;border-radius:3px;font-family:'Jost',sans-serif;font-size:14px;background:#FDF9F3;color:#2C2016;margin-bottom:14px;outline:none;"/>
-    <input type="password" id="login-pass" placeholder="Password" value="••••••••"
-      style="width:100%;padding:13px 16px;border:1.5px solid #C4B49A;border-radius:3px;font-family:'Jost',sans-serif;font-size:14px;background:#FDF9F3;color:#2C2016;margin-bottom:14px;outline:none;"/>
-    <button class="login-btn" onclick="doLogin()" style="width:100%;">Sign In to Portal</button>
+    <!-- ── Sign In Panel ── -->
+    <div id="auth-signin" style="width:100%;">
+      <input type="text" id="login-email" placeholder="Username or email" value=""
+        onkeydown="if(event.key==='Enter')doLogin()"
+        style="width:100%;padding:12px 14px;border:1.5px solid #C4B49A;border-radius:3px;font-family:'Jost',sans-serif;font-size:14px;background:#FDF9F3;color:#2C2016;margin-bottom:12px;outline:none;box-sizing:border-box;"/>
+      <input type="password" id="login-pass" placeholder="Password"
+        onkeydown="if(event.key==='Enter')doLogin()"
+        style="width:100%;padding:12px 14px;border:1.5px solid #C4B49A;border-radius:3px;font-family:'Jost',sans-serif;font-size:14px;background:#FDF9F3;color:#2C2016;margin-bottom:6px;outline:none;box-sizing:border-box;"/>
+      <div style="text-align:right;margin-bottom:16px;">
+        <span onclick="authTab('forgot')" style="font-size:12px;color:var(--terra);cursor:pointer;font-weight:500;">Forgot password?</span>
+      </div>
+      <button class="login-btn" onclick="doLogin()" style="width:100%;">Sign In to Portal</button>
+      <div id="login-error" style="display:none;margin-top:10px;padding:9px 12px;background:rgba(184,64,64,0.08);border:1px solid rgba(184,64,64,0.2);border-radius:3px;font-size:12px;color:#B84040;text-align:center;"></div>
+      <p style="margin-top:18px;font-size:12px;color:#8A7968;text-align:center;">
+        New resident? <span onclick="authTab('register')" style="color:var(--terra);cursor:pointer;font-weight:600;">Create an account →</span>
+      </p>
+    </div>
 
-    <p style="margin-top:22px;font-size:12px;color:#8A7968;text-align:center;">
-      Trouble signing in? Contact <span style="color:#C0603A;cursor:pointer;">management@trieste.com</span>
-    </p>
+    <!-- ── Register Panel ── -->
+    <div id="auth-register" style="display:none;width:100%;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+        <input type="text" id="reg-fname" placeholder="First name"
+          style="padding:11px 13px;border:1.5px solid #C4B49A;border-radius:3px;font-family:'Jost',sans-serif;font-size:13px;background:#FDF9F3;color:#2C2016;outline:none;width:100%;box-sizing:border-box;"/>
+        <input type="text" id="reg-lname" placeholder="Last name"
+          style="padding:11px 13px;border:1.5px solid #C4B49A;border-radius:3px;font-family:'Jost',sans-serif;font-size:13px;background:#FDF9F3;color:#2C2016;outline:none;width:100%;box-sizing:border-box;"/>
+      </div>
+      <input type="email" id="reg-email" placeholder="Email address"
+        style="width:100%;padding:11px 13px;border:1.5px solid #C4B49A;border-radius:3px;font-family:'Jost',sans-serif;font-size:13px;background:#FDF9F3;color:#2C2016;margin-bottom:10px;outline:none;box-sizing:border-box;"/>
+      <input type="text" id="reg-username" placeholder="Choose a username"
+        style="width:100%;padding:11px 13px;border:1.5px solid #C4B49A;border-radius:3px;font-family:'Jost',sans-serif;font-size:13px;background:#FDF9F3;color:#2C2016;margin-bottom:10px;outline:none;box-sizing:border-box;"/>
+      <input type="text" id="reg-lot" placeholder="Lot / Unit number (e.g. 5705)"
+        style="width:100%;padding:11px 13px;border:1.5px solid #C4B49A;border-radius:3px;font-family:'Jost',sans-serif;font-size:13px;background:#FDF9F3;color:#2C2016;margin-bottom:10px;outline:none;box-sizing:border-box;"/>
+      <input type="password" id="reg-pass" placeholder="Create password (min 8 chars)"
+        style="width:100%;padding:11px 13px;border:1.5px solid #C4B49A;border-radius:3px;font-family:'Jost',sans-serif;font-size:13px;background:#FDF9F3;color:#2C2016;margin-bottom:10px;outline:none;box-sizing:border-box;"/>
+      <input type="password" id="reg-pass2" placeholder="Confirm password"
+        style="width:100%;padding:11px 13px;border:1.5px solid #C4B49A;border-radius:3px;font-family:'Jost',sans-serif;font-size:13px;background:#FDF9F3;color:#2C2016;margin-bottom:14px;outline:none;box-sizing:border-box;"/>
+      <button class="login-btn" onclick="doRegister()" style="width:100%;">Create Account</button>
+      <div id="reg-error" style="display:none;margin-top:10px;padding:9px 12px;background:rgba(184,64,64,0.08);border:1px solid rgba(184,64,64,0.2);border-radius:3px;font-size:12px;color:#B84040;text-align:center;"></div>
+      <div id="reg-success" style="display:none;margin-top:10px;padding:9px 12px;background:rgba(80,180,100,0.1);border:1px solid rgba(80,180,100,0.25);border-radius:3px;font-size:12px;color:#2a7a40;text-align:center;"></div>
+      <p style="margin-top:16px;font-size:12px;color:#8A7968;text-align:center;">
+        Already registered? <span onclick="authTab('signin')" style="color:var(--terra);cursor:pointer;font-weight:600;">Sign in →</span>
+      </p>
+    </div>
+
+    <!-- ── Forgot Password Panel ── -->
+    <div id="auth-forgot" style="display:none;width:100%;">
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px;text-align:center;line-height:1.55;">Enter your registered email or username and we'll help you recover access to your account.</p>
+
+      <!-- Step 1: lookup -->
+      <div id="forgot-step1">
+        <input type="text" id="forgot-lookup" placeholder="Email address or username"
+          style="width:100%;padding:12px 14px;border:1.5px solid #C4B49A;border-radius:3px;font-family:'Jost',sans-serif;font-size:14px;background:#FDF9F3;color:#2C2016;margin-bottom:12px;outline:none;box-sizing:border-box;"/>
+        <button class="login-btn" onclick="forgotLookup()" style="width:100%;margin-bottom:10px;">Find My Account</button>
+        <button onclick="authTab('signin')" style="width:100%;padding:11px;font-family:'Jost',sans-serif;font-size:13px;font-weight:600;border:1.5px solid rgba(138,121,104,0.3);border-radius:3px;background:transparent;color:#8A7968;cursor:pointer;">← Back to Sign In</button>
+        <div id="forgot-error" style="display:none;margin-top:10px;padding:9px 12px;background:rgba(184,64,64,0.08);border:1px solid rgba(184,64,64,0.2);border-radius:3px;font-size:12px;color:#B84040;text-align:center;"></div>
+      </div>
+
+      <!-- Step 2: reset password -->
+      <div id="forgot-step2" style="display:none;">
+        <div id="forgot-account-found" style="padding:10px 14px;background:rgba(80,180,100,0.1);border:1px solid rgba(80,180,100,0.25);border-radius:3px;font-size:13px;color:#2a7a40;margin-bottom:14px;"></div>
+        <input type="password" id="forgot-newpass" placeholder="New password (min 8 chars)"
+          style="width:100%;padding:12px 14px;border:1.5px solid #C4B49A;border-radius:3px;font-family:'Jost',sans-serif;font-size:14px;background:#FDF9F3;color:#2C2016;margin-bottom:10px;outline:none;box-sizing:border-box;"/>
+        <input type="password" id="forgot-newpass2" placeholder="Confirm new password"
+          style="width:100%;padding:12px 14px;border:1.5px solid #C4B49A;border-radius:3px;font-family:'Jost',sans-serif;font-size:14px;background:#FDF9F3;color:#2C2016;margin-bottom:14px;outline:none;box-sizing:border-box;"/>
+        <button class="login-btn" onclick="forgotReset()" style="width:100%;margin-bottom:10px;">Reset Password</button>
+        <div id="forgot-reset-error" style="display:none;margin-top:8px;padding:9px 12px;background:rgba(184,64,64,0.08);border:1px solid rgba(184,64,64,0.2);border-radius:3px;font-size:12px;color:#B84040;text-align:center;"></div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -1476,45 +1540,45 @@
     </div>
     <div class="sidebar-nav">
       <div class="nav-section-label">Overview</div>
-      <div class="nav-item active" onclick="showPage('dashboard', this)">
+      <div class="nav-item active" onclick="showPage('dashboard', this)" data-roles="admin,board,resident">
         <span class="icon">🏠</span> Dashboard
       </div>
-      <div class="nav-item" onclick="showPage('about', this)">
+      <div class="nav-item" onclick="showPage('about', this)" data-roles="admin,board,resident">
         <span class="icon">ℹ️</span> About Us
       </div>
-      <div class="nav-item" id="admin-nav-item" style="display:none;background:rgba(192,96,58,0.08);border-left:3px solid var(--terra);" onclick="showPage('admin', this)">
+      <div class="nav-item" id="admin-nav-item" style="display:none;background:rgba(192,96,58,0.08);border-left:3px solid var(--terra);" onclick="showPage('admin', this)" data-roles="admin">
         <span class="icon">🛡️</span> Admin Panel
       </div>
-      <div class="nav-section-label">Community</div>
-      <div class="nav-item" onclick="showPage('feed', this)">
+      <div class="nav-section-label" data-roles="admin,board,resident">Community</div>
+      <div class="nav-item" onclick="showPage('feed', this)" data-roles="admin,board,resident">
         <span class="icon">🏘️</span> Community Feed
         <div class="notif-dot" id="feed-notif-dot"></div>
       </div>
-      <div class="nav-item" onclick="showPage('contractors', this)">
+      <div class="nav-item" onclick="showPage('contractors', this)" data-roles="admin,board,resident">
         <span class="icon">🔧</span> Contractors
         <div class="notif-dot"></div>
       </div>
-      <div class="nav-item" onclick="showPage('qa', this)">
+      <div class="nav-item" onclick="showPage('qa', this)" data-roles="admin,board,resident">
         <span class="icon">💬</span> Q&amp;A Forum
       </div>
-      <div class="nav-section-label">Governance</div>
-      <div class="nav-item" onclick="showPage('rules', this)">
+      <div class="nav-section-label" data-roles="admin,board,resident">Governance</div>
+      <div class="nav-item" onclick="showPage('rules', this)" data-roles="admin,board,resident">
         <span class="icon">📋</span> Rules &amp; Regs
       </div>
-      <div class="nav-item" onclick="showPage('standards', this)">
+      <div class="nav-item" onclick="showPage('standards', this)" data-roles="admin,board,resident">
         <span class="icon">🌿</span> Community Standards
       </div>
-      <div class="nav-section-label">Resources</div>
-      <div class="nav-item" onclick="showPage('knowledge', this)">
+      <div class="nav-section-label" data-roles="admin,board,resident">Resources</div>
+      <div class="nav-item" onclick="showPage('knowledge', this)" data-roles="admin,board,resident">
         <span class="icon">📚</span> Knowledge Base
       </div>
-      <div class="nav-item" onclick="showPage('gallery', this)">
+      <div class="nav-item" onclick="showPage('gallery', this)" data-roles="admin,board,resident">
         <span class="icon">🖼️</span> Home Gallery
       </div>
-      <div class="nav-item" onclick="showPage('directory', this)">
+      <div class="nav-item" onclick="showPage('directory', this)" data-roles="admin,board,resident">
         <span class="icon">👥</span> Directory
       </div>
-      <div class="nav-item" onclick="showPage('announcements', this)">
+      <div class="nav-item" onclick="showPage('announcements', this)" data-roles="admin,board,resident">
         <span class="icon">📢</span> Announcements
       </div>
     </div>
@@ -1692,63 +1756,13 @@
       <div class="rules-layout">
         <div class="rules-toc">
           <h4>Contents</h4>
-          <div class="toc-item active">General Rules</div>
-          <div class="toc-item">Exterior Modifications</div>
-          <div class="toc-item">Noise Policy</div>
-          <div class="toc-item">Common Areas</div>
-          <div class="toc-item">Violations &amp; Fines</div>
-          <div class="toc-item">Voting Rights</div>
-        </div>
-        <div class="rules-content-area">
-          <div class="rules-section">
-            <div class="rules-section-header">
-              <div class="rules-icon">📋</div>
-              <h2>General Community Rules</h2>
-            </div>
-            <div class="rule-item">
-              <div class="rule-number">1</div>
-              <div>
-                <h4>Architectural Approval</h4>
-                <p>All exterior modifications, additions, or alterations require written approval from the Architectural Review Committee (ARC) at least 30 days prior to commencement. This includes paint colors, fencing, landscaping changes, and structural additions.</p>
-              </div>
-            </div>
-            <div class="rule-item">
-              <div class="rule-number">2</div>
-              <div>
-                <h4>Garbage & Recycling</h4>
-                <p>Garbage and recycling bins must be stored out of sight except on designated collection days. Bins may be placed at curbside no earlier than 6pm the evening prior to collection and must be removed by 8pm on collection day.</p>
-              </div>
-            </div>
-            <div class="rule-item">
-              <div class="rule-number">3</div>
-              <div>
-                <h4>Holiday Decorations</h4>
-                <p>Seasonal decorations are permitted from November 1 through January 15. Decorations must be tasteful and in keeping with the community aesthetic. Illuminated decorations must be turned off by 11pm.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="rules-section">
-            <div class="rules-section-header">
-              <div class="rules-icon">🔊</div>
-              <h2>Noise Policy</h2>
-            </div>
-            <div class="rule-item">
-              <div class="rule-number">1</div>
-              <div>
-                <h4>Quiet Hours</h4>
-                <p>Quiet hours are observed daily from 10pm to 8am. During these hours, all noise including music, power tools, and outdoor gatherings must be kept at a level that does not disturb neighboring residents.</p>
-              </div>
-            </div>
-            <div class="rule-item">
-              <div class="rule-number">2</div>
-              <div>
-                <h4>Construction &amp; Contractor Hours</h4>
-                <p>Contractor and construction work is permitted Monday–Friday 8am–6pm, and Saturday 9am–5pm. No contractor work is permitted on Sundays or federal holidays.</p>
-              </div>
-            </div>
+          <div id="rules-toc-list"></div>
+          <!-- Admin: add section button -->
+          <div id="rules-admin-toc-bar" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid rgba(138,121,104,0.12);">
+            <button onclick="openRulesSectionModal('rules')" style="width:100%;padding:8px;font-size:12px;font-weight:700;border:1.5px dashed rgba(192,96,58,0.4);background:transparent;color:var(--terra);border-radius:3px;cursor:pointer;font-family:'Jost',sans-serif;transition:all 0.15s;" onmouseenter="this.style.background='rgba(192,96,58,0.06)'" onmouseleave="this.style.background='transparent'">+ Add Section</button>
           </div>
         </div>
+        <div class="rules-content-area" id="rules-content-area"></div>
       </div>
     </div>
 
@@ -1757,89 +1771,12 @@
       <div class="rules-layout">
         <div class="rules-toc">
           <h4>Categories</h4>
-          <div class="toc-item active">Landscaping</div>
-          <div class="toc-item">Parking</div>
-          <div class="toc-item">Pets</div>
-          <div class="toc-item">Pools &amp; Patios</div>
-        </div>
-        <div class="rules-content-area">
-          <div class="rules-section">
-            <div class="rules-section-header">
-              <div class="rules-icon">🌿</div>
-              <h2>Landscaping Standards</h2>
-            </div>
-            <div class="rule-item">
-              <div class="rule-number">1</div>
-              <div>
-                <h4>Lawn Maintenance</h4>
-                <p>Lawns must be mowed and edged at minimum every 14 days during growing season (March–November). Grass height must not exceed 4 inches. Visible weeds in turf and planting beds must be addressed promptly.</p>
-              </div>
-            </div>
-            <div class="rule-item">
-              <div class="rule-number">2</div>
-              <div>
-                <h4>Approved Plant List</h4>
-                <p>Florida-friendly and drought-tolerant species are strongly encouraged. Invasive species (e.g., Brazilian Pepper, Air Potato) are prohibited. A full approved planting list is available from the management office.</p>
-              </div>
-            </div>
-            <div class="rule-item">
-              <div class="rule-number">3</div>
-              <div>
-                <h4>Irrigation</h4>
-                <p>Irrigation systems must comply with Palm Beach County water restrictions. Sprinklers may not operate between 10am and 4pm. All irrigation must be properly maintained to prevent overspray onto sidewalks or roadways.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="rules-section">
-            <div class="rules-section-header">
-              <div class="rules-icon">🚗</div>
-              <h2>Parking Standards</h2>
-            </div>
-            <div class="rule-item">
-              <div class="rule-number">1</div>
-              <div>
-                <h4>Driveway & Garage Use</h4>
-                <p>Garages must be maintained and available for vehicle parking. Vehicles parked in driveways must be operational, licensed, and insured. Inoperable vehicles may not be stored on the property.</p>
-              </div>
-            </div>
-            <div class="rule-item">
-              <div class="rule-number">2</div>
-              <div>
-                <h4>RVs, Boats &amp; Trailers</h4>
-                <p>Recreational vehicles, boats, trailers, and commercial vehicles over 1-ton capacity may not be parked in driveways or on streets except for active loading/unloading (max 24 hours). Long-term storage must be off-site.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="rules-section">
-            <div class="rules-section-header">
-              <div class="rules-icon">🐾</div>
-              <h2>Pet Standards</h2>
-            </div>
-            <div class="rule-item">
-              <div class="rule-number">1</div>
-              <div>
-                <h4>Leash Requirement</h4>
-                <p>All pets must be on a leash no longer than 6 feet when outside the owner's home. Pets may not be left unattended in yards unless within a fully enclosed fence approved by the ARC.</p>
-              </div>
-            </div>
-            <div class="rule-item">
-              <div class="rule-number">2</div>
-              <div>
-                <h4>Waste Removal</h4>
-                <p>Pet owners are responsible for immediate removal of waste from all community areas including common areas, sidewalks, and neighboring properties. Waste stations are located at community entrances.</p>
-              </div>
-            </div>
-            <div class="rule-item">
-              <div class="rule-number">3</div>
-              <div>
-                <h4>Pet Limits</h4>
-                <p>Residents may keep no more than two dogs and/or two cats per household. Exotic animals and livestock are not permitted. All pets must be registered with the HOA within 30 days of residency.</p>
-              </div>
-            </div>
+          <div id="standards-toc-list"></div>
+          <div id="standards-admin-toc-bar" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid rgba(138,121,104,0.12);">
+            <button onclick="openRulesSectionModal('standards')" style="width:100%;padding:8px;font-size:12px;font-weight:700;border:1.5px dashed rgba(192,96,58,0.4);background:transparent;color:var(--terra);border-radius:3px;cursor:pointer;font-family:'Jost',sans-serif;transition:all 0.15s;" onmouseenter="this.style.background='rgba(192,96,58,0.06)'" onmouseleave="this.style.background='transparent'">+ Add Section</button>
           </div>
         </div>
+        <div class="rules-content-area" id="standards-content-area"></div>
       </div>
     </div>
 
@@ -2255,6 +2192,7 @@
         <button class="admin-tab" onclick="switchAdminTab('contractors',this)">🔧 Contractors</button>
         <button class="admin-tab" onclick="switchAdminTab('questions',this)">💬 Questions</button>
         <button class="admin-tab" onclick="switchAdminTab('kb',this)">📚 Knowledge Base</button>
+        <button class="admin-tab" onclick="switchAdminTab('users',this)">👥 Users</button>
       </div>
 
       <!-- ── Photos Tab ── -->
@@ -2365,12 +2303,36 @@
               <input class="admin-form-input" id="adm-kb-tags" placeholder="rules, pool, 2025"/>
             </div>
             <div class="admin-form-full">
+              <label class="admin-form-label">Upload Document <span style="font-weight:400;color:var(--stone);">(optional — PDF, DOCX, XLSX, etc.)</span></label>
+              <div id="adm-kb-dropzone"
+                ondragover="event.preventDefault();this.classList.add('kb-drop-active')"
+                ondragleave="this.classList.remove('kb-drop-active')"
+                ondrop="admKbHandleDrop(event)"
+                onclick="document.getElementById('adm-kb-file-input').click()"
+                style="border:2px dashed rgba(138,121,104,0.25);border-radius:3px;padding:18px 20px;text-align:center;cursor:pointer;transition:all 0.2s;background:var(--cream);display:flex;align-items:center;justify-content:center;gap:12px;">
+                <span style="font-size:22px;">📎</span>
+                <span style="font-size:13px;color:var(--stone);">Drag & drop a file here, or <span style="color:var(--terra);font-weight:600;">click to browse</span></span>
+                <input type="file" id="adm-kb-file-input" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt" style="display:none" onchange="admKbFileSelect(event)"/>
+              </div>
+              <!-- File preview -->
+              <div id="adm-kb-file-preview" style="display:none;margin-top:8px;display:none;">
+                <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(138,121,104,0.06);border-radius:3px;border:1px solid rgba(138,121,104,0.15);">
+                  <span id="adm-kb-file-icon" style="font-size:20px;">📄</span>
+                  <div style="flex:1;min-width:0;">
+                    <div id="adm-kb-file-name" style="font-size:13px;font-weight:600;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"></div>
+                    <div id="adm-kb-file-size" style="font-size:11px;color:var(--stone);margin-top:1px;"></div>
+                  </div>
+                  <button onclick="admKbClearFile()" style="background:none;border:none;color:var(--stone);cursor:pointer;font-size:18px;padding:0 4px;" title="Remove file">×</button>
+                </div>
+              </div>
+            </div>
+            <div class="admin-form-full">
               <label class="admin-form-label">Summary</label>
               <textarea class="admin-form-textarea" id="adm-kb-summary" rows="2" placeholder="Brief description of what this document covers…"></textarea>
             </div>
             <div class="admin-form-full">
-              <label class="admin-form-label">Content / Body Text</label>
-              <textarea class="admin-form-textarea" id="adm-kb-content" rows="5" placeholder="Paste or type the full article text…"></textarea>
+              <label class="admin-form-label">Content / Body Text <span style="font-weight:400;color:var(--stone);">(shown in the article viewer)</span></label>
+              <textarea class="admin-form-textarea" id="adm-kb-content" rows="4" placeholder="Paste or type the full article text… (optional if uploading a file)"></textarea>
             </div>
           </div>
           <div style="display:flex;justify-content:flex-end;margin-top:14px;">
@@ -2380,6 +2342,70 @@
 
         <!-- Existing articles list -->
         <div id="admin-kb-list"></div>
+      </div>
+
+      <!-- ── Users Tab ── -->
+      <div class="admin-section" id="admin-users">
+        <!-- Add/Edit user form -->
+        <div class="admin-form-card" id="admin-user-form-card">
+          <h3 id="admin-user-form-title">➕ Add New User</h3>
+          <div class="admin-form-grid">
+            <div>
+              <label class="admin-form-label">First Name</label>
+              <input class="admin-form-input" id="au-fname" placeholder="Maria"/>
+            </div>
+            <div>
+              <label class="admin-form-label">Last Name</label>
+              <input class="admin-form-input" id="au-lname" placeholder="Rodriguez"/>
+            </div>
+            <div>
+              <label class="admin-form-label">Username <span style="color:var(--terra);">*</span></label>
+              <input class="admin-form-input" id="au-username" placeholder="maria.rodriguez"/>
+            </div>
+            <div>
+              <label class="admin-form-label">Email</label>
+              <input class="admin-form-input" id="au-email" type="email" placeholder="maria@email.com"/>
+            </div>
+            <div>
+              <label class="admin-form-label">Lot / Unit</label>
+              <input class="admin-form-input" id="au-lot" placeholder="5705"/>
+            </div>
+            <div>
+              <label class="admin-form-label">Role</label>
+              <select class="admin-form-select" id="au-role" style="width:100%">
+                <option value="resident">Resident</option>
+                <option value="board">Board Member</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
+            <div>
+              <label class="admin-form-label">Password <span id="au-pass-hint" style="font-weight:400;color:var(--stone);"></span></label>
+              <input class="admin-form-input" id="au-pass" type="password" placeholder="Minimum 8 characters"/>
+            </div>
+            <div>
+              <label class="admin-form-label">Confirm Password</label>
+              <input class="admin-form-input" id="au-pass2" type="password" placeholder="Re-enter password"/>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:14px;">
+            <button class="btn-secondary" id="au-cancel-btn" style="display:none;" onclick="adminUserCancelEdit()">Cancel</button>
+            <button class="btn-primary" id="au-submit-btn" onclick="adminUserSubmit()">Add User</button>
+          </div>
+          <div id="au-error" style="display:none;margin-top:10px;padding:9px 12px;background:rgba(184,64,64,0.08);border:1px solid rgba(184,64,64,0.2);border-radius:3px;font-size:12px;color:#B84040;"></div>
+        </div>
+
+        <!-- User count stat -->
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+          <p style="font-size:13px;color:var(--stone);">All registered users. Edit details, change passwords, or remove accounts.</p>
+          <span style="font-size:13px;font-weight:600;color:var(--terra-dark);" id="admin-user-count"></span>
+        </div>
+
+        <table class="admin-table">
+          <thead><tr>
+            <th>Name</th><th>Username</th><th>Email</th><th>Lot</th><th>Role</th><th style="width:150px;">Actions</th>
+          </tr></thead>
+          <tbody id="admin-users-tbody"></tbody>
+        </table>
       </div>
 
     </div>
@@ -2442,6 +2468,54 @@
     </div>
 
   </main>
+</div>
+
+<!-- ══ RULES SECTION MODAL ══ -->
+<div class="modal-overlay" id="rules-section-modal">
+  <div class="modal" style="width:440px;">
+    <div class="modal-header">
+      <h3 id="rsec-modal-title">📋 Add Section</h3>
+      <button class="modal-close" onclick="closeModal('rules-section-modal')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Section Title <span style="color:var(--terra);">*</span></label>
+        <input type="text" id="rsec-title" class="admin-form-input" placeholder="e.g. Pool & Spa Rules"/>
+      </div>
+      <div class="form-group">
+        <label>Icon Emoji</label>
+        <input type="text" id="rsec-icon" class="admin-form-input" placeholder="📋" maxlength="4" style="width:80px;"/>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeModal('rules-section-modal')">Cancel</button>
+      <button class="btn-primary" id="rsec-submit-btn" onclick="submitRulesSection()">Add Section</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ RULE ITEM MODAL ══ -->
+<div class="modal-overlay" id="rule-item-modal">
+  <div class="modal" style="width:520px;">
+    <div class="modal-header">
+      <h3 id="ritem-modal-title">➕ Add Rule</h3>
+      <button class="modal-close" onclick="closeModal('rule-item-modal')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Rule Title <span style="color:var(--terra);">*</span></label>
+        <input type="text" id="ritem-title" class="admin-form-input" placeholder="e.g. Quiet Hours"/>
+      </div>
+      <div class="form-group">
+        <label>Rule Description <span style="color:var(--terra);">*</span></label>
+        <textarea id="ritem-body" class="admin-form-input" rows="4" placeholder="Describe this rule in full…" style="resize:vertical;"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeModal('rule-item-modal')">Cancel</button>
+      <button class="btn-primary" id="ritem-submit-btn" onclick="submitRuleItem()">Add Rule</button>
+    </div>
+  </div>
 </div>
 
 <!-- ══ ADD / EDIT ANNOUNCEMENT MODAL ══ -->
@@ -2873,6 +2947,17 @@ let questions = [
 // NAVIGATION
 // ══════════════════════════════
 function showPage(id, navEl) {
+  // Permission guard — check if user has access to this page
+  if (typeof currentUser !== 'undefined' && currentUser) {
+    const role = currentUser.role;
+    // Pages restricted to admin only
+    const adminOnly = ['admin'];
+    if (adminOnly.includes(id) && role !== 'admin') {
+      showToast('⚠️ You do not have permission to access that page.');
+      return;
+    }
+  }
+
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   document.getElementById('page-' + id).classList.add('active');
@@ -2895,68 +2980,6 @@ function showPage(id, navEl) {
 // ══════════════════════════════
 // AUTH
 // ══════════════════════════════
-let isAdmin = false;
-let galleryInitialized = false;
-
-function doLogin() {
-  const email = document.getElementById('login-email').value.trim();
-  const pass  = document.getElementById('login-pass').value.trim();
-
-  // Admin credentials check
-  if (email === 'Admin' && pass === 'Trieste33487') {
-    isAdmin = true;
-  } else {
-    isAdmin = false;
-  }
-
-  document.getElementById('login-screen').classList.remove('active');
-  document.getElementById('app-screen').classList.add('active');
-
-  // Show admin nav item only for admin
-  const adminNav = document.getElementById('admin-nav-item');
-  if (adminNav) adminNav.style.display = isAdmin ? 'flex' : 'none';
-
-  // Update sidebar user display
-  if (isAdmin) {
-    document.querySelector('.user-info .name').textContent = 'Trieste Admin';
-    document.querySelector('.user-info .lot').textContent  = 'Administrator';
-    document.querySelector('.user-avatar').textContent     = 'TA';
-    document.querySelector('.user-avatar').style.background = 'linear-gradient(135deg,#8B3A20,#C0603A)';
-  } else {
-    document.querySelector('.user-info .name').textContent = 'Maria Rodriguez';
-    document.querySelector('.user-info .lot').textContent  = 'Lot 47 · Member';
-    document.querySelector('.user-avatar').textContent     = 'MR';
-    document.querySelector('.user-avatar').style.background = '';
-  }
-
-  renderContractors(contractors);
-  renderQuestions(questions);
-  // Only prepend real photos once
-  if (!galleryInitialized) {
-    galleryPhotos = [...realPhotos, ...galleryPhotos];
-    galleryInitialized = true;
-  }
-  lightboxPhotos = galleryPhotos;
-  renderGallery(galleryPhotos);
-  renderKBTree();
-  initFeed();
-  initDirectory();
-
-  // Show admin-only KB folder button
-  const folderBtn = document.getElementById('kb-add-folder-btn');
-  if (folderBtn) folderBtn.style.display = isAdmin ? 'inline-block' : 'none';
-
-  // Sync folder dropdowns
-  refreshFolderSelects();
-
-  // Render announcements (admin sees edit/delete buttons)
-  renderAnnouncements();
-}
-
-function doLogout() {
-  document.getElementById('app-screen').classList.remove('active');
-  document.getElementById('login-screen').classList.add('active');
-}
 
 // ══════════════════════════════
 // CONTRACTORS
@@ -3877,34 +3900,138 @@ function openArticle(folder, article) {
 function downloadArticle() {
   if (!kbCurrentArticle) return;
   const article = kbCurrentArticle.article;
+
   if (article.uploaded && article.dataUrl) {
-    // Real uploaded file — trigger actual download
+    // ── Real uploaded file: download in original format ──
+    const ext = (article.type || 'pdf').toLowerCase();
+    const safeTitle = article.title.replace(/[^a-z0-9\s-]/gi, '').trim().replace(/\s+/g, '_');
     const a = document.createElement('a');
     a.href = article.dataUrl;
-    a.download = article.title + '.' + (article.type || 'pdf').toLowerCase();
+    a.download = safeTitle + '.' + ext;
     document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    const el = document.getElementById('kb-downloads');
-    if (el) el.textContent = (parseInt(el.textContent) + 1).toString();
-    showToast('⬇ Download started!');
+    bumpDownloadCount();
+    showToast('⬇ Downloading ' + ext.toUpperCase() + ' file…');
   } else {
-    simulateDownload(article.title, article.type);
+    // ── No uploaded file: generate and download as PDF ──
+    generateArticlePDF(article);
   }
 }
 
-function simulateDownload(title, type) {
-  // Build a text blob representing the doc and trigger browser download
-  const content = `TRIESTE AT BOCA RATON — COMMUNITY PORTAL\n${'='.repeat(50)}\n\n${title}\n\nThis document is for residents of Trieste at Boca Raton.\nFor the official version, please contact management@trieste.com.\n\nGenerated: ${new Date().toLocaleDateString()}\n`;
-  const blob = new Blob([content], { type: 'text/plain' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url; a.download = `${title.replace(/[^a-z0-9]/gi,'_').toLowerCase()}.txt`;
-  document.body.appendChild(a); a.click();
-  document.body.removeChild(a); URL.revokeObjectURL(url);
+function generateArticlePDF(article) {
+  // Build a clean printable HTML page, open it in a hidden iframe,
+  // and trigger window.print() which lets the user Save as PDF
+  const safeTitle = (article.title || 'Document').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const body      = (article.content || article.summary || '').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>');
+  const tags      = article.tags && article.tags.length ? article.tags.join(', ') : '';
+  const date      = article.date || new Date().getFullYear();
 
-  // Bump download counter
+  const printHtml = `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<title>${safeTitle}</title>
+<style>
+  @page { margin: 1.25in 1in; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: Georgia, serif; font-size: 11.5pt;
+    color: #1a1008; line-height: 1.7; background: white;
+  }
+  .header {
+    border-bottom: 2.5pt solid #C0603A;
+    padding-bottom: 14pt; margin-bottom: 22pt;
+    display: flex; justify-content: space-between; align-items: flex-end;
+  }
+  .header h1 { font-size: 9pt; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #C0603A; margin: 0 0 4pt; }
+  .header .sub { font-size: 8pt; color: #8A7968; margin: 0; }
+  .title { font-size: 20pt; font-weight: 700; color: #2C1508; margin: 0 0 8pt; line-height: 1.2; }
+  .meta { font-size: 9pt; color: #8A7968; margin-bottom: 22pt; }
+  .meta span { margin-right: 16pt; }
+  .meta .tag { background: #f0e8d8; color: #8B4513; padding: 1pt 6pt; border-radius: 2pt; font-size: 8pt; }
+  .divider { border: none; border-top: 1pt solid #d4c5a9; margin: 18pt 0; }
+  .body { font-size: 11pt; line-height: 1.75; }
+  .footer { margin-top: 40pt; padding-top: 10pt; border-top: 1pt solid #d4c5a9; font-size: 8pt; color: #8A7968; display: flex; justify-content: space-between; }
+  @media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+</style>
+</head>
+<body>
+<div class="header">
+  <div>
+    <h1>Trieste at Boca Raton — Community Portal</h1>
+    <p class="sub">Knowledge Base Document</p>
+  </div>
+  <p class="sub" style="text-align:right;">${new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'})}</p>
+</div>
+
+<h2 class="title">${safeTitle}</h2>
+<div class="meta">
+  ${article.type ? `<span>📄 ${article.type}</span>` : ''}
+  ${date ? `<span>📅 ${date}</span>` : ''}
+  ${tags ? tags.split(',').map(t => `<span class="tag">${t.trim()}</span>`).join('') : ''}
+</div>
+
+<hr class="divider"/>
+
+<div class="body">
+  ${article.summary ? `<p><strong>Summary:</strong> ${article.summary}</p><hr class="divider"/>` : ''}
+  ${body || '<p><em>No content available for this document. Please contact management@trieste.com for the full document.</em></p>'}
+</div>
+
+<div class="footer">
+  <span>Trieste at Boca Raton HOA · 5700 N Federal Hwy, Boca Raton FL 33487</span>
+  <span>management@trieste.com · (561) 750-8800</span>
+</div>
+</body>
+</html>`;
+
+  // Open in a new window and trigger print dialog (Save as PDF)
+  const printWin = window.open('', '_blank', 'width=800,height=900');
+  if (!printWin) {
+    // Fallback if popup blocked: download as HTML
+    const blob = new Blob([printHtml], { type: 'text/html' });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href = url; a.download = (article.title || 'document').replace(/[^a-z0-9\s]/gi,'_') + '.html';
+    document.body.appendChild(a); a.click();
+    document.body.removeChild(a); URL.revokeObjectURL(url);
+    showToast('⬇ Saved as HTML (allow popups for PDF)');
+  } else {
+    printWin.document.write(printHtml);
+    printWin.document.close();
+    printWin.onload = () => {
+      setTimeout(() => { printWin.print(); }, 300);
+    };
+    showToast('⬇ Print dialog opened — choose "Save as PDF"');
+  }
+  bumpDownloadCount();
+}
+
+function bumpDownloadCount() {
   const el = document.getElementById('kb-downloads');
-  if (el) el.textContent = (parseInt(el.textContent) + 1).toString();
-  showToast('⬇ Download started!');
+  if (el) el.textContent = (parseInt(el.textContent || '0') + 1).toString();
+}
+
+// Legacy alias kept for article card download buttons
+function simulateDownload(title, type) {
+  // Find the article in KB_FOLDERS and use the proper download logic
+  for (const folder of KB_FOLDERS) {
+    const article = folder.articles.find(a => a.title === title);
+    if (article) {
+      if (article.uploaded && article.dataUrl) {
+        const ext = (article.type || 'pdf').toLowerCase();
+        const safeTitle = title.replace(/[^a-z0-9\s-]/gi,'').trim().replace(/\s+/g,'_');
+        const a = document.createElement('a');
+        a.href = article.dataUrl; a.download = safeTitle + '.' + ext;
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        bumpDownloadCount(); showToast('⬇ Downloading ' + ext.toUpperCase() + '…');
+      } else {
+        generateArticlePDF(article);
+      }
+      return;
+    }
+  }
+  // Article not found — generate minimal PDF
+  generateArticlePDF({ title, type, content: '', summary: '' });
 }
 
 function kbSearch(query) {
@@ -4648,8 +4775,346 @@ function kbSubmitUpload() {
 }
 
 // ══════════════════════════════
-// ANNOUNCEMENTS
+// USER STORE & AUTH SYSTEM
 // ══════════════════════════════
+let userStore = [
+  { id: 1, fname: 'Maria',  lname: 'Rodriguez', username: 'maria.r',   email: 'maria@trieste.com',   lot: '5705', role: 'resident', password: 'resident123',  status: 'active' },
+  { id: 2, fname: 'James',  lname: 'L.',         username: 'james.l',   email: 'james@trieste.com',   lot: '5715', role: 'resident', password: 'resident123',  status: 'active' },
+  { id: 3, fname: 'Sandra', lname: 'K.',         username: 'sandra.k',  email: 'sandra@trieste.com',  lot: '5720', role: 'board',    password: 'board123',     status: 'active' },
+  { id: 4, fname: 'Dennis', lname: 'Charlebois', username: 'dennisc999@gmail.com', email: 'dennisc999@gmail.com', lot: '5610 NE Trieste Terrace', role: 'resident', password: 'Oneric2054', status: 'active' },
+  { id: 99, fname: 'Trieste', lname: 'Admin',    username: 'Admin',     email: 'admin@trieste.com',   lot: 'N/A',  role: 'admin',    password: 'Trieste33487', status: 'active' },
+];
+let nextUserId = 100;
+let currentUser = null;   // logged-in user object
+let galleryInitialized = false;  // ensures real photos are only prepended once
+let adminEditUserId = null; // null = add mode
+
+// ── Auth tab switcher ─────────────────────────
+function authTab(tab) {
+  ['signin','register','forgot'].forEach(t => {
+    document.getElementById('auth-' + t).style.display = t === tab ? 'block' : 'none';
+  });
+  ['tab-signin','tab-register'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const active = id === 'tab-' + (tab === 'forgot' ? 'signin' : tab);
+    el.style.background = active ? 'var(--terra)' : 'rgba(138,121,104,0.08)';
+    el.style.color = active ? 'white' : '#8A7968';
+  });
+  // clear errors
+  ['login-error','reg-error','forgot-error'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'none';
+  });
+  if (tab === 'forgot') {
+    document.getElementById('forgot-step1').style.display = 'block';
+    document.getElementById('forgot-step2').style.display = 'none';
+  }
+}
+
+// ── Sign In ───────────────────────────────────
+function doLogin() {
+  const raw    = document.getElementById('login-email').value.trim();
+  const pass   = document.getElementById('login-pass').value;
+  const errEl  = document.getElementById('login-error');
+
+  if (!raw || !pass) {
+    if (errEl) { errEl.textContent = 'Please enter your username and password.'; errEl.style.display = 'block'; }
+    return;
+  }
+
+  // Find user by username or email
+  const user = userStore.find(u =>
+    (u.username.toLowerCase() === raw.toLowerCase() || u.email.toLowerCase() === raw.toLowerCase())
+    && u.password === pass
+    && u.status !== 'suspended'
+  );
+
+  if (!user) {
+    if (errEl) { errEl.textContent = 'Incorrect username or password. Please try again.'; errEl.style.display = 'block'; }
+    return;
+  }
+
+  currentUser = user;
+  isAdmin = (user.role === 'admin');
+
+  document.getElementById('login-screen').classList.remove('active');
+  document.getElementById('app-screen').classList.add('active');
+  if (errEl) errEl.style.display = 'none';
+
+  // Update sidebar
+  const adminNav = document.getElementById('admin-nav-item');
+  if (adminNav) adminNav.style.display = isAdmin ? 'flex' : 'none';
+
+  const fullName = user.fname + (user.lname ? ' ' + user.lname : '');
+  const initials = (user.fname[0] + (user.lname ? user.lname[0] : '')).toUpperCase();
+  document.querySelector('.user-info .name').textContent = fullName;
+  document.querySelector('.user-info .lot').textContent  = isAdmin ? 'Administrator' : 'Lot ' + user.lot;
+  document.querySelector('.user-avatar').textContent     = initials;
+  document.querySelector('.user-avatar').style.background = isAdmin ? 'linear-gradient(135deg,#8B3A20,#C0603A)' : '';
+
+  renderContractors(contractors);
+  renderQuestions(questions);
+  if (!galleryInitialized) {
+    galleryPhotos = [...realPhotos, ...galleryPhotos];
+    galleryInitialized = true;
+  }
+  lightboxPhotos = galleryPhotos;
+  renderGallery(galleryPhotos);
+  renderKBTree();
+  initFeed();
+  initDirectory();
+  const folderBtn = document.getElementById('kb-add-folder-btn');
+  if (folderBtn) folderBtn.style.display = isAdmin ? 'inline-block' : 'none';
+  refreshFolderSelects();
+  renderAnnouncements();
+  initRulesPages();
+  applyNavPermissions(user.role);
+}
+
+// ── Apply nav visibility based on role ────────
+function applyNavPermissions(role) {
+  // Show/hide nav items and section labels based on data-roles attribute
+  document.querySelectorAll('[data-roles]').forEach(el => {
+    const allowed = el.getAttribute('data-roles').split(',').map(r => r.trim());
+    el.style.display = allowed.includes(role) ? '' : 'none';
+  });
+
+  // Admin Panel nav item handled separately (always hidden by default, shown for admin)
+  const adminNav = document.getElementById('admin-nav-item');
+  if (adminNav) adminNav.style.display = role === 'admin' ? 'flex' : 'none';
+
+  // Always show the topbar ask-question button for residents & board
+  const topbarActions = document.getElementById('topbar-actions');
+  if (topbarActions) topbarActions.style.display = '';
+}
+
+// ── Register ──────────────────────────────────
+function doRegister() {
+  const fname    = document.getElementById('reg-fname').value.trim();
+  const lname    = document.getElementById('reg-lname').value.trim();
+  const email    = document.getElementById('reg-email').value.trim();
+  const username = document.getElementById('reg-username').value.trim();
+  const lot      = document.getElementById('reg-lot').value.trim();
+  const pass     = document.getElementById('reg-pass').value;
+  const pass2    = document.getElementById('reg-pass2').value;
+  const errEl    = document.getElementById('reg-error');
+  const successEl = document.getElementById('reg-success');
+
+  errEl.style.display = 'none';
+  successEl.style.display = 'none';
+
+  if (!fname || !username || !pass) {
+    errEl.textContent = 'First name, username, and password are required.';
+    errEl.style.display = 'block'; return;
+  }
+  if (pass.length < 8) {
+    errEl.textContent = 'Password must be at least 8 characters.';
+    errEl.style.display = 'block'; return;
+  }
+  if (pass !== pass2) {
+    errEl.textContent = 'Passwords do not match.';
+    errEl.style.display = 'block'; return;
+  }
+  if (userStore.find(u => u.username.toLowerCase() === username.toLowerCase())) {
+    errEl.textContent = 'That username is already taken. Please choose another.';
+    errEl.style.display = 'block'; return;
+  }
+  if (email && userStore.find(u => u.email.toLowerCase() === email.toLowerCase())) {
+    errEl.textContent = 'An account with that email already exists.';
+    errEl.style.display = 'block'; return;
+  }
+
+  const newUser = {
+    id: nextUserId++, fname, lname, username, email: email || '',
+    lot: lot || 'TBD', role: 'resident', password: pass, status: 'active',
+  };
+  userStore.push(newUser);
+
+  successEl.textContent = '✅ Account created! You can now sign in with your username and password.';
+  successEl.style.display = 'block';
+  document.getElementById('reg-fname').value = '';
+  document.getElementById('reg-lname').value = '';
+  document.getElementById('reg-email').value = '';
+  document.getElementById('reg-username').value = '';
+  document.getElementById('reg-lot').value = '';
+  document.getElementById('reg-pass').value = '';
+  document.getElementById('reg-pass2').value = '';
+
+  setTimeout(() => {
+    authTab('signin');
+    document.getElementById('login-email').value = username;
+  }, 2000);
+}
+
+// ── Forgot Password ────────────────────────────
+let forgotUserId = null;
+
+function forgotLookup() {
+  const val  = document.getElementById('forgot-lookup').value.trim();
+  const errEl = document.getElementById('forgot-error');
+  errEl.style.display = 'none';
+
+  if (!val) { errEl.textContent = 'Please enter your email or username.'; errEl.style.display = 'block'; return; }
+
+  const user = userStore.find(u =>
+    u.username.toLowerCase() === val.toLowerCase() ||
+    (u.email && u.email.toLowerCase() === val.toLowerCase())
+  );
+
+  if (!user) {
+    errEl.textContent = 'No account found with that username or email.';
+    errEl.style.display = 'block'; return;
+  }
+
+  forgotUserId = user.id;
+  document.getElementById('forgot-step1').style.display = 'none';
+  document.getElementById('forgot-step2').style.display = 'block';
+  const hint = user.email ? user.email.replace(/(.{2})(.*)(@.*)/, '$1***$3') : user.username;
+  document.getElementById('forgot-account-found').textContent = `✓ Account found: ${user.fname} ${user.lname} (${hint})`;
+}
+
+function forgotReset() {
+  const newPass  = document.getElementById('forgot-newpass').value;
+  const newPass2 = document.getElementById('forgot-newpass2').value;
+  const errEl    = document.getElementById('forgot-reset-error');
+  errEl.style.display = 'none';
+
+  if (newPass.length < 8) { errEl.textContent = 'Password must be at least 8 characters.'; errEl.style.display = 'block'; return; }
+  if (newPass !== newPass2) { errEl.textContent = 'Passwords do not match.'; errEl.style.display = 'block'; return; }
+
+  const user = userStore.find(u => u.id === forgotUserId);
+  if (user) user.password = newPass;
+  forgotUserId = null;
+
+  document.getElementById('forgot-newpass').value = '';
+  document.getElementById('forgot-newpass2').value = '';
+  authTab('signin');
+  showToast('✅ Password reset! You can now sign in with your new password.');
+}
+
+// ── Logout ────────────────────────────────────
+function doLogout() {
+  currentUser = null;
+  isAdmin = false;
+  document.getElementById('app-screen').classList.remove('active');
+  document.getElementById('login-screen').classList.add('active');
+  authTab('signin');
+  document.getElementById('login-email').value = '';
+  document.getElementById('login-pass').value = '';
+}
+
+// ── Admin: User Management ────────────────────
+function renderAdminUsers() {
+  const tbody = document.getElementById('admin-users-tbody');
+  const countEl = document.getElementById('admin-user-count');
+  if (!tbody) return;
+  if (countEl) countEl.textContent = userStore.length + ' users';
+
+  const roleBadge = { admin: '🛡️ Admin', board: '⭐ Board', resident: '👤 Resident' };
+  tbody.innerHTML = userStore.map(u => {
+    const isPrimaryAdmin = u.id === 99; // protect the built-in admin from deletion
+    const delBtn = isPrimaryAdmin
+      ? `<span style="font-size:11px;color:var(--stone-light);padding:5px 8px;">Protected</span>`
+      : `<button class="admin-del-btn" onclick="adminUserDelete(${u.id})">🗑️ Delete</button>`;
+    return `
+    <tr id="auser-row-${u.id}">
+      <td><strong>${u.fname} ${u.lname}</strong></td>
+      <td>${u.username}</td>
+      <td style="font-size:12px;">${u.email || '—'}</td>
+      <td>${u.lot}</td>
+      <td><span style="font-size:12px;">${roleBadge[u.role] || u.role}</span></td>
+      <td><div class="action-btns">
+        <button class="admin-edit-btn" onclick="adminUserEdit(${u.id})">✏️ Edit</button>
+        ${delBtn}
+      </div></td>
+    </tr>`;
+  }).join('');
+}
+
+function adminUserEdit(id) {
+  const u = userStore.find(x => x.id === id);
+  if (!u) return;
+  adminEditUserId = id;
+  document.getElementById('admin-user-form-title').textContent = '✏️ Edit User';
+  document.getElementById('au-submit-btn').textContent = 'Save Changes';
+  document.getElementById('au-cancel-btn').style.display = 'inline-block';
+  document.getElementById('au-pass-hint').textContent = '(leave blank to keep current)';
+  document.getElementById('au-fname').value    = u.fname;
+  document.getElementById('au-lname').value    = u.lname;
+  document.getElementById('au-username').value = u.username;
+  document.getElementById('au-email').value    = u.email;
+  document.getElementById('au-lot').value      = u.lot;
+  document.getElementById('au-role').value     = u.role;
+  document.getElementById('au-pass').value     = '';
+  document.getElementById('au-pass2').value    = '';
+  document.getElementById('au-error').style.display = 'none';
+  document.getElementById('admin-user-form-card').scrollIntoView({ behavior: 'smooth' });
+}
+
+function adminUserCancelEdit() {
+  adminEditUserId = null;
+  document.getElementById('admin-user-form-title').textContent = '➕ Add New User';
+  document.getElementById('au-submit-btn').textContent = 'Add User';
+  document.getElementById('au-cancel-btn').style.display = 'none';
+  document.getElementById('au-pass-hint').textContent = '';
+  ['au-fname','au-lname','au-username','au-email','au-lot','au-pass','au-pass2'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('au-role').value = 'resident';
+  document.getElementById('au-error').style.display = 'none';
+}
+
+function adminUserSubmit() {
+  const fname    = document.getElementById('au-fname').value.trim();
+  const lname    = document.getElementById('au-lname').value.trim();
+  const username = document.getElementById('au-username').value.trim();
+  const email    = document.getElementById('au-email').value.trim();
+  const lot      = document.getElementById('au-lot').value.trim();
+  const role     = document.getElementById('au-role').value;
+  const pass     = document.getElementById('au-pass').value;
+  const pass2    = document.getElementById('au-pass2').value;
+  const errEl    = document.getElementById('au-error');
+  errEl.style.display = 'none';
+
+  if (!username) { errEl.textContent = 'Username is required.'; errEl.style.display = 'block'; return; }
+  if (!adminEditUserId && !pass) { errEl.textContent = 'Password is required for new users.'; errEl.style.display = 'block'; return; }
+  if (pass && pass.length < 8) { errEl.textContent = 'Password must be at least 8 characters.'; errEl.style.display = 'block'; return; }
+  if (pass && pass !== pass2) { errEl.textContent = 'Passwords do not match.'; errEl.style.display = 'block'; return; }
+
+  const duplicate = userStore.find(u => u.username.toLowerCase() === username.toLowerCase() && u.id !== adminEditUserId);
+  if (duplicate) { errEl.textContent = 'That username is already taken.'; errEl.style.display = 'block'; return; }
+
+  if (adminEditUserId) {
+    const u = userStore.find(x => x.id === adminEditUserId);
+    if (u) {
+      u.fname = fname || u.fname;
+      u.lname = lname;
+      u.username = username;
+      u.email = email;
+      u.lot = lot || u.lot;
+      u.role = role;
+      if (pass) u.password = pass;
+    }
+    showToast('✅ User updated.');
+  } else {
+    userStore.push({ id: nextUserId++, fname, lname, username, email, lot: lot || 'TBD', role, password: pass, status: 'active' });
+    showToast('✅ User added.');
+  }
+
+  adminUserCancelEdit();
+  renderAdminUsers();
+}
+
+function adminUserDelete(id) {
+  const u = userStore.find(x => x.id === id);
+  if (!u) return;
+  if (!confirm(`Delete user "${u.fname} ${u.lname}" (@${u.username})?`)) return;
+  userStore = userStore.filter(x => x.id !== id);
+  renderAdminUsers();
+  showToast('🗑️ User deleted.');
+}
+
 let announcements = [
   {
     id: 1, badge: 'urgent', title: 'Community Pool Closure — July 15–17',
@@ -4796,6 +5261,247 @@ function annDelete(id) {
   showToast('🗑️ Announcement deleted.');
 }
 
+// ══════════════════════════════
+// RULES & REGULATIONS DATA
+// ══════════════════════════════
+let rulesData = [
+  {
+    id: 'general', icon: '📋', title: 'General Community Rules',
+    items: [
+      { id: 'r1', title: 'Architectural Approval', body: 'All exterior modifications, additions, or alterations require written approval from the Architectural Review Committee (ARC) at least 30 days prior to commencement. This includes paint colors, fencing, landscaping changes, and structural additions.' },
+      { id: 'r2', title: 'Garbage & Recycling', body: 'Garbage and recycling bins must be stored out of sight except on designated collection days. Bins may be placed at curbside no earlier than 6pm the evening prior to collection and must be removed by 8pm on collection day.' },
+      { id: 'r3', title: 'Holiday Decorations', body: 'Seasonal decorations are permitted from November 1 through January 15. Decorations must be tasteful and in keeping with the community aesthetic. Illuminated decorations must be turned off by 11pm.' },
+    ]
+  },
+  {
+    id: 'noise', icon: '🔊', title: 'Noise Policy',
+    items: [
+      { id: 'r4', title: 'Quiet Hours', body: 'Quiet hours are observed daily from 10pm to 8am. During these hours, all noise including music, power tools, and outdoor gatherings must be kept at a level that does not disturb neighboring residents.' },
+      { id: 'r5', title: 'Construction & Contractor Hours', body: 'Contractor and construction work is permitted Monday–Friday 8am–6pm, and Saturday 9am–5pm. No contractor work is permitted on Sundays or federal holidays.' },
+    ]
+  },
+];
+
+let standardsData = [
+  {
+    id: 'landscaping', icon: '🌿', title: 'Landscaping Standards',
+    items: [
+      { id: 's1', title: 'Lawn Maintenance', body: 'Lawns must be mowed and edged at minimum every 14 days during growing season (March–November). Grass height must not exceed 4 inches. Visible weeds in turf and planting beds must be addressed promptly.' },
+      { id: 's2', title: 'Approved Plant List', body: 'Florida-friendly and drought-tolerant species are strongly encouraged. Invasive species (e.g., Brazilian Pepper, Air Potato) are prohibited. A full approved planting list is available from the management office.' },
+      { id: 's3', title: 'Irrigation', body: 'Irrigation systems must comply with Palm Beach County water restrictions. Sprinklers may not operate between 10am and 4pm. All irrigation must be properly maintained to prevent overspray onto sidewalks or roadways.' },
+    ]
+  },
+  {
+    id: 'parking', icon: '🚗', title: 'Parking Standards',
+    items: [
+      { id: 's4', title: 'Driveway & Garage Use', body: 'Garages must be maintained and available for vehicle parking. Vehicles parked in driveways must be operational, licensed, and insured. Inoperable vehicles may not be stored on the property.' },
+      { id: 's5', title: 'RVs, Boats & Trailers', body: 'Recreational vehicles, boats, trailers, and commercial vehicles over 1-ton capacity may not be parked in driveways or on streets except for active loading/unloading (max 24 hours). Long-term storage must be off-site.' },
+    ]
+  },
+  {
+    id: 'pets', icon: '🐾', title: 'Pet Standards',
+    items: [
+      { id: 's6', title: 'Leash Requirement', body: 'All pets must be on a leash no longer than 6 feet when outside the owner\'s home. Pets may not be left unattended in yards unless within a fully enclosed fence approved by the ARC.' },
+      { id: 's7', title: 'Waste Removal', body: 'Pet owners are responsible for immediate removal of waste from all community areas including common areas, sidewalks, and neighboring properties. Waste stations are located at community entrances.' },
+      { id: 's8', title: 'Pet Limits', body: 'Residents may keep no more than two dogs and/or two cats per household. Exotic animals and livestock are not permitted. All pets must be registered with the HOA within 30 days of residency.' },
+    ]
+  },
+];
+
+let nextRuleId = 100;
+
+// ── Render functions ─────────────────────────────
+function renderRulesPage(pageId, data) {
+  const tocEl      = document.getElementById(pageId + '-toc-list');
+  const contentEl  = document.getElementById(pageId + '-content-area');
+  const adminBar   = document.getElementById(pageId + '-admin-toc-bar');
+  if (!tocEl || !contentEl) return;
+
+  if (adminBar) adminBar.style.display = isAdmin ? 'block' : 'none';
+
+  // TOC
+  tocEl.innerHTML = data.map((sec, si) =>
+    `<div class="toc-item ${si === 0 ? 'active' : ''}" onclick="scrollToSection('${pageId}-sec-${sec.id}',this)">${sec.title}</div>`
+  ).join('');
+
+  // Content
+  contentEl.innerHTML = data.map(sec => {
+    const adminSectionBtns = isAdmin ? `
+      <div style="display:flex;gap:8px;margin-left:auto;">
+        <button onclick="openEditSection('${pageId}','${sec.id}')"
+          style="padding:4px 10px;font-size:11px;font-weight:600;border:1.5px solid rgba(74,144,226,0.4);border-radius:2px;background:transparent;color:#3a7ac8;cursor:pointer;font-family:'Jost',sans-serif;transition:all 0.15s;"
+          onmouseenter="this.style.background='#3a7ac8';this.style.color='white'"
+          onmouseleave="this.style.background='transparent';this.style.color='#3a7ac8'">✏️ Edit</button>
+        <button onclick="deleteSection('${pageId}','${sec.id}')"
+          style="padding:4px 10px;font-size:11px;font-weight:600;border:1.5px solid rgba(192,96,58,0.35);border-radius:2px;background:transparent;color:var(--terra);cursor:pointer;font-family:'Jost',sans-serif;transition:all 0.15s;"
+          onmouseenter="this.style.background='var(--terra)';this.style.color='white'"
+          onmouseleave="this.style.background='transparent';this.style.color='var(--terra)'">🗑️</button>
+      </div>` : '';
+
+    const items = sec.items.map((item, idx) => {
+      const adminItemBtns = isAdmin ? `
+        <div style="display:flex;gap:6px;margin-left:auto;flex-shrink:0;">
+          <button onclick="openEditRuleItem('${pageId}','${sec.id}','${item.id}')"
+            style="padding:3px 8px;font-size:11px;font-weight:600;border:1.5px solid rgba(74,144,226,0.4);border-radius:2px;background:transparent;color:#3a7ac8;cursor:pointer;font-family:'Jost',sans-serif;" title="Edit rule">✏️</button>
+          <button onclick="deleteRuleItem('${pageId}','${sec.id}','${item.id}')"
+            style="padding:3px 8px;font-size:11px;font-weight:600;border:1.5px solid rgba(192,96,58,0.35);border-radius:2px;background:transparent;color:var(--terra);cursor:pointer;font-family:'Jost',sans-serif;" title="Delete rule">🗑️</button>
+        </div>` : '';
+      return `
+        <div class="rule-item" style="align-items:flex-start;">
+          <div class="rule-number">${idx + 1}</div>
+          <div style="flex:1;">
+            <h4>${item.title}</h4>
+            <p>${item.body}</p>
+          </div>
+          ${adminItemBtns}
+        </div>`;
+    }).join('');
+
+    const adminAddRuleBtn = isAdmin ? `
+      <div style="padding:12px 0 4px;">
+        <button onclick="openAddRuleItem('${pageId}','${sec.id}')"
+          style="padding:7px 16px;font-size:12px;font-weight:700;border:1.5px dashed rgba(192,96,58,0.4);background:transparent;color:var(--terra);border-radius:3px;cursor:pointer;font-family:'Jost',sans-serif;transition:all 0.15s;"
+          onmouseenter="this.style.background='rgba(192,96,58,0.06)'"
+          onmouseleave="this.style.background='transparent'">+ Add Rule</button>
+      </div>` : '';
+
+    return `
+      <div class="rules-section" id="${pageId}-sec-${sec.id}">
+        <div class="rules-section-header">
+          <div class="rules-icon">${sec.icon}</div>
+          <h2>${sec.title}</h2>
+          ${adminSectionBtns}
+        </div>
+        ${items}
+        ${adminAddRuleBtn}
+      </div>`;
+  }).join('');
+}
+
+function scrollToSection(id, tocEl) {
+  document.querySelectorAll('.toc-item').forEach(t => t.classList.remove('active'));
+  tocEl.classList.add('active');
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function initRulesPages() {
+  renderRulesPage('rules', rulesData);
+  renderRulesPage('standards', standardsData);
+}
+
+// ── Section CRUD ─────────────────────────────────
+let rsSectionState = null; // { pageId, sectionId | null }
+
+function openRulesSectionModal(pageId) {
+  rsSectionState = { pageId, sectionId: null };
+  document.getElementById('rsec-modal-title').textContent = '📋 Add Section';
+  document.getElementById('rsec-submit-btn').textContent  = 'Add Section';
+  document.getElementById('rsec-title').value = '';
+  document.getElementById('rsec-icon').value  = '📋';
+  openModal('rules-section-modal');
+}
+
+function openEditSection(pageId, sectionId) {
+  const data = pageId === 'rules' ? rulesData : standardsData;
+  const sec  = data.find(s => s.id === sectionId);
+  if (!sec) return;
+  rsSectionState = { pageId, sectionId };
+  document.getElementById('rsec-modal-title').textContent = '✏️ Edit Section';
+  document.getElementById('rsec-submit-btn').textContent  = 'Save Changes';
+  document.getElementById('rsec-title').value = sec.title;
+  document.getElementById('rsec-icon').value  = sec.icon;
+  openModal('rules-section-modal');
+}
+
+function submitRulesSection() {
+  const title = document.getElementById('rsec-title').value.trim();
+  const icon  = document.getElementById('rsec-icon').value.trim() || '📋';
+  if (!title) { showToast('⚠️ Section title is required.'); return; }
+  const { pageId, sectionId } = rsSectionState;
+  const data = pageId === 'rules' ? rulesData : standardsData;
+
+  if (sectionId) {
+    const sec = data.find(s => s.id === sectionId);
+    if (sec) { sec.title = title; sec.icon = icon; }
+    showToast('✅ Section updated.');
+  } else {
+    data.push({ id: 'sec_' + Date.now(), icon, title, items: [] });
+    showToast('✅ Section added.');
+  }
+  closeModal('rules-section-modal');
+  renderRulesPage(pageId, data);
+}
+
+function deleteSection(pageId, sectionId) {
+  const data = pageId === 'rules' ? rulesData : standardsData;
+  const sec  = data.find(s => s.id === sectionId);
+  if (!sec) return;
+  if (sec.items.length > 0 && !confirm(`Delete section "${sec.title}" and all its ${sec.items.length} rule(s)?`)) return;
+  if (sec.items.length === 0 && !confirm(`Delete empty section "${sec.title}"?`)) return;
+  const idx = data.findIndex(s => s.id === sectionId);
+  data.splice(idx, 1);
+  renderRulesPage(pageId, data);
+  showToast('🗑️ Section deleted.');
+}
+
+// ── Rule Item CRUD ────────────────────────────────
+let rsItemState = null; // { pageId, sectionId, itemId | null }
+
+function openAddRuleItem(pageId, sectionId) {
+  rsItemState = { pageId, sectionId, itemId: null };
+  document.getElementById('ritem-modal-title').textContent = '➕ Add Rule';
+  document.getElementById('ritem-submit-btn').textContent  = 'Add Rule';
+  document.getElementById('ritem-title').value = '';
+  document.getElementById('ritem-body').value  = '';
+  openModal('rule-item-modal');
+}
+
+function openEditRuleItem(pageId, sectionId, itemId) {
+  const data = pageId === 'rules' ? rulesData : standardsData;
+  const sec  = data.find(s => s.id === sectionId);
+  const item = sec && sec.items.find(i => i.id === itemId);
+  if (!item) return;
+  rsItemState = { pageId, sectionId, itemId };
+  document.getElementById('ritem-modal-title').textContent = '✏️ Edit Rule';
+  document.getElementById('ritem-submit-btn').textContent  = 'Save Changes';
+  document.getElementById('ritem-title').value = item.title;
+  document.getElementById('ritem-body').value  = item.body;
+  openModal('rule-item-modal');
+}
+
+function submitRuleItem() {
+  const title = document.getElementById('ritem-title').value.trim();
+  const body  = document.getElementById('ritem-body').value.trim();
+  if (!title || !body) { showToast('⚠️ Title and description are required.'); return; }
+  const { pageId, sectionId, itemId } = rsItemState;
+  const data = pageId === 'rules' ? rulesData : standardsData;
+  const sec  = data.find(s => s.id === sectionId);
+  if (!sec) return;
+
+  if (itemId) {
+    const item = sec.items.find(i => i.id === itemId);
+    if (item) { item.title = title; item.body = body; }
+    showToast('✅ Rule updated.');
+  } else {
+    sec.items.push({ id: 'item_' + Date.now(), title, body });
+    showToast('✅ Rule added.');
+  }
+  closeModal('rule-item-modal');
+  renderRulesPage(pageId, data);
+}
+
+function deleteRuleItem(pageId, sectionId, itemId) {
+  const data = pageId === 'rules' ? rulesData : standardsData;
+  const sec  = data.find(s => s.id === sectionId);
+  if (!sec) return;
+  const item = sec.items.find(i => i.id === itemId);
+  if (!confirm(`Delete rule: "${item.title}"?`)) return;
+  sec.items = sec.items.filter(i => i.id !== itemId);
+  renderRulesPage(pageId, data);
+  showToast('🗑️ Rule deleted.');
+}
+
 function showToast(msg) {
   const t = document.createElement('div');
   t.textContent = msg;
@@ -4824,7 +5530,7 @@ function showToast(msg) {
 // ══════════════════════════════
 // DIRECTORY
 // ══════════════════════════════
-const RESIDENTS = [{"id": 0, "address": "5705 NE VERDE CIR.", "street": "NE Verde Cir.", "lot": "5705", "name1": "Tony Colella", "name2": "", "email1": "Toncolella@aol.com", "email2": "", "initials": "TC", "gradient": "linear-gradient(135deg,#C0603A,#E8B84B)"}, {"id": 1, "address": "5715 NE VERDE CIR.", "street": "NE Verde Cir.", "lot": "5715", "name1": "Anthony Alberico", "name2": "Staci Alberico", "email1": "amalberico@gmail.com", "email2": "stacialberico@yahoo.com", "initials": "AA", "gradient": "linear-gradient(135deg,#4A7C8A,#2D6A7A)"}, {"id": 2, "address": "5725 NE VERDE CIR.", "street": "NE Verde Cir.", "lot": "5725", "name1": "Vicky Mayen", "name2": "Rodrigo Mayen", "email1": "vickyarias@aol.com", "email2": "drigomayen@msn.com", "initials": "VM", "gradient": "linear-gradient(135deg,#5C8A6A,#4A7C3F)"}, {"id": 3, "address": "5735 NE VERDE CIR.", "street": "NE Verde Cir.", "lot": "5735", "name1": "James Batmasian", "name2": "", "email1": "JHB@investmentslimited.com", "email2": "abreen@investmentslimited.com", "initials": "JB", "gradient": "linear-gradient(135deg,#6B7FBF,#4A5E8A)"}, {"id": 4, "address": "5745 NE VERDE CIR.", "street": "NE Verde Cir.", "lot": "5745", "name1": "Susan Mattox", "name2": "Luis Pintado", "email1": "s_mattox@yahoo.com", "email2": "lbpint@yahoo.com", "initials": "SM", "gradient": "linear-gradient(135deg,#8B6914,#C49A2A)"}, {"id": 5, "address": "5755 NE VERDE CIR.", "street": "NE Verde Cir.", "lot": "5755", "name1": "Daniel Ceccoli", "name2": "Sarah Delaurentis", "email1": "danielceccolimd@gmail.com", "email2": "sdl5050@aol.com", "initials": "DC", "gradient": "linear-gradient(135deg,#8B3A20,#5C2010)"}, {"id": 6, "address": "5765 NE VERDE CIR.", "street": "NE Verde Cir.", "lot": "5765", "name1": "Thomas Tarpey", "name2": "Eileen Tarpey", "email1": "TTarpey1960@gmail.com", "email2": "Eileen.tarpey@optum.com", "initials": "TT", "gradient": "linear-gradient(135deg,#7B4F9E,#5C3A7A)"}, {"id": 7, "address": "5775 NE VERDE CIR.", "street": "NE Verde Cir.", "lot": "5775", "name1": "Richard Dauito", "name2": "", "email1": "ridge.dauito@yahoo.com", "email2": "", "initials": "RD", "gradient": "linear-gradient(135deg,#2D6A4F,#52B788)"}, {"id": 8, "address": "5785 NE VERDE CIR.", "street": "NE Verde Cir.", "lot": "5785", "name1": "Stephen Sternbach", "name2": "", "email1": "SSternbach@starmulticare.com", "email2": "ssternb897@aol.com", "initials": "SS", "gradient": "linear-gradient(135deg,#B84040,#8B2020)"}, {"id": 9, "address": "5795 NE VERDE CIR.", "street": "NE Verde Cir.", "lot": "5795", "name1": "Randy Sagar", "name2": "", "email1": "RPS7676@yahoo.com", "email2": "", "initials": "RS", "gradient": "linear-gradient(135deg,#4A5E8A,#2D3F6B)"}, {"id": 10, "address": "5750 NE VERDE CIR.", "street": "NE Verde Cir.", "lot": "5750", "name1": "Dickran Ghazarian", "name2": "Mirella Ghazarian", "email1": "gdickran@yahoo.com", "email2": "mirellalucia@att.net", "initials": "DG", "gradient": "linear-gradient(135deg,#C0603A,#E8B84B)"}, {"id": 11, "address": "5740 NE VERDE CIR.", "street": "NE Verde Cir.", "lot": "5740", "name1": "Toni Valentino", "name2": "", "email1": "pamandtoni@gmail.com", "email2": "", "initials": "TV", "gradient": "linear-gradient(135deg,#4A7C8A,#2D6A7A)"}, {"id": 12, "address": "5730 NE VERDE CIR.", "street": "NE Verde Cir.", "lot": "5730", "name1": "John Lavender", "name2": "Michaela Lavender", "email1": "johnhlavender@gmail.com", "email2": "ml@michaelalavender.com", "initials": "JL", "gradient": "linear-gradient(135deg,#5C8A6A,#4A7C3F)"}, {"id": 13, "address": "5720 NE VERDE CIR.", "street": "NE Verde Cir.", "lot": "5720", "name1": "Gordana Grgas Grando", "name2": "Josko Grgas Grando", "email1": "grandodeco@aol.com", "email2": "sinjora@aol.com", "initials": "GG", "gradient": "linear-gradient(135deg,#6B7FBF,#4A5E8A)"}, {"id": 14, "address": "5720 NE VERDE CIR.", "street": "NE Verde Cir.", "lot": "5720", "name1": "Mela Kandler", "name2": "", "email1": "melakandler@gmail.com", "email2": "", "initials": "MK", "gradient": "linear-gradient(135deg,#8B6914,#C49A2A)"}, {"id": 15, "address": "5710 NE VERDE CIR.", "street": "NE Verde Cir.", "lot": "5710", "name1": "Philip San Filipo", "name2": "Marsha San Filipo", "email1": "philsf@mac.com", "email2": "", "initials": "PF", "gradient": "linear-gradient(135deg,#8B3A20,#5C2010)"}, {"id": 16, "address": "5700 NE VERDE CIR.", "street": "NE Verde Cir.", "lot": "5700", "name1": "Diane Williams", "name2": "Robert Williams", "email1": "dmew53@aol.com", "email2": "Rpw425@gmail.com", "initials": "DW", "gradient": "linear-gradient(135deg,#7B4F9E,#5C3A7A)"}, {"id": 17, "address": "647 NE TRIESTE LN.", "street": "NE Trieste Ln.", "lot": "647", "name1": "David Green", "name2": "Nena Green", "email1": "1davgreen@gmail.com", "email2": "1nenagreen@gmail.com", "initials": "DG", "gradient": "linear-gradient(135deg,#2D6A4F,#52B788)"}, {"id": 18, "address": "651 NE TRIESTE LN.", "street": "NE Trieste Ln.", "lot": "651", "name1": "Richard Orbann", "name2": "", "email1": "Rorbann8@gmail.com", "email2": "", "initials": "RO", "gradient": "linear-gradient(135deg,#B84040,#8B2020)"}, {"id": 19, "address": "655 NE TRIESTE LN.", "street": "NE Trieste Ln.", "lot": "655", "name1": "Dominic Rizzati", "name2": "Christine Rizzatti", "email1": "dominick.rizzatti@gmail.com", "email2": "christine.rizzatti@gmail.com", "initials": "DR", "gradient": "linear-gradient(135deg,#4A5E8A,#2D3F6B)"}, {"id": 20, "address": "659 NE TRIESTE LN.", "street": "NE Trieste Ln.", "lot": "659", "name1": "Andrea Oley", "name2": "Eric Karlan", "email1": "andeeoley@aol.com", "email2": "erickarlan@gmail.com", "initials": "AO", "gradient": "linear-gradient(135deg,#C0603A,#E8B84B)"}, {"id": 21, "address": "663 NE TRIESTE LN.", "street": "NE Trieste Ln.", "lot": "663", "name1": "Eric Karlan", "name2": "Megan Karlan", "email1": "erickarlan@gmail.com", "email2": "megkarlan@gmail.com", "initials": "EK", "gradient": "linear-gradient(135deg,#4A7C8A,#2D6A7A)"}, {"id": 22, "address": "667 NE TRIESTE LN.", "street": "NE Trieste Ln.", "lot": "667", "name1": "Constanta Melman", "name2": "Emanuel Melman", "email1": "constancemelman@yahoo.com", "email2": "", "initials": "CM", "gradient": "linear-gradient(135deg,#5C8A6A,#4A7C3F)"}, {"id": 23, "address": "667 NE TRIESTE LN.", "street": "NE Trieste Ln.", "lot": "667", "name1": "Frank Dittilo", "name2": "Constance Garvey", "email1": "Dattilo.fj@icloud.com", "email2": "vintagette@icloud.com", "initials": "FD", "gradient": "linear-gradient(135deg,#6B7FBF,#4A5E8A)"}, {"id": 24, "address": "5670 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5670", "name1": "Cem Yavuz", "name2": "", "email1": "cemyavuz3103@gmail.com", "email2": "", "initials": "CY", "gradient": "linear-gradient(135deg,#8B6914,#C49A2A)"}, {"id": 25, "address": "5660 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5660", "name1": "Robert Cooper", "name2": "Amy Cooper", "email1": "robcooper10@gmail.com", "email2": "amycooper10@me.com", "initials": "RC", "gradient": "linear-gradient(135deg,#8B3A20,#5C2010)"}, {"id": 26, "address": "5650 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5650", "name1": "Richard Tolerico", "name2": "", "email1": "ricktolerico@yahoo.com", "email2": "", "initials": "RT", "gradient": "linear-gradient(135deg,#7B4F9E,#5C3A7A)"}, {"id": 27, "address": "5640 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5640", "name1": "Sherwood Danoff", "name2": "Autumn Danoff", "email1": "ssdanoff@aol.com", "email2": "adanoff441@aol.com", "initials": "SD", "gradient": "linear-gradient(135deg,#2D6A4F,#52B788)"}, {"id": 28, "address": "5630 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5630", "name1": "Harvey Glasser", "name2": "Loraine Glasser", "email1": "harvglasser@yahoo.com", "email2": "hagjrg@aol.com", "initials": "HG", "gradient": "linear-gradient(135deg,#B84040,#8B2020)"}, {"id": 29, "address": "5620 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5620", "name1": "Robert Levine", "name2": "Lisa Levine", "email1": "rlevine@CBLAttorneys.com", "email2": "lisajil514@gmail.com", "initials": "RL", "gradient": "linear-gradient(135deg,#4A5E8A,#2D3F6B)"}, {"id": 30, "address": "5610 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5610", "name1": "Evie Kramer TTE", "name2": "", "email1": "evielynnkk4@outlook.com", "email2": "", "initials": "ET", "gradient": "linear-gradient(135deg,#C0603A,#E8B84B)"}, {"id": 31, "address": "5600 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5600", "name1": "Jon Alin", "name2": "Meredith Alin", "email1": "jonnya43@gmail.com", "email2": "merealin@yahoo.com", "initials": "JA", "gradient": "linear-gradient(135deg,#4A7C8A,#2D6A7A)"}, {"id": 32, "address": "5590 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5590", "name1": "Gabriella Zilinsky", "name2": "Alan Zilinsky", "email1": "gbrs78@yahoo.com", "email2": "azilinsky@yahoo.com", "initials": "GZ", "gradient": "linear-gradient(135deg,#5C8A6A,#4A7C3F)"}, {"id": 33, "address": "5580 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5580", "name1": "Larry Lovecchio", "name2": "Linday Lovecchio", "email1": "larrylovec@gmail.com", "email2": "lorivec@yahoo.com", "initials": "LL", "gradient": "linear-gradient(135deg,#6B7FBF,#4A5E8A)"}, {"id": 34, "address": "5580 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5580", "name1": "Charles Pontillo", "name2": "Christine Inglese", "email1": "cpontillo@icloud.com", "email2": "Inglese.christine@gmail.com", "initials": "CP", "gradient": "linear-gradient(135deg,#8B6914,#C49A2A)"}, {"id": 35, "address": "5570 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5570", "name1": "Mary Jo Sanzari", "name2": "", "email1": "mjsanzari@gmail.com", "email2": "", "initials": "MS", "gradient": "linear-gradient(135deg,#8B3A20,#5C2010)"}, {"id": 36, "address": "5560 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5560", "name1": "James Brown", "name2": "Ruth Brown", "email1": "jim.brown@jbpaint.com", "email2": "", "initials": "JB", "gradient": "linear-gradient(135deg,#7B4F9E,#5C3A7A)"}, {"id": 37, "address": "5550 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5550", "name1": "Lori Danielson", "name2": "", "email1": "loridanielson@ymail.com", "email2": "", "initials": "LD", "gradient": "linear-gradient(135deg,#2D6A4F,#52B788)"}, {"id": 38, "address": "5540 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5540", "name1": "Olga Walker", "name2": "Joseph Frank Walker", "email1": "olgadjw@gmail.com", "email2": "fwstfarm@mac.com", "initials": "OW", "gradient": "linear-gradient(135deg,#B84040,#8B2020)"}, {"id": 39, "address": "5530 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5530", "name1": "Robert Browne", "name2": "Sally Esposito Browne", "email1": "rbrownedc@aol.com", "email2": "Espositobrowne34@si.rr.com", "initials": "RB", "gradient": "linear-gradient(135deg,#4A5E8A,#2D3F6B)"}, {"id": 40, "address": "5520 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5520", "name1": "Brian Leuthner", "name2": "Tina Leuthner", "email1": "brianleuthner@gmai.com", "email2": "tinaleuthner@gmail.com", "initials": "BL", "gradient": "linear-gradient(135deg,#C0603A,#E8B84B)"}, {"id": 41, "address": "5510 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5510", "name1": "Jeff Peel", "name2": "Cathy Peel", "email1": "jcpeel@bellsouth.net", "email2": "", "initials": "JP", "gradient": "linear-gradient(135deg,#4A7C8A,#2D6A7A)"}, {"id": 42, "address": "668 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "668", "name1": "Daniel Tompkins", "name2": "Alexandra Tompkins", "email1": "Dtompk3537@aol.com", "email2": "dannyandalex0210@gmail.com", "initials": "DT", "gradient": "linear-gradient(135deg,#5C8A6A,#4A7C3F)"}, {"id": 43, "address": "668 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "668", "name1": "Bill Spruce", "name2": "Melissa Spruce", "email1": "bspruce@seawoodbuilders.com", "email2": "sprucemb@yahoo.com", "initials": "BS", "gradient": "linear-gradient(135deg,#6B7FBF,#4A5E8A)"}, {"id": 44, "address": "664 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "664", "name1": "Suzanne Donovan", "name2": "", "email1": "Bigdogs02@att.net", "email2": "", "initials": "SD", "gradient": "linear-gradient(135deg,#8B6914,#C49A2A)"}, {"id": 45, "address": "660 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "660", "name1": "Matthew Deak", "name2": "Chad Dollar", "email1": "matthew.deak@gmail.com", "email2": "cadollar@bellsouth.net", "initials": "MD", "gradient": "linear-gradient(135deg,#8B3A20,#5C2010)"}, {"id": 46, "address": "656 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "656", "name1": "Adam Cohen", "name2": "Alexandria Cohen", "email1": "acohen@brentadvisors.com", "email2": "alexandria1234@mac.com", "initials": "AC", "gradient": "linear-gradient(135deg,#7B4F9E,#5C3A7A)"}, {"id": 47, "address": "652 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "652", "name1": "Frank Mascetti", "name2": "", "email1": "trcfrank@aol.com", "email2": "frank.mascetti@trcflorida.com", "initials": "FM", "gradient": "linear-gradient(135deg,#2D6A4F,#52B788)"}, {"id": 48, "address": "648 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "648", "name1": "Robert Semaan", "name2": "Julie Semaan", "email1": "robert.semaan@congruex.com", "email2": "juliegersemaan@gmail.com", "initials": "RS", "gradient": "linear-gradient(135deg,#B84040,#8B2020)"}, {"id": 49, "address": "644 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "644", "name1": "Armonda Christopher", "name2": "", "email1": "armondac@bellsouth.net", "email2": "", "initials": "AC", "gradient": "linear-gradient(135deg,#4A5E8A,#2D3F6B)"}, {"id": 50, "address": "640 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "640", "name1": "Alan Luckman", "name2": "Susan Luckman", "email1": "jjluckyus@aol.com", "email2": "susan.luckman@aol.com", "initials": "AL", "gradient": "linear-gradient(135deg,#C0603A,#E8B84B)"}, {"id": 51, "address": "636 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "636", "name1": "Craig Agranoff", "name2": "Jeanette Agranoff", "email1": "classcards@gmail.com", "email2": "jeanettethegreat@gmail.com", "initials": "CA", "gradient": "linear-gradient(135deg,#4A7C8A,#2D6A7A)"}, {"id": 52, "address": "636 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "636", "name1": "Alan Luckman", "name2": "Susan Luckman", "email1": "jjluckyus@aol.com", "email2": "susan.luckman@aol.com", "initials": "AL", "gradient": "linear-gradient(135deg,#5C8A6A,#4A7C3F)"}, {"id": 53, "address": "632 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "632", "name1": "Nick (Neri) Martinez", "name2": "Rebecca Davis", "email1": "privatewealthsolutions@gmail.com", "email2": "beckyinboca@gmail.com", "initials": "NM", "gradient": "linear-gradient(135deg,#6B7FBF,#4A5E8A)"}, {"id": 54, "address": "628 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "628", "name1": "Amy Abreu", "name2": "Victor Abreu", "email1": "amy.abreu@gmail.com", "email2": "abreu.email@gmail.com", "initials": "AA", "gradient": "linear-gradient(135deg,#8B6914,#C49A2A)"}, {"id": 55, "address": "624 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "624", "name1": "Teri Heumann", "name2": "", "email1": "teriheumann1@gmail.com", "email2": "", "initials": "TH", "gradient": "linear-gradient(135deg,#8B3A20,#5C2010)"}, {"id": 56, "address": "620 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "620", "name1": "Claudia Scharer", "name2": "Philip Scharer", "email1": "parklandclaudia@aol.com", "email2": "philscharer53@gmail.com", "initials": "CS", "gradient": "linear-gradient(135deg,#7B4F9E,#5C3A7A)"}, {"id": 57, "address": "616 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "616", "name1": "Michael Bascone", "name2": "", "email1": "michael.bascone@gmail.com", "email2": "", "initials": "MB", "gradient": "linear-gradient(135deg,#2D6A4F,#52B788)"}, {"id": 58, "address": "616 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "616", "name1": "Caryl Keating", "name2": "Edouard Halabi", "email1": "drk@drcarylkeating.com", "email2": "ehalabi@halabire.com", "initials": "CK", "gradient": "linear-gradient(135deg,#B84040,#8B2020)"}, {"id": 59, "address": "612 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "612", "name1": "William Stephenson", "name2": "Kathryn Stephenson", "email1": "illinibill1962@gmail.com", "email2": "kathies120@gmail.com", "initials": "WS", "gradient": "linear-gradient(135deg,#4A5E8A,#2D3F6B)"}, {"id": 60, "address": "608 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "608", "name1": "Arlene Verzaal", "name2": "", "email1": "averzaal@aol.com", "email2": "", "initials": "AV", "gradient": "linear-gradient(135deg,#C0603A,#E8B84B)"}, {"id": 61, "address": "604 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "604", "name1": "Marlee Stark (Hale)", "name2": "", "email1": "starkmarlee@gmail.com", "email2": "", "initials": "MS", "gradient": "linear-gradient(135deg,#4A7C8A,#2D6A7A)"}, {"id": 62, "address": "600 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "600", "name1": "Fairlead Group LLC", "name2": "C/O Fernando Goulart", "email1": "fgoulart@gmail.com", "email2": "", "initials": "FL", "gradient": "linear-gradient(135deg,#5C8A6A,#4A7C3F)"}, {"id": 63, "address": "601 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "601", "name1": "Mark Zarafu JR.", "name2": "Carmela Zarafu", "email1": "mark@southfloridabaseballcards.com", "email2": "", "initials": "MJ", "gradient": "linear-gradient(135deg,#6B7FBF,#4A5E8A)"}, {"id": 64, "address": "605 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "605", "name1": "Kurtis Cross TTE", "name2": "Margaret Cross", "email1": "kccross123@aol.com", "email2": "margicross1011@gmail.com", "initials": "KT", "gradient": "linear-gradient(135deg,#8B6914,#C49A2A)"}, {"id": 65, "address": "609 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "609", "name1": "Rita Driscoll", "name2": "", "email1": "ritadriscoll@gmail.com", "email2": "", "initials": "RD", "gradient": "linear-gradient(135deg,#8B3A20,#5C2010)"}, {"id": 66, "address": "613 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "613", "name1": "Alexander Platt", "name2": "Chris Lucaj", "email1": "alex.platt@compass.com", "email2": "chrislucaj@gmail.com", "initials": "AP", "gradient": "linear-gradient(135deg,#7B4F9E,#5C3A7A)"}, {"id": 67, "address": "613 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "613", "name1": "Hugo Navarro", "name2": "Ximena Gonzalez Ruiz", "email1": "hugomedicine@yahoo.com", "email2": "ximenagonzalezruiz@gmail.com", "initials": "HN", "gradient": "linear-gradient(135deg,#2D6A4F,#52B788)"}, {"id": 68, "address": "617 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "617", "name1": "Bozena Pisla-khalil", "name2": "", "email1": "bozenapkhalil@gmail.com", "email2": "", "initials": "BP", "gradient": "linear-gradient(135deg,#B84040,#8B2020)"}, {"id": 69, "address": "616 NE ROSSETTI LN.", "street": "NE Rossetti Ln.", "lot": "616", "name1": "Stuart Hayman", "name2": "", "email1": "shayman969@gmail.com", "email2": "", "initials": "SH", "gradient": "linear-gradient(135deg,#4A5E8A,#2D3F6B)"}, {"id": 70, "address": "612 NE ROSSETTI LN.", "street": "NE Rossetti Ln.", "lot": "612", "name1": "Stanislav Sidash", "name2": "Ruslana Sokolovskaya", "email1": "stanislav.sidash@gmail.com", "email2": "r.kolesker87@gmail.com", "initials": "SS", "gradient": "linear-gradient(135deg,#C0603A,#E8B84B)"}, {"id": 71, "address": "608 NE ROSSETTI LN.", "street": "NE Rossetti Ln.", "lot": "608", "name1": "Marguerita Behar", "name2": "Lauren Behar", "email1": "peggybehar2@gmail.com", "email2": "laurenbehar@yahoo.com", "initials": "MB", "gradient": "linear-gradient(135deg,#4A7C8A,#2D6A7A)"}, {"id": 72, "address": "604 NE ROSSETTI LN.", "street": "NE Rossetti Ln.", "lot": "604", "name1": "Trieste Properties, LLC", "name2": "Brian Dratt", "email1": "brian.beautypure@gmail.com", "email2": "", "initials": "TL", "gradient": "linear-gradient(135deg,#5C8A6A,#4A7C3F)"}, {"id": 73, "address": "604 NE ROSSETTI LN.", "street": "NE Rossetti Ln.", "lot": "604", "name1": "Joseph Tucker", "name2": "Chastity Tucker", "email1": "joei323@aol.com", "email2": "", "initials": "JT", "gradient": "linear-gradient(135deg,#6B7FBF,#4A5E8A)"}, {"id": 74, "address": "600 NE ROSSETTI LN.", "street": "NE Rossetti Ln.", "lot": "600", "name1": "Aryen Lehrer", "name2": "Jessica Lehrer", "email1": "Aryehelehrer@gmail.com", "email2": "jnatalie2005@yahoo.com", "initials": "AL", "gradient": "linear-gradient(135deg,#8B6914,#C49A2A)"}, {"id": 75, "address": "601 NE ROSSETTI LN.", "street": "NE Rossetti Ln.", "lot": "601", "name1": "Thomas Mcphee", "name2": "Betsy Messina", "email1": "tom.macphee@yahoo.com", "email2": "brmess0815@gmail.com", "initials": "TM", "gradient": "linear-gradient(135deg,#8B3A20,#5C2010)"}, {"id": 76, "address": "605 NE ROSSETTI LN.", "street": "NE Rossetti Ln.", "lot": "605", "name1": "Samuel Mcnabb", "name2": "Wilma Mcnabb", "email1": "seado@sbcglobal.net", "email2": "themamamcnabb5@aol.com", "initials": "SM", "gradient": "linear-gradient(135deg,#7B4F9E,#5C3A7A)"}, {"id": 77, "address": "609 NE ROSSETTI LN.", "street": "NE Rossetti Ln.", "lot": "609", "name1": "Elaine Gintoli", "name2": "Commercial Properties", "email1": "eginrn@bellsouth.net", "email2": "", "initials": "EG", "gradient": "linear-gradient(135deg,#2D6A4F,#52B788)"}, {"id": 78, "address": "613 NE ROSSETTI LN.", "street": "NE Rossetti Ln.", "lot": "613", "name1": "Rose Anne Weiner", "name2": "Steven Weiner", "email1": "827rosie@gmail.com", "email2": "steve613rossetti@gmail.com", "initials": "RW", "gradient": "linear-gradient(135deg,#B84040,#8B2020)"}, {"id": 79, "address": "617 NE ROSSETTI LN.", "street": "NE Rossetti Ln.", "lot": "617", "name1": "Thomas Olofsson", "name2": "Carrol Diamond", "email1": "THOMAS.OLOFSSON@ME.COM", "email2": "yogadiamond6@gmail.com", "initials": "TO", "gradient": "linear-gradient(135deg,#4A5E8A,#2D3F6B)"}, {"id": 80, "address": "616 NE VENEZIA LN.", "street": "NE Venezia Ln.", "lot": "616", "name1": "Randy Seltz", "name2": "", "email1": "randyseltz@outlook.com", "email2": "", "initials": "RS", "gradient": "linear-gradient(135deg,#C0603A,#E8B84B)"}, {"id": 81, "address": "616 NE VENEZIA LN.", "street": "NE Venezia Ln.", "lot": "616", "name1": "Leonardo Antunano", "name2": "", "email1": "leoantunanohealing@yahoo.com", "email2": "", "initials": "LA", "gradient": "linear-gradient(135deg,#4A7C8A,#2D6A7A)"}, {"id": 82, "address": "612 NE VENEZIA LN.", "street": "NE Venezia Ln.", "lot": "612", "name1": "Dimitry Kargman", "name2": "Olga Kargman", "email1": "dimitryny2010@gmail.com", "email2": "Olga.isleep@gmail.com", "initials": "DK", "gradient": "linear-gradient(135deg,#5C8A6A,#4A7C3F)"}, {"id": 83, "address": "608 NE VENEZIA LN.", "street": "NE Venezia Ln.", "lot": "608", "name1": "Brian Tight", "name2": "Helena Tight", "email1": "briantight@yahoo.com", "email2": "", "initials": "BT", "gradient": "linear-gradient(135deg,#6B7FBF,#4A5E8A)"}, {"id": 84, "address": "604 NE VENEZIA LN.", "street": "NE Venezia Ln.", "lot": "604", "name1": "Stephanie Schneider", "name2": "", "email1": "steffschneider13@gmail.com", "email2": "", "initials": "SS", "gradient": "linear-gradient(135deg,#8B6914,#C49A2A)"}, {"id": 85, "address": "604 NE VENEZIA LN.", "street": "NE Venezia Ln.", "lot": "604", "name1": "Ekaterina Belton", "name2": "", "email1": "katerinabelton@hotmail.com", "email2": "", "initials": "EB", "gradient": "linear-gradient(135deg,#8B3A20,#5C2010)"}, {"id": 86, "address": "600 NE VENEZIA LN.", "street": "NE Venezia Ln.", "lot": "600", "name1": "Charles Baltimore", "name2": "Kimberley Baltimore", "email1": "cbmore@me.com", "email2": "Kimbmore@comcast.net", "initials": "CB", "gradient": "linear-gradient(135deg,#7B4F9E,#5C3A7A)"}, {"id": 87, "address": "5650 NE TRIESTE TER.", "street": "NE Trieste Ter.", "lot": "5650", "name1": "Edward Russek", "name2": "Christine Russek", "email1": "erussek@aol.com", "email2": "", "initials": "ER", "gradient": "linear-gradient(135deg,#2D6A4F,#52B788)"}, {"id": 88, "address": "5640 NE TRIESTE TER.", "street": "NE Trieste Ter.", "lot": "5640", "name1": "Janica (Janice) Rub", "name2": "", "email1": "cookierub@aol.com", "email2": "", "initials": "JR", "gradient": "linear-gradient(135deg,#B84040,#8B2020)"}, {"id": 89, "address": "5630 NE TRIESTE TER.", "street": "NE Trieste Ter.", "lot": "5630", "name1": "Elizabeth Garrido", "name2": "Elizabeth Garrido TR Titl Hldr", "email1": "lizsvet@aol.com", "email2": "", "initials": "EG", "gradient": "linear-gradient(135deg,#4A5E8A,#2D3F6B)"}, {"id": 90, "address": "5630 NE TRIESTE TER.", "street": "NE Trieste Ter.", "lot": "5630", "name1": "Daniel Kandler", "name2": "Mela Kandler", "email1": "dkandler23@gmail.com", "email2": "melakandler@gmail.com", "initials": "DK", "gradient": "linear-gradient(135deg,#C0603A,#E8B84B)"}, {"id": 91, "address": "5620 NE TRIESTE TER.", "street": "NE Trieste Ter.", "lot": "5620", "name1": "Joanne Gabay", "name2": "Joanne Gabay TR Titl Hldr", "email1": "joannebg1@gmail.com", "email2": "", "initials": "JG", "gradient": "linear-gradient(135deg,#4A7C8A,#2D6A7A)"}, {"id": 92, "address": "5620 NE TRIESTE TER.", "street": "NE Trieste Ter.", "lot": "5620", "name1": "Philippe Calais", "name2": "Sabina Toscani", "email1": "calaisp@hotmail.com", "email2": "sabina.toscani@gmail.com", "initials": "PC", "gradient": "linear-gradient(135deg,#5C8A6A,#4A7C3F)"}, {"id": 93, "address": "5610 NE TRIESTE TER.", "street": "NE Trieste Ter.", "lot": "5610", "name1": "Dennis Charlebois", "name2": "Jo Anne Digiuseppe", "email1": "dennisc999@gmail.com", "email2": "Josie.456@hotmail.com", "initials": "DC", "gradient": "linear-gradient(135deg,#6B7FBF,#4A5E8A)"}, {"id": 94, "address": "5600 NE TRIESTE TER.", "street": "NE Trieste Ter.", "lot": "5600", "name1": "David Hopkins", "name2": "", "email1": "dhopkins@calumiteintl.com", "email2": "delcharro@gmail.com", "initials": "DH", "gradient": "linear-gradient(135deg,#8B6914,#C49A2A)"}, {"id": 95, "address": "5590 NE TRIESTE TER.", "street": "NE Trieste Ter.", "lot": "5590", "name1": "Amelin Lulic", "name2": "Mckenna Lulic", "email1": "amelinlulic@lewisu.edu", "email2": "mckennarlulic@lewisu.edu", "initials": "AL", "gradient": "linear-gradient(135deg,#8B3A20,#5C2010)"}, {"id": 96, "address": "5580 NE TRIESTE TER.", "street": "NE Trieste Ter.", "lot": "5580", "name1": "Judith Gozlan", "name2": "Albert Golzlan", "email1": "judy0424@aol.com", "email2": "AGOZLAN@JCTRADING.NET", "initials": "JG", "gradient": "linear-gradient(135deg,#7B4F9E,#5C3A7A)"}, {"id": 97, "address": "5570 NE TRIESTE TER.", "street": "NE Trieste Ter.", "lot": "5570", "name1": "Eric Cuddihy", "name2": "Anya Brits", "email1": "cuds66@gmail.com", "email2": "iambrits18@gmail.com", "initials": "EC", "gradient": "linear-gradient(135deg,#2D6A4F,#52B788)"}, {"id": 98, "address": "5560 NE TRIESTE TER.", "street": "NE Trieste Ter.", "lot": "5560", "name1": "Web Boca Trust", "name2": "C/O William Bulmer", "email1": "bulmer@msn.com", "email2": "", "initials": "WT", "gradient": "linear-gradient(135deg,#B84040,#8B2020)"}, {"id": 99, "address": "5550 NE TRIESTE TER.", "street": "NE Trieste Ter.", "lot": "5550", "name1": "Brett Schneider", "name2": "", "email1": "bschneider@wsh-law.com", "email2": "", "initials": "BS", "gradient": "linear-gradient(135deg,#4A5E8A,#2D3F6B)"}, {"id": 100, "address": "5540 NE TRIESTE TER.", "street": "NE Trieste Ter.", "lot": "5540", "name1": "Marypat Wulf Clements", "name2": "", "email1": "bocadoc@comcast.net", "email2": "pratmare@gmail.com", "initials": "MC", "gradient": "linear-gradient(135deg,#C0603A,#E8B84B)"}, {"id": 101, "address": "5530 NE TRIESTE TER.", "street": "NE Trieste Ter.", "lot": "5530", "name1": "Philippe Calais", "name2": "Sabina Toscani", "email1": "calaisp@hotmail.com", "email2": "", "initials": "PC", "gradient": "linear-gradient(135deg,#4A7C8A,#2D6A7A)"}, {"id": 102, "address": "5520 NE TRIESTE TER.", "street": "NE Trieste Ter.", "lot": "5520", "name1": "Robert Deak", "name2": "Jacqueline Colli", "email1": "trieste5520@gmail.com", "email2": "rfd2473@gmail.com", "initials": "RD", "gradient": "linear-gradient(135deg,#5C8A6A,#4A7C3F)"}, {"id": 103, "address": "5510 NE TRIESTE TER.", "street": "NE Trieste Ter.", "lot": "5510", "name1": "Soledad Deanda", "name2": "Joseph Kovera", "email1": "svdeanda@gmail.com", "email2": "joekovera2010@gmail.com", "initials": "SD", "gradient": "linear-gradient(135deg,#6B7FBF,#4A5E8A)"}, {"id": 104, "address": "5515 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5515", "name1": "Steven Heller", "name2": "", "email1": "steven@thebrandliaison.com", "email2": "", "initials": "SH", "gradient": "linear-gradient(135deg,#8B6914,#C49A2A)"}, {"id": 105, "address": "5525 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5525", "name1": "Irene Laraqui", "name2": "Rachid Laraqui", "email1": "rl.lynx@gmail.com", "email2": "", "initials": "IL", "gradient": "linear-gradient(135deg,#8B3A20,#5C2010)"}, {"id": 106, "address": "5535 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5535", "name1": "Alexander Shubov", "name2": "Olesya Shubov", "email1": "bigimot@hotmail.com", "email2": "o_lesya_sh@yahoo.com", "initials": "AS", "gradient": "linear-gradient(135deg,#7B4F9E,#5C3A7A)"}, {"id": 107, "address": "5545 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5545", "name1": "Elaine Papa", "name2": "Vincent Papa", "email1": "elainepapa@comcast.net", "email2": "vincentpapa@yahoo.com", "initials": "EP", "gradient": "linear-gradient(135deg,#2D6A4F,#52B788)"}, {"id": 108, "address": "5555 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5555", "name1": "Gary Toll", "name2": "Pamela Kramer", "email1": "tollstory@aol.com", "email2": "drpamelatoll@aol.com", "initials": "GT", "gradient": "linear-gradient(135deg,#B84040,#8B2020)"}, {"id": 109, "address": "5565 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5565", "name1": "Nicolas Larenas", "name2": "", "email1": "nlarenas@alcorp.cl", "email2": "", "initials": "NL", "gradient": "linear-gradient(135deg,#4A5E8A,#2D3F6B)"}, {"id": 110, "address": "5575 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5575", "name1": "Roger Martin TTE", "name2": "Teri Story (Daughter)", "email1": "rogermartin291@gmail.com", "email2": "terstory@gmail.com", "initials": "RT", "gradient": "linear-gradient(135deg,#C0603A,#E8B84B)"}, {"id": 111, "address": "5585 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5585", "name1": "Wendy Hagel", "name2": "", "email1": "wendyhagel12@gmail.com", "email2": "", "initials": "WH", "gradient": "linear-gradient(135deg,#4A7C8A,#2D6A7A)"}, {"id": 112, "address": "5595 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5595", "name1": "Michael Schwartz", "name2": "Karen Schwartz", "email1": "", "email2": "MLSKSS@comcast.net", "initials": "MS", "gradient": "linear-gradient(135deg,#5C8A6A,#4A7C3F)"}, {"id": 113, "address": "5605 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5605", "name1": "Rhonda Romano", "name2": "Charles Romano", "email1": "romanomax3@aol.com", "email2": "", "initials": "RR", "gradient": "linear-gradient(135deg,#6B7FBF,#4A5E8A)"}, {"id": 114, "address": "5615 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5615", "name1": "Kathleen Burke", "name2": "Scot Burke", "email1": "attyburke@aol.com", "email2": "SBurke1001@aol.com", "initials": "KB", "gradient": "linear-gradient(135deg,#8B6914,#C49A2A)"}, {"id": 115, "address": "5625 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5625", "name1": "Josephine Tribunella TR", "name2": "", "email1": "Josephine3@bellsouth.net", "email2": "", "initials": "JT", "gradient": "linear-gradient(135deg,#8B3A20,#5C2010)"}, {"id": 116, "address": "5635 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5635", "name1": "Diane Bender", "name2": "", "email1": "diane@sydiane.com", "email2": "", "initials": "DB", "gradient": "linear-gradient(135deg,#7B4F9E,#5C3A7A)"}, {"id": 117, "address": "5645 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5645", "name1": "Richard Schwartz", "name2": "", "email1": "domainking@gmail.com", "email2": "", "initials": "RS", "gradient": "linear-gradient(135deg,#2D6A4F,#52B788)"}, {"id": 118, "address": "5655 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5655", "name1": "Zoila Barton", "name2": "", "email1": "marceybarton@gmail.com", "email2": "", "initials": "ZB", "gradient": "linear-gradient(135deg,#B84040,#8B2020)"}, {"id": 119, "address": "5665 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5665", "name1": "Kara Cassidy", "name2": "Stephen (Sid) Cassidy", "email1": "kara.cassidy1@gmail.com", "email2": "coachsid@gmail.com", "initials": "KC", "gradient": "linear-gradient(135deg,#4A5E8A,#2D3F6B)"}, {"id": 120, "address": "5675 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5675", "name1": "Cindy Jaffy", "name2": "", "email1": "cindyj97@aol.com", "email2": "", "initials": "CJ", "gradient": "linear-gradient(135deg,#C0603A,#E8B84B)"}];
+let RESIDENTS = [{"id": 0, "address": "5705 NE VERDE CIR.", "street": "NE Verde Cir.", "lot": "5705", "name1": "Tony Colella", "name2": "", "email1": "Toncolella@aol.com", "email2": "", "initials": "TC", "gradient": "linear-gradient(135deg,#C0603A,#E8B84B)"}, {"id": 1, "address": "5715 NE VERDE CIR.", "street": "NE Verde Cir.", "lot": "5715", "name1": "Anthony Alberico", "name2": "Staci Alberico", "email1": "amalberico@gmail.com", "email2": "stacialberico@yahoo.com", "initials": "AA", "gradient": "linear-gradient(135deg,#4A7C8A,#2D6A7A)"}, {"id": 2, "address": "5725 NE VERDE CIR.", "street": "NE Verde Cir.", "lot": "5725", "name1": "Vicky Mayen", "name2": "Rodrigo Mayen", "email1": "vickyarias@aol.com", "email2": "drigomayen@msn.com", "initials": "VM", "gradient": "linear-gradient(135deg,#5C8A6A,#4A7C3F)"}, {"id": 3, "address": "5735 NE VERDE CIR.", "street": "NE Verde Cir.", "lot": "5735", "name1": "James Batmasian", "name2": "", "email1": "JHB@investmentslimited.com", "email2": "abreen@investmentslimited.com", "initials": "JB", "gradient": "linear-gradient(135deg,#6B7FBF,#4A5E8A)"}, {"id": 4, "address": "5745 NE VERDE CIR.", "street": "NE Verde Cir.", "lot": "5745", "name1": "Susan Mattox", "name2": "Luis Pintado", "email1": "s_mattox@yahoo.com", "email2": "lbpint@yahoo.com", "initials": "SM", "gradient": "linear-gradient(135deg,#8B6914,#C49A2A)"}, {"id": 5, "address": "5755 NE VERDE CIR.", "street": "NE Verde Cir.", "lot": "5755", "name1": "Daniel Ceccoli", "name2": "Sarah Delaurentis", "email1": "danielceccolimd@gmail.com", "email2": "sdl5050@aol.com", "initials": "DC", "gradient": "linear-gradient(135deg,#8B3A20,#5C2010)"}, {"id": 6, "address": "5765 NE VERDE CIR.", "street": "NE Verde Cir.", "lot": "5765", "name1": "Thomas Tarpey", "name2": "Eileen Tarpey", "email1": "TTarpey1960@gmail.com", "email2": "Eileen.tarpey@optum.com", "initials": "TT", "gradient": "linear-gradient(135deg,#7B4F9E,#5C3A7A)"}, {"id": 7, "address": "5775 NE VERDE CIR.", "street": "NE Verde Cir.", "lot": "5775", "name1": "Richard Dauito", "name2": "", "email1": "ridge.dauito@yahoo.com", "email2": "", "initials": "RD", "gradient": "linear-gradient(135deg,#2D6A4F,#52B788)"}, {"id": 8, "address": "5785 NE VERDE CIR.", "street": "NE Verde Cir.", "lot": "5785", "name1": "Stephen Sternbach", "name2": "", "email1": "SSternbach@starmulticare.com", "email2": "ssternb897@aol.com", "initials": "SS", "gradient": "linear-gradient(135deg,#B84040,#8B2020)"}, {"id": 9, "address": "5795 NE VERDE CIR.", "street": "NE Verde Cir.", "lot": "5795", "name1": "Randy Sagar", "name2": "", "email1": "RPS7676@yahoo.com", "email2": "", "initials": "RS", "gradient": "linear-gradient(135deg,#4A5E8A,#2D3F6B)"}, {"id": 10, "address": "5750 NE VERDE CIR.", "street": "NE Verde Cir.", "lot": "5750", "name1": "Dickran Ghazarian", "name2": "Mirella Ghazarian", "email1": "gdickran@yahoo.com", "email2": "mirellalucia@att.net", "initials": "DG", "gradient": "linear-gradient(135deg,#C0603A,#E8B84B)"}, {"id": 11, "address": "5740 NE VERDE CIR.", "street": "NE Verde Cir.", "lot": "5740", "name1": "Toni Valentino", "name2": "", "email1": "pamandtoni@gmail.com", "email2": "", "initials": "TV", "gradient": "linear-gradient(135deg,#4A7C8A,#2D6A7A)"}, {"id": 12, "address": "5730 NE VERDE CIR.", "street": "NE Verde Cir.", "lot": "5730", "name1": "John Lavender", "name2": "Michaela Lavender", "email1": "johnhlavender@gmail.com", "email2": "ml@michaelalavender.com", "initials": "JL", "gradient": "linear-gradient(135deg,#5C8A6A,#4A7C3F)"}, {"id": 13, "address": "5720 NE VERDE CIR.", "street": "NE Verde Cir.", "lot": "5720", "name1": "Gordana Grgas Grando", "name2": "Josko Grgas Grando", "email1": "grandodeco@aol.com", "email2": "sinjora@aol.com", "initials": "GG", "gradient": "linear-gradient(135deg,#6B7FBF,#4A5E8A)"}, {"id": 14, "address": "5720 NE VERDE CIR.", "street": "NE Verde Cir.", "lot": "5720", "name1": "Mela Kandler", "name2": "", "email1": "melakandler@gmail.com", "email2": "", "initials": "MK", "gradient": "linear-gradient(135deg,#8B6914,#C49A2A)"}, {"id": 15, "address": "5710 NE VERDE CIR.", "street": "NE Verde Cir.", "lot": "5710", "name1": "Philip San Filipo", "name2": "Marsha San Filipo", "email1": "philsf@mac.com", "email2": "", "initials": "PF", "gradient": "linear-gradient(135deg,#8B3A20,#5C2010)"}, {"id": 16, "address": "5700 NE VERDE CIR.", "street": "NE Verde Cir.", "lot": "5700", "name1": "Diane Williams", "name2": "Robert Williams", "email1": "dmew53@aol.com", "email2": "Rpw425@gmail.com", "initials": "DW", "gradient": "linear-gradient(135deg,#7B4F9E,#5C3A7A)"}, {"id": 17, "address": "647 NE TRIESTE LN.", "street": "NE Trieste Ln.", "lot": "647", "name1": "David Green", "name2": "Nena Green", "email1": "1davgreen@gmail.com", "email2": "1nenagreen@gmail.com", "initials": "DG", "gradient": "linear-gradient(135deg,#2D6A4F,#52B788)"}, {"id": 18, "address": "651 NE TRIESTE LN.", "street": "NE Trieste Ln.", "lot": "651", "name1": "Richard Orbann", "name2": "", "email1": "Rorbann8@gmail.com", "email2": "", "initials": "RO", "gradient": "linear-gradient(135deg,#B84040,#8B2020)"}, {"id": 19, "address": "655 NE TRIESTE LN.", "street": "NE Trieste Ln.", "lot": "655", "name1": "Dominic Rizzati", "name2": "Christine Rizzatti", "email1": "dominick.rizzatti@gmail.com", "email2": "christine.rizzatti@gmail.com", "initials": "DR", "gradient": "linear-gradient(135deg,#4A5E8A,#2D3F6B)"}, {"id": 20, "address": "659 NE TRIESTE LN.", "street": "NE Trieste Ln.", "lot": "659", "name1": "Andrea Oley", "name2": "Eric Karlan", "email1": "andeeoley@aol.com", "email2": "erickarlan@gmail.com", "initials": "AO", "gradient": "linear-gradient(135deg,#C0603A,#E8B84B)"}, {"id": 21, "address": "663 NE TRIESTE LN.", "street": "NE Trieste Ln.", "lot": "663", "name1": "Eric Karlan", "name2": "Megan Karlan", "email1": "erickarlan@gmail.com", "email2": "megkarlan@gmail.com", "initials": "EK", "gradient": "linear-gradient(135deg,#4A7C8A,#2D6A7A)"}, {"id": 22, "address": "667 NE TRIESTE LN.", "street": "NE Trieste Ln.", "lot": "667", "name1": "Constanta Melman", "name2": "Emanuel Melman", "email1": "constancemelman@yahoo.com", "email2": "", "initials": "CM", "gradient": "linear-gradient(135deg,#5C8A6A,#4A7C3F)"}, {"id": 23, "address": "667 NE TRIESTE LN.", "street": "NE Trieste Ln.", "lot": "667", "name1": "Frank Dittilo", "name2": "Constance Garvey", "email1": "Dattilo.fj@icloud.com", "email2": "vintagette@icloud.com", "initials": "FD", "gradient": "linear-gradient(135deg,#6B7FBF,#4A5E8A)"}, {"id": 24, "address": "5670 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5670", "name1": "Cem Yavuz", "name2": "", "email1": "cemyavuz3103@gmail.com", "email2": "", "initials": "CY", "gradient": "linear-gradient(135deg,#8B6914,#C49A2A)"}, {"id": 25, "address": "5660 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5660", "name1": "Robert Cooper", "name2": "Amy Cooper", "email1": "robcooper10@gmail.com", "email2": "amycooper10@me.com", "initials": "RC", "gradient": "linear-gradient(135deg,#8B3A20,#5C2010)"}, {"id": 26, "address": "5650 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5650", "name1": "Richard Tolerico", "name2": "", "email1": "ricktolerico@yahoo.com", "email2": "", "initials": "RT", "gradient": "linear-gradient(135deg,#7B4F9E,#5C3A7A)"}, {"id": 27, "address": "5640 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5640", "name1": "Sherwood Danoff", "name2": "Autumn Danoff", "email1": "ssdanoff@aol.com", "email2": "adanoff441@aol.com", "initials": "SD", "gradient": "linear-gradient(135deg,#2D6A4F,#52B788)"}, {"id": 28, "address": "5630 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5630", "name1": "Harvey Glasser", "name2": "Loraine Glasser", "email1": "harvglasser@yahoo.com", "email2": "hagjrg@aol.com", "initials": "HG", "gradient": "linear-gradient(135deg,#B84040,#8B2020)"}, {"id": 29, "address": "5620 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5620", "name1": "Robert Levine", "name2": "Lisa Levine", "email1": "rlevine@CBLAttorneys.com", "email2": "lisajil514@gmail.com", "initials": "RL", "gradient": "linear-gradient(135deg,#4A5E8A,#2D3F6B)"}, {"id": 30, "address": "5610 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5610", "name1": "Evie Kramer TTE", "name2": "", "email1": "evielynnkk4@outlook.com", "email2": "", "initials": "ET", "gradient": "linear-gradient(135deg,#C0603A,#E8B84B)"}, {"id": 31, "address": "5600 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5600", "name1": "Jon Alin", "name2": "Meredith Alin", "email1": "jonnya43@gmail.com", "email2": "merealin@yahoo.com", "initials": "JA", "gradient": "linear-gradient(135deg,#4A7C8A,#2D6A7A)"}, {"id": 32, "address": "5590 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5590", "name1": "Gabriella Zilinsky", "name2": "Alan Zilinsky", "email1": "gbrs78@yahoo.com", "email2": "azilinsky@yahoo.com", "initials": "GZ", "gradient": "linear-gradient(135deg,#5C8A6A,#4A7C3F)"}, {"id": 33, "address": "5580 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5580", "name1": "Larry Lovecchio", "name2": "Linday Lovecchio", "email1": "larrylovec@gmail.com", "email2": "lorivec@yahoo.com", "initials": "LL", "gradient": "linear-gradient(135deg,#6B7FBF,#4A5E8A)"}, {"id": 34, "address": "5580 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5580", "name1": "Charles Pontillo", "name2": "Christine Inglese", "email1": "cpontillo@icloud.com", "email2": "Inglese.christine@gmail.com", "initials": "CP", "gradient": "linear-gradient(135deg,#8B6914,#C49A2A)"}, {"id": 35, "address": "5570 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5570", "name1": "Mary Jo Sanzari", "name2": "", "email1": "mjsanzari@gmail.com", "email2": "", "initials": "MS", "gradient": "linear-gradient(135deg,#8B3A20,#5C2010)"}, {"id": 36, "address": "5560 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5560", "name1": "James Brown", "name2": "Ruth Brown", "email1": "jim.brown@jbpaint.com", "email2": "", "initials": "JB", "gradient": "linear-gradient(135deg,#7B4F9E,#5C3A7A)"}, {"id": 37, "address": "5550 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5550", "name1": "Lori Danielson", "name2": "", "email1": "loridanielson@ymail.com", "email2": "", "initials": "LD", "gradient": "linear-gradient(135deg,#2D6A4F,#52B788)"}, {"id": 38, "address": "5540 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5540", "name1": "Olga Walker", "name2": "Joseph Frank Walker", "email1": "olgadjw@gmail.com", "email2": "fwstfarm@mac.com", "initials": "OW", "gradient": "linear-gradient(135deg,#B84040,#8B2020)"}, {"id": 39, "address": "5530 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5530", "name1": "Robert Browne", "name2": "Sally Esposito Browne", "email1": "rbrownedc@aol.com", "email2": "Espositobrowne34@si.rr.com", "initials": "RB", "gradient": "linear-gradient(135deg,#4A5E8A,#2D3F6B)"}, {"id": 40, "address": "5520 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5520", "name1": "Brian Leuthner", "name2": "Tina Leuthner", "email1": "brianleuthner@gmai.com", "email2": "tinaleuthner@gmail.com", "initials": "BL", "gradient": "linear-gradient(135deg,#C0603A,#E8B84B)"}, {"id": 41, "address": "5510 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5510", "name1": "Jeff Peel", "name2": "Cathy Peel", "email1": "jcpeel@bellsouth.net", "email2": "", "initials": "JP", "gradient": "linear-gradient(135deg,#4A7C8A,#2D6A7A)"}, {"id": 42, "address": "668 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "668", "name1": "Daniel Tompkins", "name2": "Alexandra Tompkins", "email1": "Dtompk3537@aol.com", "email2": "dannyandalex0210@gmail.com", "initials": "DT", "gradient": "linear-gradient(135deg,#5C8A6A,#4A7C3F)"}, {"id": 43, "address": "668 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "668", "name1": "Bill Spruce", "name2": "Melissa Spruce", "email1": "bspruce@seawoodbuilders.com", "email2": "sprucemb@yahoo.com", "initials": "BS", "gradient": "linear-gradient(135deg,#6B7FBF,#4A5E8A)"}, {"id": 44, "address": "664 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "664", "name1": "Suzanne Donovan", "name2": "", "email1": "Bigdogs02@att.net", "email2": "", "initials": "SD", "gradient": "linear-gradient(135deg,#8B6914,#C49A2A)"}, {"id": 45, "address": "660 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "660", "name1": "Matthew Deak", "name2": "Chad Dollar", "email1": "matthew.deak@gmail.com", "email2": "cadollar@bellsouth.net", "initials": "MD", "gradient": "linear-gradient(135deg,#8B3A20,#5C2010)"}, {"id": 46, "address": "656 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "656", "name1": "Adam Cohen", "name2": "Alexandria Cohen", "email1": "acohen@brentadvisors.com", "email2": "alexandria1234@mac.com", "initials": "AC", "gradient": "linear-gradient(135deg,#7B4F9E,#5C3A7A)"}, {"id": 47, "address": "652 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "652", "name1": "Frank Mascetti", "name2": "", "email1": "trcfrank@aol.com", "email2": "frank.mascetti@trcflorida.com", "initials": "FM", "gradient": "linear-gradient(135deg,#2D6A4F,#52B788)"}, {"id": 48, "address": "648 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "648", "name1": "Robert Semaan", "name2": "Julie Semaan", "email1": "robert.semaan@congruex.com", "email2": "juliegersemaan@gmail.com", "initials": "RS", "gradient": "linear-gradient(135deg,#B84040,#8B2020)"}, {"id": 49, "address": "644 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "644", "name1": "Armonda Christopher", "name2": "", "email1": "armondac@bellsouth.net", "email2": "", "initials": "AC", "gradient": "linear-gradient(135deg,#4A5E8A,#2D3F6B)"}, {"id": 50, "address": "640 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "640", "name1": "Alan Luckman", "name2": "Susan Luckman", "email1": "jjluckyus@aol.com", "email2": "susan.luckman@aol.com", "initials": "AL", "gradient": "linear-gradient(135deg,#C0603A,#E8B84B)"}, {"id": 51, "address": "636 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "636", "name1": "Craig Agranoff", "name2": "Jeanette Agranoff", "email1": "classcards@gmail.com", "email2": "jeanettethegreat@gmail.com", "initials": "CA", "gradient": "linear-gradient(135deg,#4A7C8A,#2D6A7A)"}, {"id": 52, "address": "636 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "636", "name1": "Alan Luckman", "name2": "Susan Luckman", "email1": "jjluckyus@aol.com", "email2": "susan.luckman@aol.com", "initials": "AL", "gradient": "linear-gradient(135deg,#5C8A6A,#4A7C3F)"}, {"id": 53, "address": "632 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "632", "name1": "Nick (Neri) Martinez", "name2": "Rebecca Davis", "email1": "privatewealthsolutions@gmail.com", "email2": "beckyinboca@gmail.com", "initials": "NM", "gradient": "linear-gradient(135deg,#6B7FBF,#4A5E8A)"}, {"id": 54, "address": "628 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "628", "name1": "Amy Abreu", "name2": "Victor Abreu", "email1": "amy.abreu@gmail.com", "email2": "abreu.email@gmail.com", "initials": "AA", "gradient": "linear-gradient(135deg,#8B6914,#C49A2A)"}, {"id": 55, "address": "624 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "624", "name1": "Teri Heumann", "name2": "", "email1": "teriheumann1@gmail.com", "email2": "", "initials": "TH", "gradient": "linear-gradient(135deg,#8B3A20,#5C2010)"}, {"id": 56, "address": "620 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "620", "name1": "Claudia Scharer", "name2": "Philip Scharer", "email1": "parklandclaudia@aol.com", "email2": "philscharer53@gmail.com", "initials": "CS", "gradient": "linear-gradient(135deg,#7B4F9E,#5C3A7A)"}, {"id": 57, "address": "616 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "616", "name1": "Michael Bascone", "name2": "", "email1": "michael.bascone@gmail.com", "email2": "", "initials": "MB", "gradient": "linear-gradient(135deg,#2D6A4F,#52B788)"}, {"id": 58, "address": "616 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "616", "name1": "Caryl Keating", "name2": "Edouard Halabi", "email1": "drk@drcarylkeating.com", "email2": "ehalabi@halabire.com", "initials": "CK", "gradient": "linear-gradient(135deg,#B84040,#8B2020)"}, {"id": 59, "address": "612 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "612", "name1": "William Stephenson", "name2": "Kathryn Stephenson", "email1": "illinibill1962@gmail.com", "email2": "kathies120@gmail.com", "initials": "WS", "gradient": "linear-gradient(135deg,#4A5E8A,#2D3F6B)"}, {"id": 60, "address": "608 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "608", "name1": "Arlene Verzaal", "name2": "", "email1": "averzaal@aol.com", "email2": "", "initials": "AV", "gradient": "linear-gradient(135deg,#C0603A,#E8B84B)"}, {"id": 61, "address": "604 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "604", "name1": "Marlee Stark (Hale)", "name2": "", "email1": "starkmarlee@gmail.com", "email2": "", "initials": "MS", "gradient": "linear-gradient(135deg,#4A7C8A,#2D6A7A)"}, {"id": 62, "address": "600 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "600", "name1": "Fairlead Group LLC", "name2": "C/O Fernando Goulart", "email1": "fgoulart@gmail.com", "email2": "", "initials": "FL", "gradient": "linear-gradient(135deg,#5C8A6A,#4A7C3F)"}, {"id": 63, "address": "601 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "601", "name1": "Mark Zarafu JR.", "name2": "Carmela Zarafu", "email1": "mark@southfloridabaseballcards.com", "email2": "", "initials": "MJ", "gradient": "linear-gradient(135deg,#6B7FBF,#4A5E8A)"}, {"id": 64, "address": "605 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "605", "name1": "Kurtis Cross TTE", "name2": "Margaret Cross", "email1": "kccross123@aol.com", "email2": "margicross1011@gmail.com", "initials": "KT", "gradient": "linear-gradient(135deg,#8B6914,#C49A2A)"}, {"id": 65, "address": "609 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "609", "name1": "Rita Driscoll", "name2": "", "email1": "ritadriscoll@gmail.com", "email2": "", "initials": "RD", "gradient": "linear-gradient(135deg,#8B3A20,#5C2010)"}, {"id": 66, "address": "613 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "613", "name1": "Alexander Platt", "name2": "Chris Lucaj", "email1": "alex.platt@compass.com", "email2": "chrislucaj@gmail.com", "initials": "AP", "gradient": "linear-gradient(135deg,#7B4F9E,#5C3A7A)"}, {"id": 67, "address": "613 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "613", "name1": "Hugo Navarro", "name2": "Ximena Gonzalez Ruiz", "email1": "hugomedicine@yahoo.com", "email2": "ximenagonzalezruiz@gmail.com", "initials": "HN", "gradient": "linear-gradient(135deg,#2D6A4F,#52B788)"}, {"id": 68, "address": "617 NE FRANCESCA LN.", "street": "NE Francesca Ln.", "lot": "617", "name1": "Bozena Pisla-khalil", "name2": "", "email1": "bozenapkhalil@gmail.com", "email2": "", "initials": "BP", "gradient": "linear-gradient(135deg,#B84040,#8B2020)"}, {"id": 69, "address": "616 NE ROSSETTI LN.", "street": "NE Rossetti Ln.", "lot": "616", "name1": "Stuart Hayman", "name2": "", "email1": "shayman969@gmail.com", "email2": "", "initials": "SH", "gradient": "linear-gradient(135deg,#4A5E8A,#2D3F6B)"}, {"id": 70, "address": "612 NE ROSSETTI LN.", "street": "NE Rossetti Ln.", "lot": "612", "name1": "Stanislav Sidash", "name2": "Ruslana Sokolovskaya", "email1": "stanislav.sidash@gmail.com", "email2": "r.kolesker87@gmail.com", "initials": "SS", "gradient": "linear-gradient(135deg,#C0603A,#E8B84B)"}, {"id": 71, "address": "608 NE ROSSETTI LN.", "street": "NE Rossetti Ln.", "lot": "608", "name1": "Marguerita Behar", "name2": "Lauren Behar", "email1": "peggybehar2@gmail.com", "email2": "laurenbehar@yahoo.com", "initials": "MB", "gradient": "linear-gradient(135deg,#4A7C8A,#2D6A7A)"}, {"id": 72, "address": "604 NE ROSSETTI LN.", "street": "NE Rossetti Ln.", "lot": "604", "name1": "Trieste Properties, LLC", "name2": "Brian Dratt", "email1": "brian.beautypure@gmail.com", "email2": "", "initials": "TL", "gradient": "linear-gradient(135deg,#5C8A6A,#4A7C3F)"}, {"id": 73, "address": "604 NE ROSSETTI LN.", "street": "NE Rossetti Ln.", "lot": "604", "name1": "Joseph Tucker", "name2": "Chastity Tucker", "email1": "joei323@aol.com", "email2": "", "initials": "JT", "gradient": "linear-gradient(135deg,#6B7FBF,#4A5E8A)"}, {"id": 74, "address": "600 NE ROSSETTI LN.", "street": "NE Rossetti Ln.", "lot": "600", "name1": "Aryen Lehrer", "name2": "Jessica Lehrer", "email1": "Aryehelehrer@gmail.com", "email2": "jnatalie2005@yahoo.com", "initials": "AL", "gradient": "linear-gradient(135deg,#8B6914,#C49A2A)"}, {"id": 75, "address": "601 NE ROSSETTI LN.", "street": "NE Rossetti Ln.", "lot": "601", "name1": "Thomas Mcphee", "name2": "Betsy Messina", "email1": "tom.macphee@yahoo.com", "email2": "brmess0815@gmail.com", "initials": "TM", "gradient": "linear-gradient(135deg,#8B3A20,#5C2010)"}, {"id": 76, "address": "605 NE ROSSETTI LN.", "street": "NE Rossetti Ln.", "lot": "605", "name1": "Samuel Mcnabb", "name2": "Wilma Mcnabb", "email1": "seado@sbcglobal.net", "email2": "themamamcnabb5@aol.com", "initials": "SM", "gradient": "linear-gradient(135deg,#7B4F9E,#5C3A7A)"}, {"id": 77, "address": "609 NE ROSSETTI LN.", "street": "NE Rossetti Ln.", "lot": "609", "name1": "Elaine Gintoli", "name2": "Commercial Properties", "email1": "eginrn@bellsouth.net", "email2": "", "initials": "EG", "gradient": "linear-gradient(135deg,#2D6A4F,#52B788)"}, {"id": 78, "address": "613 NE ROSSETTI LN.", "street": "NE Rossetti Ln.", "lot": "613", "name1": "Rose Anne Weiner", "name2": "Steven Weiner", "email1": "827rosie@gmail.com", "email2": "steve613rossetti@gmail.com", "initials": "RW", "gradient": "linear-gradient(135deg,#B84040,#8B2020)"}, {"id": 79, "address": "617 NE ROSSETTI LN.", "street": "NE Rossetti Ln.", "lot": "617", "name1": "Thomas Olofsson", "name2": "Carrol Diamond", "email1": "THOMAS.OLOFSSON@ME.COM", "email2": "yogadiamond6@gmail.com", "initials": "TO", "gradient": "linear-gradient(135deg,#4A5E8A,#2D3F6B)"}, {"id": 80, "address": "616 NE VENEZIA LN.", "street": "NE Venezia Ln.", "lot": "616", "name1": "Randy Seltz", "name2": "", "email1": "randyseltz@outlook.com", "email2": "", "initials": "RS", "gradient": "linear-gradient(135deg,#C0603A,#E8B84B)"}, {"id": 81, "address": "616 NE VENEZIA LN.", "street": "NE Venezia Ln.", "lot": "616", "name1": "Leonardo Antunano", "name2": "", "email1": "leoantunanohealing@yahoo.com", "email2": "", "initials": "LA", "gradient": "linear-gradient(135deg,#4A7C8A,#2D6A7A)"}, {"id": 82, "address": "612 NE VENEZIA LN.", "street": "NE Venezia Ln.", "lot": "612", "name1": "Dimitry Kargman", "name2": "Olga Kargman", "email1": "dimitryny2010@gmail.com", "email2": "Olga.isleep@gmail.com", "initials": "DK", "gradient": "linear-gradient(135deg,#5C8A6A,#4A7C3F)"}, {"id": 83, "address": "608 NE VENEZIA LN.", "street": "NE Venezia Ln.", "lot": "608", "name1": "Brian Tight", "name2": "Helena Tight", "email1": "briantight@yahoo.com", "email2": "", "initials": "BT", "gradient": "linear-gradient(135deg,#6B7FBF,#4A5E8A)"}, {"id": 84, "address": "604 NE VENEZIA LN.", "street": "NE Venezia Ln.", "lot": "604", "name1": "Stephanie Schneider", "name2": "", "email1": "steffschneider13@gmail.com", "email2": "", "initials": "SS", "gradient": "linear-gradient(135deg,#8B6914,#C49A2A)"}, {"id": 85, "address": "604 NE VENEZIA LN.", "street": "NE Venezia Ln.", "lot": "604", "name1": "Ekaterina Belton", "name2": "", "email1": "katerinabelton@hotmail.com", "email2": "", "initials": "EB", "gradient": "linear-gradient(135deg,#8B3A20,#5C2010)"}, {"id": 86, "address": "600 NE VENEZIA LN.", "street": "NE Venezia Ln.", "lot": "600", "name1": "Charles Baltimore", "name2": "Kimberley Baltimore", "email1": "cbmore@me.com", "email2": "Kimbmore@comcast.net", "initials": "CB", "gradient": "linear-gradient(135deg,#7B4F9E,#5C3A7A)"}, {"id": 87, "address": "5650 NE TRIESTE TER.", "street": "NE Trieste Ter.", "lot": "5650", "name1": "Edward Russek", "name2": "Christine Russek", "email1": "erussek@aol.com", "email2": "", "initials": "ER", "gradient": "linear-gradient(135deg,#2D6A4F,#52B788)"}, {"id": 88, "address": "5640 NE TRIESTE TER.", "street": "NE Trieste Ter.", "lot": "5640", "name1": "Janica (Janice) Rub", "name2": "", "email1": "cookierub@aol.com", "email2": "", "initials": "JR", "gradient": "linear-gradient(135deg,#B84040,#8B2020)"}, {"id": 89, "address": "5630 NE TRIESTE TER.", "street": "NE Trieste Ter.", "lot": "5630", "name1": "Elizabeth Garrido", "name2": "Elizabeth Garrido TR Titl Hldr", "email1": "lizsvet@aol.com", "email2": "", "initials": "EG", "gradient": "linear-gradient(135deg,#4A5E8A,#2D3F6B)"}, {"id": 90, "address": "5630 NE TRIESTE TER.", "street": "NE Trieste Ter.", "lot": "5630", "name1": "Daniel Kandler", "name2": "Mela Kandler", "email1": "dkandler23@gmail.com", "email2": "melakandler@gmail.com", "initials": "DK", "gradient": "linear-gradient(135deg,#C0603A,#E8B84B)"}, {"id": 91, "address": "5620 NE TRIESTE TER.", "street": "NE Trieste Ter.", "lot": "5620", "name1": "Joanne Gabay", "name2": "Joanne Gabay TR Titl Hldr", "email1": "joannebg1@gmail.com", "email2": "", "initials": "JG", "gradient": "linear-gradient(135deg,#4A7C8A,#2D6A7A)"}, {"id": 92, "address": "5620 NE TRIESTE TER.", "street": "NE Trieste Ter.", "lot": "5620", "name1": "Philippe Calais", "name2": "Sabina Toscani", "email1": "calaisp@hotmail.com", "email2": "sabina.toscani@gmail.com", "initials": "PC", "gradient": "linear-gradient(135deg,#5C8A6A,#4A7C3F)"}, {"id": 93, "address": "5610 NE TRIESTE TER.", "street": "NE Trieste Ter.", "lot": "5610", "name1": "Dennis Charlebois", "name2": "Jo Anne Digiuseppe", "email1": "dennisc999@gmail.com", "email2": "Josie.456@hotmail.com", "initials": "DC", "gradient": "linear-gradient(135deg,#6B7FBF,#4A5E8A)"}, {"id": 94, "address": "5600 NE TRIESTE TER.", "street": "NE Trieste Ter.", "lot": "5600", "name1": "David Hopkins", "name2": "", "email1": "dhopkins@calumiteintl.com", "email2": "delcharro@gmail.com", "initials": "DH", "gradient": "linear-gradient(135deg,#8B6914,#C49A2A)"}, {"id": 95, "address": "5590 NE TRIESTE TER.", "street": "NE Trieste Ter.", "lot": "5590", "name1": "Amelin Lulic", "name2": "Mckenna Lulic", "email1": "amelinlulic@lewisu.edu", "email2": "mckennarlulic@lewisu.edu", "initials": "AL", "gradient": "linear-gradient(135deg,#8B3A20,#5C2010)"}, {"id": 96, "address": "5580 NE TRIESTE TER.", "street": "NE Trieste Ter.", "lot": "5580", "name1": "Judith Gozlan", "name2": "Albert Golzlan", "email1": "judy0424@aol.com", "email2": "AGOZLAN@JCTRADING.NET", "initials": "JG", "gradient": "linear-gradient(135deg,#7B4F9E,#5C3A7A)"}, {"id": 97, "address": "5570 NE TRIESTE TER.", "street": "NE Trieste Ter.", "lot": "5570", "name1": "Eric Cuddihy", "name2": "Anya Brits", "email1": "cuds66@gmail.com", "email2": "iambrits18@gmail.com", "initials": "EC", "gradient": "linear-gradient(135deg,#2D6A4F,#52B788)"}, {"id": 98, "address": "5560 NE TRIESTE TER.", "street": "NE Trieste Ter.", "lot": "5560", "name1": "Web Boca Trust", "name2": "C/O William Bulmer", "email1": "bulmer@msn.com", "email2": "", "initials": "WT", "gradient": "linear-gradient(135deg,#B84040,#8B2020)"}, {"id": 99, "address": "5550 NE TRIESTE TER.", "street": "NE Trieste Ter.", "lot": "5550", "name1": "Brett Schneider", "name2": "", "email1": "bschneider@wsh-law.com", "email2": "", "initials": "BS", "gradient": "linear-gradient(135deg,#4A5E8A,#2D3F6B)"}, {"id": 100, "address": "5540 NE TRIESTE TER.", "street": "NE Trieste Ter.", "lot": "5540", "name1": "Marypat Wulf Clements", "name2": "", "email1": "bocadoc@comcast.net", "email2": "pratmare@gmail.com", "initials": "MC", "gradient": "linear-gradient(135deg,#C0603A,#E8B84B)"}, {"id": 101, "address": "5530 NE TRIESTE TER.", "street": "NE Trieste Ter.", "lot": "5530", "name1": "Philippe Calais", "name2": "Sabina Toscani", "email1": "calaisp@hotmail.com", "email2": "", "initials": "PC", "gradient": "linear-gradient(135deg,#4A7C8A,#2D6A7A)"}, {"id": 102, "address": "5520 NE TRIESTE TER.", "street": "NE Trieste Ter.", "lot": "5520", "name1": "Robert Deak", "name2": "Jacqueline Colli", "email1": "trieste5520@gmail.com", "email2": "rfd2473@gmail.com", "initials": "RD", "gradient": "linear-gradient(135deg,#5C8A6A,#4A7C3F)"}, {"id": 103, "address": "5510 NE TRIESTE TER.", "street": "NE Trieste Ter.", "lot": "5510", "name1": "Soledad Deanda", "name2": "Joseph Kovera", "email1": "svdeanda@gmail.com", "email2": "joekovera2010@gmail.com", "initials": "SD", "gradient": "linear-gradient(135deg,#6B7FBF,#4A5E8A)"}, {"id": 104, "address": "5515 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5515", "name1": "Steven Heller", "name2": "", "email1": "steven@thebrandliaison.com", "email2": "", "initials": "SH", "gradient": "linear-gradient(135deg,#8B6914,#C49A2A)"}, {"id": 105, "address": "5525 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5525", "name1": "Irene Laraqui", "name2": "Rachid Laraqui", "email1": "rl.lynx@gmail.com", "email2": "", "initials": "IL", "gradient": "linear-gradient(135deg,#8B3A20,#5C2010)"}, {"id": 106, "address": "5535 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5535", "name1": "Alexander Shubov", "name2": "Olesya Shubov", "email1": "bigimot@hotmail.com", "email2": "o_lesya_sh@yahoo.com", "initials": "AS", "gradient": "linear-gradient(135deg,#7B4F9E,#5C3A7A)"}, {"id": 107, "address": "5545 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5545", "name1": "Elaine Papa", "name2": "Vincent Papa", "email1": "elainepapa@comcast.net", "email2": "vincentpapa@yahoo.com", "initials": "EP", "gradient": "linear-gradient(135deg,#2D6A4F,#52B788)"}, {"id": 108, "address": "5555 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5555", "name1": "Gary Toll", "name2": "Pamela Kramer", "email1": "tollstory@aol.com", "email2": "drpamelatoll@aol.com", "initials": "GT", "gradient": "linear-gradient(135deg,#B84040,#8B2020)"}, {"id": 109, "address": "5565 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5565", "name1": "Nicolas Larenas", "name2": "", "email1": "nlarenas@alcorp.cl", "email2": "", "initials": "NL", "gradient": "linear-gradient(135deg,#4A5E8A,#2D3F6B)"}, {"id": 110, "address": "5575 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5575", "name1": "Roger Martin TTE", "name2": "Teri Story (Daughter)", "email1": "rogermartin291@gmail.com", "email2": "terstory@gmail.com", "initials": "RT", "gradient": "linear-gradient(135deg,#C0603A,#E8B84B)"}, {"id": 111, "address": "5585 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5585", "name1": "Wendy Hagel", "name2": "", "email1": "wendyhagel12@gmail.com", "email2": "", "initials": "WH", "gradient": "linear-gradient(135deg,#4A7C8A,#2D6A7A)"}, {"id": 112, "address": "5595 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5595", "name1": "Michael Schwartz", "name2": "Karen Schwartz", "email1": "", "email2": "MLSKSS@comcast.net", "initials": "MS", "gradient": "linear-gradient(135deg,#5C8A6A,#4A7C3F)"}, {"id": 113, "address": "5605 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5605", "name1": "Rhonda Romano", "name2": "Charles Romano", "email1": "romanomax3@aol.com", "email2": "", "initials": "RR", "gradient": "linear-gradient(135deg,#6B7FBF,#4A5E8A)"}, {"id": 114, "address": "5615 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5615", "name1": "Kathleen Burke", "name2": "Scot Burke", "email1": "attyburke@aol.com", "email2": "SBurke1001@aol.com", "initials": "KB", "gradient": "linear-gradient(135deg,#8B6914,#C49A2A)"}, {"id": 115, "address": "5625 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5625", "name1": "Josephine Tribunella TR", "name2": "", "email1": "Josephine3@bellsouth.net", "email2": "", "initials": "JT", "gradient": "linear-gradient(135deg,#8B3A20,#5C2010)"}, {"id": 116, "address": "5635 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5635", "name1": "Diane Bender", "name2": "", "email1": "diane@sydiane.com", "email2": "", "initials": "DB", "gradient": "linear-gradient(135deg,#7B4F9E,#5C3A7A)"}, {"id": 117, "address": "5645 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5645", "name1": "Richard Schwartz", "name2": "", "email1": "domainking@gmail.com", "email2": "", "initials": "RS", "gradient": "linear-gradient(135deg,#2D6A4F,#52B788)"}, {"id": 118, "address": "5655 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5655", "name1": "Zoila Barton", "name2": "", "email1": "marceybarton@gmail.com", "email2": "", "initials": "ZB", "gradient": "linear-gradient(135deg,#B84040,#8B2020)"}, {"id": 119, "address": "5665 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5665", "name1": "Kara Cassidy", "name2": "Stephen (Sid) Cassidy", "email1": "kara.cassidy1@gmail.com", "email2": "coachsid@gmail.com", "initials": "KC", "gradient": "linear-gradient(135deg,#4A5E8A,#2D3F6B)"}, {"id": 120, "address": "5675 NE TRIESTE WAY", "street": "NE Trieste Way", "lot": "5675", "name1": "Cindy Jaffy", "name2": "", "email1": "cindyj97@aol.com", "email2": "", "initials": "CJ", "gradient": "linear-gradient(135deg,#C0603A,#E8B84B)"}];
 
 function renderDirectory(list) {
   const grid = document.getElementById('dir-grid');
@@ -4842,10 +5548,15 @@ function renderDirectory(list) {
   if (count) count.textContent = list.length;
 
   grid.innerHTML = list.map(r => {
-    const partner = r.name2 ? `<div style="font-size:12px;color:var(--stone);margin-top:1px;">&amp; ${r.name2}</div>` : '';
+    const partner  = r.name2 ? `<div style="font-size:12px;color:var(--stone);margin-top:1px;">&amp; ${r.name2}</div>` : '';
     const emailRow = r.email1 ? `<a href="mailto:${r.email1}" style="font-size:11.5px;color:var(--terra);text-decoration:none;display:block;margin-top:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${r.email1}">✉ ${r.email1}</a>` : '';
+    const adminBtn = isAdmin ? `
+      <button onclick="deleteResident(${r.id})" title="Remove from directory"
+        style="flex-shrink:0;margin-left:6px;align-self:flex-start;padding:4px 8px;font-size:12px;border-radius:2px;border:1.5px solid rgba(192,96,58,0.3);background:transparent;color:var(--terra);cursor:pointer;transition:all 0.15s;line-height:1;"
+        onmouseenter="this.style.background='var(--terra)';this.style.color='white'"
+        onmouseleave="this.style.background='transparent';this.style.color='var(--terra)'">🗑️</button>` : '';
     return `
-    <div style="background:var(--warm-white);border-radius:4px;border:1px solid rgba(138,121,104,0.12);box-shadow:var(--shadow);padding:16px 18px;display:flex;align-items:flex-start;gap:13px;transition:box-shadow 0.15s,transform 0.15s;" onmouseenter="this.style.boxShadow='var(--shadow-strong)';this.style.transform='translateY(-1px)'" onmouseleave="this.style.boxShadow='var(--shadow)';this.style.transform='none'">
+    <div id="dir-card-${r.id}" style="background:var(--warm-white);border-radius:4px;border:1px solid rgba(138,121,104,0.12);box-shadow:var(--shadow);padding:16px 18px;display:flex;align-items:flex-start;gap:13px;transition:box-shadow 0.15s,transform 0.15s;" onmouseenter="this.style.boxShadow='var(--shadow-strong)';this.style.transform='translateY(-1px)'" onmouseleave="this.style.boxShadow='var(--shadow)';this.style.transform='none'">
       <div style="width:42px;height:42px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:white;background:${r.gradient}">${r.initials}</div>
       <div style="flex:1;min-width:0;">
         <div style="font-size:14px;font-weight:600;color:var(--text);line-height:1.25;">${r.name1}</div>
@@ -4853,8 +5564,19 @@ function renderDirectory(list) {
         <div style="font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--stone);margin-top:5px;">📍 ${r.address}</div>
         ${emailRow}
       </div>
+      ${adminBtn}
     </div>`;
   }).join('');
+}
+
+function deleteResident(id) {
+  const r = RESIDENTS.find(x => x.id === id);
+  if (!r) return;
+  if (!confirm(`Remove "${r.name1}${r.name2 ? ' & ' + r.name2 : ''}" from the directory?`)) return;
+  RESIDENTS = RESIDENTS.filter(x => x.id !== id);
+  // Re-apply current search/filter so the display updates correctly
+  dirSearch(document.getElementById('dir-search')?.value || '');
+  showToast('🗑️ Resident removed from directory.');
 }
 
 function dirSearch(query) {
@@ -4901,6 +5623,7 @@ function renderAdminPanel() {
   renderAdminContractors();
   renderAdminQuestions();
   renderAdminKB();
+  renderAdminUsers();
 }
 
 // ── Photos ─────────────────────────────────────
@@ -5261,6 +5984,50 @@ function adminDeleteKB(fi, ai) {
   showToast('🗑️ Article deleted.');
 }
 
+// ── Admin KB file upload helpers ──────────────
+let admKbFile = null;
+const ADM_KB_ICONS = { pdf:'📕', doc:'📘', docx:'📘', xls:'📗', xlsx:'📗', ppt:'📙', pptx:'📙', txt:'📄' };
+function admKbGetExt(n) { return n.split('.').pop().toLowerCase(); }
+function admKbFmtSize(b) {
+  if (b < 1024) return b + ' B';
+  if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
+  return (b/1048576).toFixed(1) + ' MB';
+}
+function admKbHandleDrop(e) {
+  e.preventDefault();
+  document.getElementById('adm-kb-dropzone').classList.remove('kb-drop-active');
+  const f = e.dataTransfer.files[0]; if (f) admKbLoadFile(f);
+}
+function admKbFileSelect(e) {
+  const f = e.target.files[0]; if (f) admKbLoadFile(f); e.target.value = '';
+}
+function admKbLoadFile(file) {
+  if (file.size > 25*1024*1024) { showToast('⚠️ File too large — max 25MB.'); return; }
+  admKbFile = file;
+  const ext = admKbGetExt(file.name);
+  document.getElementById('adm-kb-file-icon').textContent = ADM_KB_ICONS[ext] || '📄';
+  document.getElementById('adm-kb-file-name').textContent = file.name;
+  document.getElementById('adm-kb-file-size').textContent = admKbFmtSize(file.size) + ' · ' + ext.toUpperCase();
+  document.getElementById('adm-kb-dropzone').style.display = 'none';
+  document.getElementById('adm-kb-file-preview').style.display = 'block';
+  const typeMap = { pdf:'PDF', docx:'DOCX', doc:'DOCX', xlsx:'XLSX', xls:'XLSX', pptx:'PPTX', ppt:'PPTX', txt:'Article' };
+  const typeEl = document.getElementById('adm-kb-type');
+  if (typeEl && typeMap[ext]) typeEl.value = typeMap[ext];
+  const titleEl = document.getElementById('adm-kb-title');
+  if (titleEl && !titleEl.value.trim()) {
+    titleEl.value = file.name.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+  }
+}
+function admKbClearFile() {
+  admKbFile = null;
+  const dz = document.getElementById('adm-kb-dropzone');
+  const fp = document.getElementById('adm-kb-file-preview');
+  if (dz) dz.style.display = 'flex';
+  if (fp) fp.style.display = 'none';
+  const fi = document.getElementById('adm-kb-file-input');
+  if (fi) fi.value = '';
+}
+
 function adminAddKBArticle() {
   const title   = document.getElementById('adm-kb-title').value.trim();
   const fi      = parseInt(document.getElementById('adm-kb-folder').value);
@@ -5270,14 +6037,37 @@ function adminAddKBArticle() {
   const content = document.getElementById('adm-kb-content').value.trim();
   if (!title) { showToast('⚠️ Title is required.'); return; }
   if (typeof KB_FOLDERS === 'undefined') { showToast('⚠️ Knowledge base not loaded.'); return; }
-  KB_FOLDERS[fi].articles.push({ title, type, tags, summary, content, date: new Date().getFullYear().toString() });
-  renderAdminKB();
-  renderKBTree();
-  document.getElementById('adm-kb-title').value   = '';
-  document.getElementById('adm-kb-tags').value    = '';
-  document.getElementById('adm-kb-summary').value = '';
-  document.getElementById('adm-kb-content').value = '';
-  showToast('✅ Article added to knowledge base.');
+
+  const finish = (extra) => {
+    KB_FOLDERS[fi].articles.push({
+      title, type, tags,
+      summary: summary || (extra.size ? type + ' — ' + extra.size : ''),
+      content: content || (extra.dataUrl ? '<p>Document uploaded by administrator. Click <strong>Download</strong> to access the full file.</p>' : ''),
+      date: new Date().getFullYear().toString(),
+      icon: extra.icon || '📄',
+      ...extra,
+    });
+    renderAdminKB(); renderKBTree();
+    document.getElementById('adm-kb-title').value   = '';
+    document.getElementById('adm-kb-tags').value    = '';
+    document.getElementById('adm-kb-summary').value = '';
+    document.getElementById('adm-kb-content').value = '';
+    admKbClearFile();
+    showToast('✅ Article added to ' + KB_FOLDERS[fi].label + '!');
+  };
+
+  if (admKbFile) {
+    const ext = admKbGetExt(admKbFile.name);
+    const reader = new FileReader();
+    reader.onload = ev => finish({
+      dataUrl: ev.target.result, uploaded: true,
+      size: admKbFmtSize(admKbFile.size),
+      icon: ADM_KB_ICONS[ext] || '📄',
+    });
+    reader.readAsDataURL(admKbFile);
+  } else {
+    finish({});
+  }
 }
 
 // Hook renderAdminPanel into showPage for admin tab
