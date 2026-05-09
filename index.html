@@ -1543,9 +1543,6 @@
       <div class="nav-item active" onclick="showPage('dashboard', this)" data-roles="admin,board,resident">
         <span class="icon">🏠</span> Dashboard
       </div>
-      <div class="nav-item" onclick="showPage('about', this)" data-roles="admin,board,resident">
-        <span class="icon">ℹ️</span> About Us
-      </div>
       <div class="nav-item" id="admin-nav-item" style="display:none;background:rgba(192,96,58,0.08);border-left:3px solid var(--terra);" onclick="showPage('admin', this)" data-roles="admin">
         <span class="icon">🛡️</span> Admin Panel
       </div>
@@ -1570,13 +1567,7 @@
       </div>
       <div class="nav-section-label" data-roles="admin,board,resident">Resources</div>
       <div class="nav-item" onclick="showPage('knowledge', this)" data-roles="admin,board,resident">
-        <span class="icon">📚</span> Knowledge Base
-      </div>
-      <div class="nav-item" onclick="showPage('gallery', this)" data-roles="admin,board,resident">
-        <span class="icon">🖼️</span> Home Gallery
-      </div>
-      <div class="nav-item" onclick="showPage('directory', this)" data-roles="admin,board,resident">
-        <span class="icon">👥</span> Directory
+        <span class="icon">📚</span> Resources
       </div>
       <div class="nav-item" onclick="showPage('announcements', this)" data-roles="admin,board,resident">
         <span class="icon">📢</span> Announcements
@@ -1781,38 +1772,6 @@
     </div>
 
     <!-- ── GALLERY ── -->
-    <div id="page-gallery" class="page">
-
-      <div class="gallery-hero">
-        <div class="gallery-hero-text">
-          <h2>Community Gallery</h2>
-          <p>A curated showcase of Trieste's beautiful Mediterranean architecture, interior design, and outdoor living spaces — submitted by our homeowners.</p>
-          <button class="gallery-upload-btn" style="margin-top:18px;" onclick="openUploadModal()">
-            📷 Upload a Photo
-          </button>
-        </div>
-        <div class="gallery-hero-stat">
-          <div class="big" id="gallery-count">36</div>
-          <div class="lbl">Photos</div>
-        </div>
-      </div>
-
-      <div class="gallery-filters" style="justify-content:space-between;">
-        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
-        <span class="gallery-filters-label">Filter:</span>
-        <button class="filter-btn active" onclick="setGalleryFilter(this,'all')">All</button>
-        <button class="filter-btn" onclick="setGalleryFilter(this,'exterior')">🏛️ Exterior</button>
-        <button class="filter-btn" onclick="setGalleryFilter(this,'interior')">🛋️ Interior</button>
-        <button class="filter-btn" onclick="setGalleryFilter(this,'kitchen')">🍳 Kitchen</button>
-        <button class="filter-btn" onclick="setGalleryFilter(this,'outdoor')">🌴 Outdoor</button>
-        <button class="filter-btn" onclick="setGalleryFilter(this,'pool')">💧 Pool</button>
-        </div>
-        <button class="gallery-upload-btn" onclick="openModal('upload-modal')">📷 Upload Photo</button>
-      </div>
-
-      <div class="gallery-masonry" id="gallery-grid"></div>
-    </div>
-
     <!-- ── KNOWLEDGE BASE ── -->
     <div id="page-knowledge" class="page">
 
@@ -1858,218 +1817,6 @@
     </div>
 
     <!-- ── ABOUT US ── -->
-    <div id="page-about" class="page">
-
-      <!-- Hero banner -->
-      <div style="border-radius:4px;overflow:hidden;margin-bottom:28px;position:relative;min-height:220px;display:flex;align-items:flex-end;"
-           id="about-hero-wrap">
-        <div style="position:absolute;inset:0;background:linear-gradient(145deg,#2C1508 0%,#5A2810 45%,#8B4020 100%);"></div>
-        <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 80% 50%,rgba(232,184,75,0.18) 0%,transparent 70%);"></div>
-        <!-- Decorative rings -->
-        <div style="position:absolute;width:340px;height:340px;border:1px solid rgba(232,184,75,0.1);border-radius:50%;top:50%;right:8%;transform:translateY(-50%);"></div>
-        <div style="position:absolute;width:220px;height:220px;border:1px solid rgba(232,184,75,0.12);border-radius:50%;top:50%;right:12%;transform:translateY(-50%);"></div>
-        <div style="position:relative;z-index:2;padding:44px 48px;">
-          <p style="font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(232,184,75,0.7);margin-bottom:10px;">Boca Raton, Florida</p>
-          <h2 style="font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:600;color:var(--gold-light);line-height:1.1;margin-bottom:12px;">Trieste at Boca Raton</h2>
-          <p style="font-size:15px;color:rgba(196,180,154,0.8);max-width:540px;line-height:1.65;">A 24-hour guard-gated community of 109 luxury townhomes by Toll Brothers — where Mediterranean elegance meets the South Florida lifestyle.</p>
-        </div>
-      </div>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:22px;">
-
-        <!-- Community Story -->
-        <div class="dash-card" style="padding:30px 32px;">
-          <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(138,121,104,0.1);">
-            <div style="width:44px;height:44px;border-radius:4px;background:linear-gradient(135deg,var(--terra),var(--terra-dark));display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🏛️</div>
-            <h3 style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--terra-dark);">Our Community</h3>
-          </div>
-          <p style="font-size:13.5px;color:var(--text-muted);line-height:1.75;margin-bottom:12px;">Trieste at Boca Raton is a 24-hour guard-gated HOA community of luxuriously crafted townhomes, situated in an ideal east Boca Raton location. Developed by Toll Brothers, one of South Florida's top luxury builders, Trieste at Boca Raton townhomes boast elegant Mediterranean-inspired architecture, exquisite designer details, and exceptional quality craftsmanship.</p>
-          <p style="font-size:13.5px;color:var(--text-muted);line-height:1.75;">With award-winning landscaping throughout the community, fiber-to-the-home internet &amp; TV infrastructure, and a world-class pool and spa, Trieste at Boca Raton is the perfect place to enjoy the laid-back South Florida lifestyle.</p>
-        </div>
-
-        <!-- Residences -->
-        <div class="dash-card" style="padding:30px 32px;">
-          <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(138,121,104,0.1);">
-            <div style="width:44px;height:44px;border-radius:4px;background:linear-gradient(135deg,#4A7C8A,#2D6A7A);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🏠</div>
-            <h3 style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--terra-dark);">The Residences</h3>
-          </div>
-          <p style="font-size:13.5px;color:var(--text-muted);line-height:1.75;margin-bottom:12px;">Nestled on over 12 tropically landscaped acres, the community features 109 three-story townhomes with two-car garages and from 2,850 to over 3,000 square feet of living space. Features commonly found in Trieste townhomes include split-bedroom floor plans, upgraded hardwood and Saturnia marble flooring, vaulted ceilings, and gourmet kitchens with granite countertops and stainless steel appliances.</p>
-          <p style="font-size:13.5px;color:var(--text-muted);line-height:1.75;">Additional features include both gas and electric utilities with tankless water heaters, luxurious master suites with walk-in closets and marble baths, hurricane impact windows, private backyards, and two-car garages. Many homes also feature private elevators and full outdoor kitchens.</p>
-        </div>
-      </div>
-
-      <!-- Location full-width -->
-      <div class="dash-card" style="padding:30px 32px;margin-bottom:22px;">
-        <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(138,121,104,0.1);">
-          <div style="width:44px;height:44px;border-radius:4px;background:linear-gradient(135deg,#2D6A4F,#52B788);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">📍</div>
-          <h3 style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--terra-dark);">Location &amp; Setting</h3>
-        </div>
-        <p style="font-size:13.5px;color:var(--text-muted);line-height:1.75;margin-bottom:12px;">Trieste at Boca Raton is located at 5700 North Federal Highway in the heart of East Boca Raton, FL. The community is conveniently situated near many of the area's finest shopping, dining, and entertainment options, as well as a wide range of nearby recreational destinations.</p>
-        <p style="font-size:13.5px;color:var(--text-muted);line-height:1.75;margin-bottom:12px;">Trieste at Boca Raton is close to Spanish River Park, Gumbo Limbo Nature Center, and Lake Wyman Park, and is just a short distance from Boca Raton's beautiful beaches. The property is ideally situated between Downtown Delray Beach to the north and Mizner Park to the south.</p>
-        <div style="margin-top:18px;padding:16px 20px;background:linear-gradient(135deg,rgba(192,96,58,0.06),rgba(232,184,75,0.06));border-left:3px solid var(--gold);border-radius:0 3px 3px 0;">
-          <p style="font-size:13.5px;color:var(--terra-dark);font-weight:500;line-height:1.65;">For additional questions about the Trieste at Boca Raton community, please contact us at <a href="mailto:management@trieste.com" style="color:var(--terra);text-decoration:none;font-weight:600;">management@trieste.com</a> or call <a href="tel:5615550100" style="color:var(--terra);text-decoration:none;font-weight:600;">(561) 555-0100</a>.</p>
-        </div>
-      </div>
-
-      <!-- Amenities row -->
-      <div class="dash-card" style="padding:30px 32px;margin-bottom:22px;">
-        <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid rgba(138,121,104,0.1);">
-          <div style="width:44px;height:44px;border-radius:4px;background:linear-gradient(135deg,#2D6A4F,#52B788);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🌴</div>
-          <h3 style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--terra-dark);">Community Amenities</h3>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;">
-          <div style="text-align:center;padding:20px 12px;background:rgba(138,121,104,0.04);border-radius:4px;border:1px solid rgba(138,121,104,0.1);">
-            <div style="font-size:30px;margin-bottom:10px;">💧</div>
-            <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;">Resort Pool</div>
-            <div style="font-size:12px;color:var(--text-muted);">Heated community pool with sundeck and lounge chairs</div>
-          </div>
-          <div style="text-align:center;padding:20px 12px;background:rgba(138,121,104,0.04);border-radius:4px;border:1px solid rgba(138,121,104,0.1);">
-            <div style="font-size:30px;margin-bottom:10px;">🛁</div>
-            <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;">Spa & Hot Tub</div>
-            <div style="font-size:12px;color:var(--text-muted);">Heated spa adjacent to the main pool area</div>
-          </div>
-          <div style="text-align:center;padding:20px 12px;background:rgba(138,121,104,0.04);border-radius:4px;border:1px solid rgba(138,121,104,0.1);">
-            <div style="font-size:30px;margin-bottom:10px;">🏛️</div>
-            <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;">Clubhouse</div>
-            <div style="font-size:12px;color:var(--text-muted);">Private clubhouse available for resident gatherings and HOA meetings</div>
-          </div>
-          <div style="text-align:center;padding:20px 12px;background:rgba(138,121,104,0.04);border-radius:4px;border:1px solid rgba(138,121,104,0.1);">
-            <div style="font-size:30px;margin-bottom:10px;">🔐</div>
-            <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;">Gated Entry</div>
-            <div style="font-size:12px;color:var(--text-muted);">Secure gated access with resident key fob system</div>
-          </div>
-          <div style="text-align:center;padding:20px 12px;background:rgba(138,121,104,0.04);border-radius:4px;border:1px solid rgba(138,121,104,0.1);">
-            <div style="font-size:30px;margin-bottom:10px;">🌿</div>
-            <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;">Landscaping</div>
-            <div style="font-size:12px;color:var(--text-muted);">Professionally maintained common areas and tropical grounds</div>
-          </div>
-          <div style="text-align:center;padding:20px 12px;background:rgba(138,121,104,0.04);border-radius:4px;border:1px solid rgba(138,121,104,0.1);">
-            <div style="font-size:30px;margin-bottom:10px;">🚗</div>
-            <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;">Private Garages</div>
-            <div style="font-size:12px;color:var(--text-muted);">Each residence includes an attached one- or two-car garage</div>
-          </div>
-          <div style="text-align:center;padding:20px 12px;background:rgba(138,121,104,0.04);border-radius:4px;border:1px solid rgba(138,121,104,0.1);">
-            <div style="font-size:30px;margin-bottom:10px;">🐾</div>
-            <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;">Pet Friendly</div>
-            <div style="font-size:12px;color:var(--text-muted);">Pet-friendly community with designated relief stations</div>
-          </div>
-          <div style="text-align:center;padding:20px 12px;background:rgba(138,121,104,0.04);border-radius:4px;border:1px solid rgba(138,121,104,0.1);">
-            <div style="font-size:30px;margin-bottom:10px;">🌊</div>
-            <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;">Waterfront Access</div>
-            <div style="font-size:12px;color:var(--text-muted);">Walking distance to the Intracoastal Waterway and beach access</div>
-          </div>
-        </div>
-      </div>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:22px;">
-
-        <!-- Board of Directors -->
-        <div class="dash-card" style="padding:30px 32px;">
-          <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(138,121,104,0.1);">
-            <div style="width:44px;height:44px;border-radius:4px;background:linear-gradient(135deg,var(--gold),var(--gold-dark,#C49A2A));display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">⭐</div>
-            <h3 style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--terra-dark);">Board of Directors</h3>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:12px;">
-            <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:rgba(138,121,104,0.04);border-radius:3px;border-left:3px solid var(--gold);">
-              <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--terra),var(--gold));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;">DC</div>
-              <div><div style="font-size:13.5px;font-weight:600;color:var(--text);">Dennis Charlebois</div><div style="font-size:12px;color:var(--stone);">President</div></div>
-            </div>
-            <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:rgba(138,121,104,0.04);border-radius:3px;border-left:3px solid rgba(232,184,75,0.5);">
-              <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#4A7C8A,#2D6A7A);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;">MD</div>
-              <div><div style="font-size:13.5px;font-weight:600;color:var(--text);">Matthew Deak</div><div style="font-size:12px;color:var(--stone);">Vice President</div></div>
-            </div>
-            <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:rgba(138,121,104,0.04);border-radius:3px;border-left:3px solid rgba(232,184,75,0.5);">
-              <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#5C8A6A,#4A7C3F);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;">JL</div>
-              <div><div style="font-size:13.5px;font-weight:600;color:var(--text);">John Lavender</div><div style="font-size:12px;color:var(--stone);">Treasurer</div></div>
-            </div>
-            <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:rgba(138,121,104,0.04);border-radius:3px;border-left:3px solid rgba(232,184,75,0.5);">
-              <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#6B7FBF,#4A5E8A);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;">AC</div>
-              <div><div style="font-size:13.5px;font-weight:600;color:var(--text);">Adam Cohen</div><div style="font-size:12px;color:var(--stone);">Secretary</div></div>
-            </div>
-            <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:rgba(138,121,104,0.04);border-radius:3px;border-left:3px solid rgba(232,184,75,0.5);">
-              <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#8B3A20,#5C2010);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;">RL</div>
-              <div><div style="font-size:13.5px;font-weight:600;color:var(--text);">Robert Levine</div><div style="font-size:12px;color:var(--stone);">Director at Large</div></div>
-            </div>
-          </div>
-          <p style="font-size:11.5px;color:var(--stone);margin-top:14px;line-height:1.55;">Board members are elected annually at the January HOA meeting. All residents in good standing are eligible to run.</p>
-          <div style="margin-top:14px;padding:12px 16px;background:rgba(232,184,75,0.07);border:1px solid rgba(232,184,75,0.2);border-radius:3px;display:flex;align-items:center;gap:10px;">
-            <span style="font-size:16px;">✉</span>
-            <div>
-              <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--stone);margin-bottom:3px;">Contact the Board</div>
-              <a href="mailto:TriesteHOA-board@GoogleGroups.com" style="font-size:13px;font-weight:600;color:var(--terra);text-decoration:none;">TriesteHOA-board@GoogleGroups.com</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Management & Contact -->
-        <div style="display:flex;flex-direction:column;gap:16px;">
-          <div class="dash-card" style="padding:26px 30px;">
-            <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
-              <div style="width:40px;height:40px;border-radius:4px;background:linear-gradient(135deg,var(--terra-light),var(--terra));display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🏢</div>
-              <h3 style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;color:var(--terra-dark);">Management Company</h3>
-            </div>
-            <p style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px;">Lang Management Company</p>
-            <p style="font-size:13px;color:var(--text-muted);margin-bottom:10px;">790 Park of Commerce Blvd., Suite 200<br>Boca Raton, FL 33487</p>
-            <div style="display:flex;flex-direction:column;gap:6px;">
-              <a href="http://www.Langmgmt.com" target="_blank" rel="noopener noreferrer" style="font-size:13px;color:var(--terra);text-decoration:none;display:flex;align-items:center;gap:6px;">🌐 www.Langmgmt.com</a>
-              <a href="tel:5617508800" style="font-size:13px;color:var(--terra);text-decoration:none;display:flex;align-items:center;gap:6px;">📞 (561) 750-8800 &nbsp;<span style="color:var(--stone);font-weight:400;">Main</span></a>
-              <span style="font-size:13px;color:var(--text-muted);display:flex;align-items:center;gap:6px;">📠 (561) 750-4528 &nbsp;<span style="color:var(--stone);font-weight:400;">Fax</span></span>
-            </div>
-          </div>
-          <div class="dash-card" style="padding:26px 30px;">
-            <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
-              <div style="width:40px;height:40px;border-radius:4px;background:linear-gradient(135deg,#B84040,#8B2020);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🚨</div>
-              <h3 style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;color:var(--terra-dark);">Emergency Contacts</h3>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:8px;">
-              <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:8px;border-bottom:1px solid rgba(138,121,104,0.08);">
-                <span style="font-size:13px;color:var(--text-muted);">HOA After-Hours Emergency</span>
-                <a href="tel:5615550900" style="font-size:13px;font-weight:600;color:var(--terra);text-decoration:none;">(561) 555-0900</a>
-              </div>
-              <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:8px;border-bottom:1px solid rgba(138,121,104,0.08);">
-                <span style="font-size:13px;color:var(--text-muted);">Police / Fire / EMS</span>
-                <span style="font-size:13px;font-weight:700;color:#B84040;">911</span>
-              </div>
-              <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:8px;border-bottom:1px solid rgba(138,121,104,0.08);">
-                <span style="font-size:13px;color:var(--text-muted);">FPL Outage Reporting</span>
-                <a href="tel:18004688243" style="font-size:13px;font-weight:600;color:var(--terra);text-decoration:none;">1-800-468-8243</a>
-              </div>
-              <div style="display:flex;justify-content:space-between;align-items:center;">
-                <span style="font-size:13px;color:var(--text-muted);">PBC Sheriff (Non-Emergency)</span>
-                <a href="tel:5616883000" style="font-size:13px;font-weight:600;color:var(--terra);text-decoration:none;">(561) 688-3000</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Quick facts bar -->
-      <div class="dash-card" style="padding:24px 32px;">
-        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:0;text-align:center;">
-          <div style="padding:10px;border-right:1px solid rgba(138,121,104,0.12);">
-            <div style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;color:var(--terra-dark);line-height:1;">109</div>
-            <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--stone);margin-top:4px;">Homes</div>
-          </div>
-          <div style="padding:10px;border-right:1px solid rgba(138,121,104,0.12);">
-            <div style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;color:var(--terra-dark);line-height:1;">7</div>
-            <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--stone);margin-top:4px;">Streets</div>
-          </div>
-          <div style="padding:10px;border-right:1px solid rgba(138,121,104,0.12);">
-            <div style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;color:var(--terra-dark);line-height:1;">3</div>
-            <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--stone);margin-top:4px;">Floor Plans</div>
-          </div>
-          <div style="padding:10px;border-right:1px solid rgba(138,121,104,0.12);">
-            <div style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;color:var(--terra-dark);line-height:1;">$305</div>
-            <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--stone);margin-top:4px;">Monthly HOA</div>
-          </div>
-          <div style="padding:10px;">
-            <div style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;color:var(--terra-dark);line-height:1;">2002</div>
-            <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--stone);margin-top:4px;">Year Built</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
 
     <!-- ── COMMUNITY FEED ── -->
     <div id="page-feed" class="page">
@@ -2158,7 +1905,6 @@
           <p>Manage all community content — photos, contractors, questions, and knowledge base articles.</p>
         </div>
         <div class="admin-stat-chips">
-          <div class="admin-chip"><div class="n" id="adm-photo-count">0</div><div class="l">Photos</div></div>
           <div class="admin-chip"><div class="n" id="adm-contractor-count">0</div><div class="l">Contractors</div></div>
           <div class="admin-chip"><div class="n" id="adm-question-count">0</div><div class="l">Questions</div></div>
           <div class="admin-chip"><div class="n" id="adm-kb-count">0</div><div class="l">KB Articles</div></div>
@@ -2167,33 +1913,15 @@
 
       <!-- Tabs -->
       <div class="admin-tabs">
-        <button class="admin-tab active" onclick="switchAdminTab('photos',this)">🖼️ Gallery Photos</button>
-        <button class="admin-tab" onclick="switchAdminTab('contractors',this)">🔧 Contractors</button>
+        <button class="admin-tab active" onclick="switchAdminTab('contractors',this)">🔧 Contractors</button>
         <button class="admin-tab" onclick="switchAdminTab('questions',this)">💬 Questions</button>
-        <button class="admin-tab" onclick="switchAdminTab('kb',this)">📚 Knowledge Base</button>
+        <button class="admin-tab" onclick="switchAdminTab('kb',this)">📚 Resources</button>
         <button class="admin-tab" onclick="switchAdminTab('users',this)">👥 Users</button>
       </div>
 
       <!-- ── Photos Tab ── -->
-      <div class="admin-section active" id="admin-photos">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-          <p style="font-size:13px;color:var(--stone);">All gallery photos. Edit metadata or remove photos.</p>
-          <button class="btn-primary" onclick="showPage('gallery', document.querySelector(\'[onclick*=gallery]\'))">+ Upload via Gallery</button>
-        </div>
-        <table class="admin-table" id="admin-photos-table">
-          <thead><tr>
-            <th style="width:52px;">Photo</th>
-            <th>Title</th>
-            <th>Category</th>
-            <th>Lot</th>
-            <th style="width:150px;">Actions</th>
-          </tr></thead>
-          <tbody id="admin-photos-tbody"></tbody>
-        </table>
-      </div>
-
       <!-- ── Contractors Tab ── -->
-      <div class="admin-section" id="admin-contractors">
+      <div class="admin-section active" id="admin-contractors">
         <!-- Add contractor form -->
         <div class="admin-form-card">
           <h3>➕ Add New Contractor</h3>
@@ -2390,43 +2118,6 @@
     </div>
 
     <!-- ── DIRECTORY ── -->
-    <div id="page-directory" class="page">
-
-      <!-- Search + stats bar -->
-      <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;flex-wrap:wrap;">
-        <div style="position:relative;flex:1;min-width:240px;">
-          <span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:16px;pointer-events:none;">🔍</span>
-          <input id="dir-search" type="text" placeholder="Search by name, address, or street…"
-            oninput="dirSearch(this.value)"
-            style="width:100%;padding:12px 40px 12px 42px;border:1.5px solid rgba(138,121,104,0.25);border-radius:3px;font-family:'Jost',sans-serif;font-size:14px;color:var(--text);background:var(--warm-white);outline:none;transition:border-color 0.2s;"
-            onfocus="this.style.borderColor='var(--terra)'" onblur="this.style.borderColor='rgba(138,121,104,0.25)'"/>
-        </div>
-        <select id="dir-street-filter" onchange="dirSearch(document.getElementById('dir-search').value)"
-          style="padding:12px 14px;border:1.5px solid rgba(138,121,104,0.25);border-radius:3px;font-family:'Jost',sans-serif;font-size:13px;color:var(--text);background:var(--warm-white);outline:none;cursor:pointer;">
-          <option value="">All Streets</option>
-          <option>NE Verde Cir.</option>
-          <option>NE Trieste Ln.</option>
-          <option>NE Francesca Ln.</option>
-          <option>NE Rossetti Ln.</option>
-          <option>NE Venezia Ln.</option>
-          <option>NE Trieste Ter.</option>
-          <option>NE Trieste Way</option>
-        </select>
-        <div style="background:var(--warm-white);border:1px solid rgba(138,121,104,0.12);border-radius:3px;padding:10px 18px;white-space:nowrap;box-shadow:var(--shadow);">
-          <span style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--terra-dark);" id="dir-count">121</span>
-          <span style="font-size:12px;color:var(--stone);margin-left:6px;">Residents</span>
-        </div>
-      </div>
-
-      <!-- Grid -->
-      <div id="dir-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;"></div>
-      <div id="dir-empty" style="display:none;text-align:center;padding:60px 24px;background:var(--warm-white);border-radius:4px;border:1px solid rgba(138,121,104,0.1);">
-        <div style="font-size:40px;margin-bottom:12px;">🔍</div>
-        <h3 style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--terra-dark);margin-bottom:6px;">No results found</h3>
-        <p style="color:var(--stone);font-size:13px;">Try a different name or street.</p>
-      </div>
-    </div>
-
     <!-- ── ANNOUNCEMENTS ── -->
     <div id="page-announcements" class="page">
 
@@ -2944,10 +2635,9 @@ function showPage(id, navEl) {
   const titles = {
     dashboard:'Dashboard', contractors:'Contractor Recommendations',
     qa:'Q&A Forum', rules:'Rules & Regulations',
-    standards:'Community Standards', directory:'Resident Directory',
-    announcements:'Announcements', gallery:'Home Gallery',
-    knowledge:'Knowledge Base', feed:'Community Feed',
-    about:'About Us', admin:'🛡️ Admin Panel'
+    standards:'Community Standards', announcements:'Announcements',
+    knowledge:'Resources', feed:'Community Feed',
+    admin:'🛡️ Admin Panel'
   };
   document.getElementById('page-title').textContent = titles[id] || '';
   // Trigger admin panel render when navigating to it
@@ -3937,7 +3627,7 @@ function generateArticlePDF(article) {
 <div class="header">
   <div>
     <h1>Trieste at Boca Raton — Community Portal</h1>
-    <p class="sub">Knowledge Base Document</p>
+    <p class="sub">Resources Document</p>
   </div>
   <p class="sub" style="text-align:right;">${new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'})}</p>
 </div>
@@ -4932,6 +4622,9 @@ function doLogin() {
   renderAnnouncements();
   initRulesPages();
   applyNavPermissions(user.role);
+
+  // Always land on Dashboard after login
+  showPage('dashboard', document.querySelector('[onclick*="showPage(\'dashboard\'"]'));
 }
 
 // ── Apply nav visibility based on role ────────
@@ -5675,80 +5368,15 @@ function renderAdminPanel() {
   if (!isAdmin) return;
 
   // Update stat chips
-  document.getElementById('adm-photo-count').textContent = galleryPhotos.length;
   document.getElementById('adm-contractor-count').textContent = contractors.length;
   document.getElementById('adm-question-count').textContent = questions.length;
   const kbTotal = typeof KB_FOLDERS !== 'undefined' ? KB_FOLDERS.reduce((a,f) => a + f.articles.length, 0) : 0;
   document.getElementById('adm-kb-count').textContent = kbTotal;
 
-  renderAdminPhotos();
   renderAdminContractors();
   renderAdminQuestions();
   renderAdminKB();
   renderAdminUsers();
-}
-
-// ── Photos ─────────────────────────────────────
-function renderAdminPhotos() {
-  const tbody = document.getElementById('admin-photos-tbody');
-  if (!tbody) return;
-  tbody.innerHTML = galleryPhotos.map((p, i) => {
-    const thumb = p.uploadedUrl
-      ? `<img src="${p.uploadedUrl}" style="width:40px;height:40px;object-fit:cover;border-radius:3px;display:block;">`
-      : `<div style="width:40px;height:40px;border-radius:3px;background:var(--stone-light);display:flex;align-items:center;justify-content:center;font-size:16px;">🖼️</div>`;
-    return `
-    <tr id="aphoto-row-${p.id}">
-      <td>${thumb}</td>
-      <td><strong>${p.title}</strong></td>
-      <td><span style="text-transform:capitalize;">${p.cat}</span></td>
-      <td>${p.lot}</td>
-      <td><div class="action-btns">
-        <button class="admin-edit-btn" onclick="adminEditPhoto(${p.id})">✏️ Edit</button>
-        <button class="admin-del-btn"  onclick="adminDeletePhoto(${p.id})">🗑️ Del</button>
-      </div></td>
-    </tr>`;
-  }).join('');
-}
-
-function adminEditPhoto(id) {
-  const p = galleryPhotos.find(x => x.id === id);
-  if (!p) return;
-  const row = document.getElementById('aphoto-row-' + id);
-  row.classList.add('admin-inline-edit');
-  row.innerHTML = `
-    <td></td>
-    <td><input class="admin-input" id="eph-title-${id}" value="${p.title}"/></td>
-    <td><select class="admin-select" id="eph-cat-${id}">
-      ${['exterior','interior','kitchen','outdoor','pool','other'].map(c =>
-        `<option value="${c}" ${c===p.cat?'selected':''}>${c}</option>`).join('')}
-    </select></td>
-    <td><input class="admin-input" id="eph-lot-${id}" value="${p.lot}" style="width:80px;"/></td>
-    <td><div class="action-btns">
-      <button class="admin-edit-btn" onclick="adminSavePhoto(${id})">💾 Save</button>
-      <button class="admin-del-btn"  onclick="renderAdminPhotos()">✕</button>
-    </div></td>`;
-}
-
-function adminSavePhoto(id) {
-  const p = galleryPhotos.find(x => x.id === id);
-  if (!p) return;
-  p.title = document.getElementById('eph-title-' + id).value.trim() || p.title;
-  p.cat   = document.getElementById('eph-cat-'   + id).value;
-  p.lot   = document.getElementById('eph-lot-'   + id).value.trim() || p.lot;
-  renderAdminPhotos();
-  renderGallery(galleryPhotos);
-  showToast('✅ Photo updated.');
-}
-
-function adminDeletePhoto(id) {
-  if (!confirm('Delete this photo?')) return;
-  const idx = galleryPhotos.findIndex(x => x.id === id);
-  if (idx !== -1) galleryPhotos.splice(idx, 1);
-  lightboxPhotos = galleryPhotos;
-  renderAdminPhotos();
-  renderGallery(galleryPhotos);
-  document.getElementById('adm-photo-count').textContent = galleryPhotos.length;
-  showToast('🗑️ Photo deleted.');
 }
 
 // ── Contractors ────────────────────────────────
