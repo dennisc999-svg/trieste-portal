@@ -2082,7 +2082,7 @@
           <div class="feed-composer">
             <div class="feed-composer-top">
               <div class="feed-avatar-sm" id="feed-composer-avatar">MR</div>
-              <textarea id="feed-compose-text" placeholder="What's on your mind, Maria? Share with your neighbors…"
+              <textarea id="feed-compose-text" placeholder="What's on your mind?"
                 oninput="onComposeInput()" onkeydown="composeKeydown(event)" rows="1"></textarea>
             </div>
             <div id="feed-img-preview" class="feed-img-preview"></div>
@@ -2115,28 +2115,7 @@
           <!-- Online now -->
           <div class="feed-sidebar-widget">
             <div class="feed-widget-header">🟢 Neighbors Online</div>
-            <div class="feed-widget-body">
-              <div class="online-resident">
-                <div class="online-dot"></div>
-                <div class="feed-avatar-sm" style="width:30px;height:30px;font-size:11px;">JL</div>
-                <div><div class="res-name">James L.</div><div class="res-lot">Lot 23</div></div>
-              </div>
-              <div class="online-resident">
-                <div class="online-dot"></div>
-                <div class="feed-avatar-sm" style="width:30px;height:30px;font-size:11px;background:linear-gradient(135deg,#5C8A6A,#4A7C3F);">SK</div>
-                <div><div class="res-name">Sandra K.</div><div class="res-lot">Lot 61</div></div>
-              </div>
-              <div class="online-resident">
-                <div class="online-dot"></div>
-                <div class="feed-avatar-sm" style="width:30px;height:30px;font-size:11px;background:linear-gradient(135deg,#6B7FBF,#4A5E8A);">RP</div>
-                <div><div class="res-name">Robert P.</div><div class="res-lot">Lot 8</div></div>
-              </div>
-              <div class="online-resident">
-                <div style="width:8px;height:8px;border-radius:50%;background:#C4B49A;flex-shrink:0;"></div>
-                <div class="feed-avatar-sm" style="width:30px;height:30px;font-size:11px;background:linear-gradient(135deg,#8B3A20,#5C2010);">TW</div>
-                <div><div class="res-name">Teresa W.</div><div class="res-lot" style="color:#C4B49A;">Away · Lot 47</div></div>
-              </div>
-            </div>
+            <div class="feed-widget-body" id="neighbors-online-list"></div>
           </div>
 
           <!-- Trending topics -->
@@ -4631,15 +4610,80 @@ function filterFeed(tag) {
 
 // ── Init ──────────────────────────────────────────
 function initFeed() {
-  // Update composer avatar to reflect logged-in user
-  const avatar = document.getElementById('feed-composer-avatar');
-  if (avatar && currentUser) {
+  // Update composer avatar and placeholder to reflect logged-in user
+  const avatar   = document.getElementById('feed-composer-avatar');
+  const textarea = document.getElementById('feed-compose-text');
+  if (currentUser) {
     const initials = (currentUser.fname[0] + (currentUser.lname ? currentUser.lname[0] : '')).toUpperCase();
-    avatar.textContent = initials;
+    if (avatar)   avatar.textContent = initials;
+    if (textarea) textarea.placeholder = `What's on your mind, ${currentUser.fname}?`;
   }
+
+  renderNeighborsOnline();
   renderFeed();
-  // Show notification dot for new posts
   document.getElementById('feed-notif-dot').style.display = 'block';
+}
+
+const AVATAR_GRADIENTS = [
+  'linear-gradient(135deg,#C0603A,#E8B84B)',
+  'linear-gradient(135deg,#4A7C8A,#2D6A7A)',
+  'linear-gradient(135deg,#5C8A6A,#4A7C3F)',
+  'linear-gradient(135deg,#6B7FBF,#4A5E8A)',
+  'linear-gradient(135deg,#8B6914,#C49A2A)',
+  'linear-gradient(135deg,#7B4F9E,#5C3A7A)',
+  'linear-gradient(135deg,#2D6A4F,#52B788)',
+  'linear-gradient(135deg,#B84040,#8B2020)',
+];
+
+function renderNeighborsOnline() {
+  const container = document.getElementById('neighbors-online-list');
+  if (!container) return;
+
+  // Always show the logged-in user first
+  const onlineUsers = [];
+
+  if (currentUser) {
+    onlineUsers.push({
+      fname: currentUser.fname,
+      lname: currentUser.lname,
+      lot:   currentUser.lot,
+      self:  true,
+    });
+  }
+
+  // Add other registered users as "online" (in a real app this would be a presence system)
+  // Only show users who are registered and not the current user
+  userStore.forEach(u => {
+    if (!currentUser || u.id !== currentUser.id) {
+      onlineUsers.push({
+        fname: u.fname,
+        lname: u.lname,
+        lot:   u.lot,
+        self:  false,
+      });
+    }
+  });
+
+  if (!onlineUsers.length) {
+    container.innerHTML = '<p style="font-size:13px;color:var(--stone);padding:4px 0;">No neighbors online right now.</p>';
+    return;
+  }
+
+  container.innerHTML = onlineUsers.map((u, i) => {
+    const fullName = u.fname + (u.lname ? ' ' + u.lname : '');
+    const initials = (u.fname[0] + (u.lname ? u.lname[0] : '')).toUpperCase();
+    const gradient = AVATAR_GRADIENTS[i % AVATAR_GRADIENTS.length];
+    const lotLabel = u.self ? `${u.lot} · You` : u.lot;
+    return `
+    <div class="online-resident">
+      <div class="online-dot"></div>
+      <div class="feed-avatar-sm" style="width:30px;height:30px;font-size:11px;background:${gradient};">${initials}</div>
+      <div>
+        <div class="res-name">${fullName}${u.self ? ' <span style="font-size:10px;color:var(--terra);font-weight:700;">(You)</span>' : ''}</div>
+        <div class="res-lot">${lotLabel}</div>
+      </div>
+    </div>`;
+  }).join('');
 }
 
 // ── Delete Contractor ─────────────────────────────
