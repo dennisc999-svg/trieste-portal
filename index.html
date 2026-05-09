@@ -2081,7 +2081,7 @@
           <!-- Composer -->
           <div class="feed-composer">
             <div class="feed-composer-top">
-              <div class="feed-avatar-sm">MR</div>
+              <div class="feed-avatar-sm" id="feed-composer-avatar">MR</div>
               <textarea id="feed-compose-text" placeholder="What's on your mind, Maria? Share with your neighbors…"
                 oninput="onComposeInput()" onkeydown="composeKeydown(event)" rows="1"></textarea>
             </div>
@@ -4199,7 +4199,7 @@ let openDropdown = null;
 
 function renderFeed() {
   const container = document.getElementById('feed-posts');
-  const currentUser = 'MR';
+  const currentUserId = currentUser ? (currentUser.fname[0] + (currentUser.lname ? currentUser.lname[0] : '')).toUpperCase() : 'MR';
   const filtered = feedFilter === 'all' ? feedPosts : feedPosts.filter(p => p.tag === feedFilter);
 
   if (!filtered.length) {
@@ -4212,14 +4212,14 @@ function renderFeed() {
 
   container.innerHTML = filtered.map(post => {
     const tm = TAG_META[post.tag] || TAG_META.general;
-    const isOwn = post.authorInitials === currentUser;
+    const isOwn = post.authorInitials === currentUserId;
     const avatarBg = AVATARS[post.authorInitials] || AVATARS['MR'];
 
     // Reaction chips
     const reactionChips = Object.entries(post.reactions)
       .filter(([, users]) => users.length > 0)
       .map(([emoji, users]) => {
-        const mine = users.includes(currentUser);
+        const mine = users.includes(currentUserId);
         return `<span class="feed-reaction-chip ${mine ? 'mine' : ''}" onclick="toggleReaction(${post.id},'${emoji}')" title="${users.join(', ')}">
           ${emoji} <span>${users.length}</span>
         </span>`;
@@ -4262,14 +4262,14 @@ function renderFeed() {
           ${visibleComments.map(c => renderComment(c, post.id)).join('')}
         </div>
         <div class="feed-comment-input">
-          <div class="feed-avatar-sm" style="width:32px;height:32px;font-size:12px;">${currentUser}</div>
+          <div class="feed-avatar-sm" style="width:32px;height:32px;font-size:12px;">${currentUser ? (currentUser.fname[0] + (currentUser.lname ? currentUser.lname[0] : '')).toUpperCase() : 'MR'}</div>
           <input type="text" id="comment-input-${post.id}" placeholder="Write a comment…"
             onkeydown="if(event.key==='Enter')addComment(${post.id})" />
           <button class="feed-comment-send" onclick="addComment(${post.id})">➤</button>
         </div>
       </div>`;
 
-    const myReactions = Object.entries(post.reactions).filter(([,u])=>u.includes(currentUser)).map(([e])=>e);
+    const myReactions = Object.entries(post.reactions).filter(([,u])=>u.includes(currentUserId)).map(([e])=>e);
     const likeEmoji = myReactions.length ? myReactions[0] : '👍';
     const isLiked = myReactions.length > 0;
 
@@ -4447,9 +4447,16 @@ async function submitPost() {
     Promise.all(docPromises),
   ]);
 
+  const poster = currentUser || { fname: 'Resident', lname: '', lot: 'Community', username: 'resident' };
+  const posterName     = poster.fname + (poster.lname ? ' ' + poster.lname : '');
+  const posterInitials = (poster.fname[0] + (poster.lname ? poster.lname[0] : '')).toUpperCase();
+  const posterLot      = poster.lot || 'Community';
+
   const post = {
     id: nextPostId++,
-    authorInitials: 'MR', authorName: 'Maria Rodriguez', authorLot: 'Lot 47',
+    authorInitials: posterInitials,
+    authorName: posterName,
+    authorLot: posterLot,
     tag, time: 'Just now', text,
     images: imageUrls,
     docs,
@@ -4489,7 +4496,7 @@ function toggleReaction(postId, emoji) {
   hideReactionPicker(postId);
   const post = feedPosts.find(p => p.id === postId);
   if (!post) return;
-  const user = 'MR';
+  const user = currentUser ? (currentUser.fname[0] + (currentUser.lname ? currentUser.lname[0] : '')).toUpperCase() : 'MR';
   if (!post.reactions[emoji]) post.reactions[emoji] = [];
   // Remove from all other reactions first
   Object.keys(post.reactions).forEach(e => {
@@ -4524,9 +4531,15 @@ function addComment(postId) {
   if (!text) return;
   const post = feedPosts.find(p => p.id === postId);
   if (!post) return;
+  const commenter = currentUser || { fname: 'Resident', lname: '', lot: 'Community' };
+  const commenterName     = commenter.fname + (commenter.lname ? ' ' + commenter.lname : '');
+  const commenterInitials = (commenter.fname[0] + (commenter.lname ? commenter.lname[0] : '')).toUpperCase();
   post.comments.push({
-    id: nextCommentId++, initials: 'MR', name: 'Maria Rodriguez',
-    lot: 'Lot 47', text, time: 'Just now', likes: 0,
+    id: nextCommentId++,
+    initials: commenterInitials,
+    name: commenterName,
+    lot: commenter.lot || 'Community',
+    text, time: 'Just now', likes: 0,
   });
   post.showComments = true;
   renderFeed();
@@ -4618,6 +4631,12 @@ function filterFeed(tag) {
 
 // ── Init ──────────────────────────────────────────
 function initFeed() {
+  // Update composer avatar to reflect logged-in user
+  const avatar = document.getElementById('feed-composer-avatar');
+  if (avatar && currentUser) {
+    const initials = (currentUser.fname[0] + (currentUser.lname ? currentUser.lname[0] : '')).toUpperCase();
+    avatar.textContent = initials;
+  }
   renderFeed();
   // Show notification dot for new posts
   document.getElementById('feed-notif-dot').style.display = 'block';
@@ -4778,7 +4797,6 @@ function kbSubmitUpload() {
 // USER STORE & AUTH SYSTEM
 // ══════════════════════════════
 let userStore = [
-  { id: 1, fname: 'Maria',  lname: 'Rodriguez', username: 'maria.r',   email: 'maria@trieste.com',   lot: '5705', role: 'resident', password: 'resident123',  status: 'active' },
   { id: 2, fname: 'James',  lname: 'L.',         username: 'james.l',   email: 'james@trieste.com',   lot: '5715', role: 'resident', password: 'resident123',  status: 'active' },
   { id: 3, fname: 'Sandra', lname: 'K.',         username: 'sandra.k',  email: 'sandra@trieste.com',  lot: '5720', role: 'board',    password: 'board123',     status: 'active' },
   { id: 4, fname: 'Dennis', lname: 'Charlebois', username: 'dennisc999@gmail.com', email: 'dennisc999@gmail.com', lot: '5610 NE Trieste Terrace', role: 'resident', password: 'Oneric2054', status: 'active' },
