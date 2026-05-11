@@ -1484,7 +1484,7 @@
         style="width:100%;padding:11px 13px;border:1.5px solid #C4B49A;border-radius:3px;font-family:'Jost',sans-serif;font-size:13px;background:#FDF9F3;color:#2C2016;margin-bottom:10px;outline:none;box-sizing:border-box;"/>
       <input type="text" id="reg-username" placeholder="Choose a username"
         style="width:100%;padding:11px 13px;border:1.5px solid #C4B49A;border-radius:3px;font-family:'Jost',sans-serif;font-size:13px;background:#FDF9F3;color:#2C2016;margin-bottom:10px;outline:none;box-sizing:border-box;"/>
-      <input type="text" id="reg-lot" placeholder="Lot / Unit number (e.g. 5705)"
+      <input type="text" id="reg-lot" placeholder="Your Trieste address (e.g. 5705 NE Verde Circle)"
         style="width:100%;padding:11px 13px;border:1.5px solid #C4B49A;border-radius:3px;font-family:'Jost',sans-serif;font-size:13px;background:#FDF9F3;color:#2C2016;margin-bottom:10px;outline:none;box-sizing:border-box;"/>
       <input type="password" id="reg-pass" placeholder="Create password (min 8 chars)"
         style="width:100%;padding:11px 13px;border:1.5px solid #C4B49A;border-radius:3px;font-family:'Jost',sans-serif;font-size:13px;background:#FDF9F3;color:#2C2016;margin-bottom:10px;outline:none;box-sizing:border-box;"/>
@@ -2775,7 +2775,57 @@ async function askQuestion() {
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
         max_tokens: 1000,
-        system: `You are the community assistant for Trieste at Boca Raton, a 109-homeowner HOA community in Boca Raton, Florida. Answer homeowner questions about community rules, regulations, parking, pets, landscaping, and community standards. Be helpful, accurate, and concise (2-4 sentences). Reference section numbers or HOA guidelines where relevant. If unsure, advise the homeowner to contact management at management@trieste.com.`,
+        system: `You are the official community assistant for Trieste at Boca Raton HOA, a 109-home gated townhome community at 5700 N Federal Hwy, Boca Raton, FL 33487, developed by Toll Brothers. Answer resident questions accurately using the official rules below. Be helpful, specific, and cite the relevant rule or section. Keep answers to 2-5 sentences. If a question falls outside these documents, advise the resident to contact Lang Management at (561) 750-8800 or management@trieste.com.
+
+=== DUMPSTER & POD RULES ===
+1. $250 construction deposit required at least 24 hours before delivery to management company.
+2. No dumpster or POD may remain on site more than 72 hours. Fine: $100/day beyond 72 hours.
+3. Dumpsters must be covered after work hours.
+4. Dumpsters must be on wheels or on plywood to protect pavers. PODs must be on plywood.
+5. Area must stay clean; no stockpiling — empty when full.
+6. Any damage to common areas billed to homeowner immediately.
+7. POD/dumpster must be fully on homeowner's driveway and may not block sidewalk.
+
+=== SAFETY & QUALITY OF LIFE RULES ===
+CLASS A (Health & Safety): Speed limit 15 mph on all roads. Full stop at all stop signs. No transponder misuse. Obey security officers. Must pick up after dogs. Feeding feral cats is prohibited.
+CLASS B (Quality of Life): Trash out no earlier than 7pm before collection day; removed by end of collection day. No loose bags outside containers. Garbage cans on driveway only, not in street. Dogs on leash outside resident property at all times; no unattended dogs. Dog refuse bags only in owner's container. Residents park only in own garage or driveway. Guests/vendors cannot obstruct driveways, sidewalks, or street width; no parking on grass. Cars must be fully in driveway. Abusive behavior not tolerated. ACC-approved projects with conditions must complete within 60 days.
+
+PENALTIES (Class A — 2-year rolling period): 1st: written warning. 2nd: $100 fine + 30-day transponder suspension. 3rd: $100 + 60-day suspension. 4th+: $100 + 90-day suspension.
+PENALTIES (Class B — 1-year rolling period): 1st–2nd: warning letters. 3rd: $25. 4th: $50. 5th: $75. 6th+: $100 + 30-day transponder suspension for entire household.
+Guest/vendor violations follow similar escalating schedules. Residents are responsible for guest behavior.
+
+=== HOA BOARD RULES (effective May 2014) ===
+ACCESS & SECURITY: All residents must register vehicles with the Association. Guests register at Guard House with government ID and receive a dashboard guest pass. Max 2 transponders per household; replacements cost $35. No vendor activity after 6 PM; no vendors on Sundays (emergencies only). Speed limit 15 mph; speed bumps throughout community.
+
+OVERSIZED VEHICLES & CONTAINERS: Moving trucks require 5 business days advance notice; no entry before 8 AM, depart by 6 PM. PODs/dumpsters require written request 5 business days in advance; normally allowed 8 AM–6 PM one day only; construction refuse may get extended approval with prior approval. No commercial vehicles after 6 PM or on Sundays.
+
+PARKING: Cul-de-sac/hammerhead areas are for guests only with temporary permit from Gate House. Residents may NOT park in guest spaces. Absolutely no street parking at any time — violators will be fined and towed.
+
+ANIMALS: No pet defecation in streets, sidewalks, or other owners' property. Pets may not be tied out unattended. Continuously barking dogs deemed a nuisance. All pets on leash at all times outside. Doggy bag stations at north and south ends of Central Park. Tenants are NOT permitted to have dogs. Indoor cats only for tenants — cats found outside may be treated as feral.
+
+LEASING: No leasing during first year of ownership. Prospective tenants must complete application with background/credit check; board reviews within 20 days. Two board members meet with prospect at 6 PM on the third Tuesday of each month. Homeowners must give all use restrictions to tenants and provide copies of all leases to the Association.
+
+ARCHITECTURAL CONTROL (ACC): All exterior modifications require prior written ACC approval including landscaping, lighting, driveway sealants, painting, spas, generators, patio enclosures, etc. No "For Sale" or "Open House" signs anywhere in community. Garbage cans must be back in garage by 7 PM on collection day. Exterior shape and color are fixed per original plans.
+
+FEES & ASSESSMENTS: Accounts 60+ days delinquent forwarded to attorney; all collection costs charged to homeowner. Delinquent owners denied transponder access and common area use. New buyers must make a capital contribution equal to one quarterly fee. All homeowners must provide proof of homeowners insurance to management.
+
+=== BYLAWS KEY PROVISIONS ===
+BOARD STRUCTURE: The Board consists of 5 directors. Annual meeting held each calendar year; date set by Board. 20% of voting interests constitute a quorum. Each home has one vote. Board meetings open to all members; 48-hour notice required posted conspicuously.
+
+ELECTIONS: Directors elected by secret ballot. Board members serve 2-year staggered terms. No director compensation; reimbursement of actual expenses allowed with documentation.
+
+BOARD POWERS: May adopt and enforce rules and regulations, levy assessments, suspend common area use for delinquent members (except vehicular/pedestrian ingress to their home), hire management companies.
+
+=== DECLARATION KEY PROVISIONS ===
+COMMON AREAS: Association maintains all common areas including pool, landscaping, irrigation, entranceways, gates, gatehouse, streets, lighting, and fountains. No modifications to irrigation/sprinkler systems without Board approval.
+
+LAWN & LANDSCAPING: Association responsible for mowing, edging, fertilizing grass on all lots. Owners responsible for removal and replacement of dead trees, sod, hedges on their lot. Any landscaping additions require prior written ACC/Board approval.
+
+ASSESSMENTS: Annual Periodic Assessments due each year. Special Assessments may be levied for capital improvements. Individual Assessments may be charged for specific lot services. Resale Capital Contribution required from new buyers equal to one quarterly assessment.
+
+LEASING: No leasing in first year of ownership. Homeowners must notify Board at least 14 days before any title transfer. All parties acquiring a home are fully bound by this Declaration.
+
+Management Company: Lang Management Company, 790 Park of Commerce Blvd Suite 200, Boca Raton FL 33487. Phone: (561) 750-8800. Fax: (561) 750-4528. Web: www.Langmgmt.com`,
         messages: [{ role: 'user', content: text }]
       })
     });
@@ -4645,6 +4695,63 @@ function applyNavPermissions(role) {
 }
 
 // ── Register ──────────────────────────────────
+// ── Trieste community address whitelist ──────────
+const TRIESTE_ADDRESSES = new Set([
+  '5705 NE VERDE CIRCLE','5715 NE VERDE CIRCLE','5725 NE VERDE CIRCLE',
+  '5735 NE VERDE CIRCLE','5745 NE VERDE CIRCLE','5755 NE VERDE CIRCLE',
+  '5765 NE VERDE CIRCLE','5775 NE VERDE CIRCLE','5785 NE VERDE CIRCLE',
+  '5795 NE VERDE CIRCLE','5750 NE VERDE CIRCLE','5740 NE VERDE CIRCLE',
+  '5730 NE VERDE CIRCLE','5720 NE VERDE CIRCLE','5710 NE VERDE CIRCLE',
+  '5700 NE VERDE CIRCLE',
+  '647 NE TRIESTE LANE','651 NE TRIESTE LANE','655 NE TRIESTE LANE',
+  '659 NE TRIESTE LANE','663 NE TRIESTE LANE','667 NE TRIESTE LANE',
+  '5670 NE TRIESTE WAY','5660 NE TRIESTE WAY','5650 NE TRIESTE WAY',
+  '5640 NE TRIESTE WAY','5630 NE TRIESTE WAY','5620 NE TRIESTE WAY',
+  '5610 NE TRIESTE WAY','5600 NE TRIESTE WAY','5590 NE TRIESTE WAY',
+  '5580 NE TRIESTE WAY','5570 NE TRIESTE WAY','5560 NE TRIESTE WAY',
+  '5550 NE TRIESTE WAY','5540 NE TRIESTE WAY','5530 NE TRIESTE WAY',
+  '5520 NE TRIESTE WAY','5510 NE TRIESTE WAY',
+  '5515 NE TRIESTE WAY','5525 NE TRIESTE WAY','5535 NE TRIESTE WAY',
+  '5545 NE TRIESTE WAY','5555 NE TRIESTE WAY','5565 NE TRIESTE WAY',
+  '5575 NE TRIESTE WAY','5585 NE TRIESTE WAY','5595 NE TRIESTE WAY',
+  '5605 NE TRIESTE WAY','5615 NE TRIESTE WAY','5625 NE TRIESTE WAY',
+  '5635 NE TRIESTE WAY','5645 NE TRIESTE WAY','5655 NE TRIESTE WAY',
+  '5665 NE TRIESTE WAY','5675 NE TRIESTE WAY',
+  '668 NE FRANCESCA LANE','664 NE FRANCESCA LANE','660 NE FRANCESCA LANE',
+  '656 NE FRANCESCA LANE','652 NE FRANCESCA LANE','648 NE FRANCESCA LANE',
+  '644 NE FRANCESCA LANE','640 NE FRANCESCA LANE','636 NE FRANCESCA LANE',
+  '632 NE FRANCESCA LANE','628 NE FRANCESCA LANE','624 NE FRANCESCA LANE',
+  '620 NE FRANCESCA LANE','616 NE FRANCESCA LANE','612 NE FRANCESCA LANE',
+  '608 NE FRANCESCA LANE','604 NE FRANCESCA LANE','600 NE FRANCESCA LANE',
+  '601 NE FRANCESCA LANE','605 NE FRANCESCA LANE','609 NE FRANCESCA LANE',
+  '613 NE FRANCESCA LANE','617 NE FRANCESCA LANE',
+  '616 NE ROSSETTI LANE','612 NE ROSSETTI LANE','608 NE ROSSETTI LANE',
+  '604 NE ROSSETTI LANE','600 NE ROSSETTI LANE','601 NE ROSSETTI LANE',
+  '605 NE ROSSETTI LANE','609 NE ROSSETTI LANE','613 NE ROSSETTI LANE',
+  '617 NE ROSSETTI LANE',
+  '616 NE VENEZIA LANE','612 NE VENEZIA LANE','608 NE VENEZIA LANE',
+  '604 NE VENEZIA LANE','600 NE VENEZIA LANE',
+  '5650 NE TRIESTE TERRACE','5640 NE TRIESTE TERRACE','5630 NE TRIESTE TERRACE',
+  '5620 NE TRIESTE TERRACE','5610 NE TRIESTE TERRACE','5600 NE TRIESTE TERRACE',
+  '5590 NE TRIESTE TERRACE','5580 NE TRIESTE TERRACE','5570 NE TRIESTE TERRACE',
+  '5560 NE TRIESTE TERRACE','5550 NE TRIESTE TERRACE','5540 NE TRIESTE TERRACE',
+  '5530 NE TRIESTE TERRACE','5520 NE TRIESTE TERRACE','5510 NE TRIESTE TERRACE',
+]);
+
+function isTriesteAddress(input) {
+  if (!input) return false;
+  // Normalize: uppercase, collapse spaces, common abbreviations
+  const norm = input.toUpperCase()
+    .replace(/\s+/g, ' ').trim()
+    .replace(/\bCIR\.?\b/g, 'CIRCLE')
+    .replace(/\bLN\.?\b/g, 'LANE')
+    .replace(/\bWAY\.?\b/g, 'WAY')
+    .replace(/\bTER\.?\b/g, 'TERRACE')
+    .replace(/\bTERR\.?\b/g, 'TERRACE')
+    .replace(/,.*$/, '');  // strip anything after a comma (apt, city, etc.)
+  return TRIESTE_ADDRESSES.has(norm);
+}
+
 function doRegister() {
   const fname    = document.getElementById('reg-fname').value.trim();
   const lname    = document.getElementById('reg-lname').value.trim();
@@ -4661,6 +4768,14 @@ function doRegister() {
 
   if (!fname || !username || !pass) {
     errEl.textContent = 'First name, username, and password are required.';
+    errEl.style.display = 'block'; return;
+  }
+  if (!lot) {
+    errEl.textContent = 'Please enter your Trieste community address to verify residency.';
+    errEl.style.display = 'block'; return;
+  }
+  if (!isTriesteAddress(lot)) {
+    errEl.textContent = 'That address is not recognized as a Trieste at Boca Raton residence. Please enter your full street address (e.g. 5705 NE Verde Circle).';
     errEl.style.display = 'block'; return;
   }
   if (pass.length < 8) {
@@ -4682,7 +4797,7 @@ function doRegister() {
 
   const newUser = {
     id: nextUserId++, fname, lname, username, email: email || '',
-    lot: lot || 'TBD', role: 'resident', password: pass, status: 'active',
+    lot: lot.toUpperCase(), role: 'resident', password: pass, status: 'active',
   };
   userStore.push(newUser);
 
